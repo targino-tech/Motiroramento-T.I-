@@ -87,6 +87,14 @@ monitoring/
 ├── .gitignore                      # Regras de exclusão para proteção de segredos e temporários
 ├── README.md                       # Documentação mestra de arquitetura, gestão e operação
 │
+├── docs/                           # Evidências, manuais e capturas do ambiente de produção
+│   └── img/                        # Capturas de tela dos Dashboards 3D em Produção (Anonimizadas)
+│       ├── 01_noc_master_360.png
+│       ├── 02_wifi_unifi_cobertura.png
+│       ├── 03_links_wan_telecom.png
+│       ├── 04_datacenter_servers_noc.png
+│       └── 05_impressoras_hp_flow.png
+│
 ├── nginx/                          # Configurações do Proxy Reverso e Defesa de Borda
 │   ├── nginx.conf                  # Regras de Rate Limiting, TLS 1.3, HSTS e WebSockets
 │   └── ssl/                        # Certificados criptográficos SSL/TLS
@@ -133,6 +141,32 @@ monitoring/
 | **🖥️ Servidores & Deep Dive NOC** | `noc-servers`| Telemetria do SRV-NOC (CPU %, RAM %, Disco `/`, Load Average, Uptime, Processos Zabbix) e 28 estações Windows. |
 | **🖨️ Parque de Impressoras & Suprimentos**| `noc-printers` | Monitoramento de suprimentos das HP LaserJet Flow (Toner Preto %, Kit ADF %, Contador de Páginas e Latência). |
 | **📞 Ramais VoIP & Telefonia Grandstream**| `noc-voip` | 14 Ramais Grandstream monitorados, qualidade de voz (RTT em ms, perda de pacotes %) e status da porta SIP 5060. |
+
+### 📸 Evidências Visuais dos Dashboards em Produção (Grafana 3D)
+
+> **Nota de Privacidade**: As imagens abaixo foram capturadas do ambiente operacional em produção e sanitizadas para documentação pública (nomes de instituição preservados sob sigilo e endereços IP anonimizados mantendo apenas os dois primeiros octetos de rede).
+
+#### 1. 🌾 NOC Master 360° & Mitigação IT
+*Visão unificada em tempo real: status de APs, consumo WAN, servidores, suprimentos e ramais VoIP.*
+![NOC Master 360°](docs/img/01_noc_master_360.png)
+
+#### 2. 📶 Cobertura Wi-Fi & APs UniFi
+*Distribuição de clientes por AP, throughput RX/TX instantâneo, latência RTT em milissegundos e canais RF.*
+![Cobertura Wi-Fi UniFi](docs/img/02_wifi_unifi_cobertura.png)
+
+#### 3. 🌐 Links WAN & Operadora Telecom
+*Telemetria de link dedicado, medição de jitter/latência contra rotas DNS primárias e mitigação 0.00% de perda.*
+![Links WAN Telecom](docs/img/03_links_wan_telecom.png)
+
+#### 4. 🖥️ Servidores & Deep Dive NOC
+*Rack virtual 3D, consumo de CPU/RAM, uso de disco, processos coletores Zabbix e amostragem de estações de trabalho.*
+![Servidores e NOC](docs/img/04_datacenter_servers_noc.png)
+
+#### 5. 🖨️ Parque de Impressoras & Suprimentos
+*Nível percentual de toner preto, vida útil do kit de alimentação ADF e contadores de páginas impressas.*
+![Parque de Impressoras HP Flow](docs/img/05_impressoras_hp_flow.png)
+
+---
 
 ### B. Zabbix 8.0 Nativo (Menu *Monitoring ➔ Dashboards*)
 
