@@ -1,0 +1,28 @@
+{
+  "SEU_CHAT_ID": {
+    "f_disaster": {
+      "label": "Alertas Desastre (WAN/Borda)",
+      "enabled": true
+    },
+    "f_high": {
+      "label": "Alertas Alta Prioridade (ERP)",
+      "enabled": true
+    },
+    "f_printer": {
+      "label": "Suprimentos HP (<15% Toner)",
+      "enabled": true
+    },
+    "f_unifi": {
+      "label": "Wi-Fi UniFi (Perda Pacotes)",
+      "enabled": true
+    },
+    "f_voip": {
+      "label": "Telefonia VoIP Grandstream",
+      "enabled": true
+    },
+    "f_lunch": {
+      "label": "Silenciar Estações no Almoço",
+      "enabled": true
+    }
+  }
+}

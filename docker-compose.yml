@@ -1,0 +1,146 @@
+services:
+  postgres-server:
+    image: postgres:16-alpine
+    container_name: postgres-server
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-zabbix}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-zabbix_password}
+      POSTGRES_DB: ${POSTGRES_DB:-zabbix}
+      TZ: ${TZ:-America/Cuiaba}
+    networks:
+      - zabbix-net
+
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:alpine-trunk
+    container_name: zabbix-server
+    restart: unless-stopped
+    ports:
+      - 10051:10051
+    volumes:
+      - ./zabbix/alertscripts:/usr/lib/zabbix/alertscripts:ro
+      - ./zabbix/externalscripts:/usr/lib/zabbix/externalscripts:ro
+    environment:
+      DB_SERVER_HOST: postgres-server
+      POSTGRES_USER: ${POSTGRES_USER:-zabbix}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-zabbix_password}
+      POSTGRES_DB: ${POSTGRES_DB:-zabbix}
+      TZ: ${TZ:-America/Cuiaba}
+      ZBX_STARTPINGERS: 5
+      ZBX_STARTDISCOVERERS: 5
+    depends_on:
+      - postgres-server
+    networks:
+      - zabbix-net
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql:alpine-trunk
+    container_name: zabbix-web
+    restart: unless-stopped
+    ports:
+      - 80:8080
+    environment:
+      ZBX_SERVER_HOST: zabbix-server
+      DB_SERVER_HOST: postgres-server
+      POSTGRES_USER: ${POSTGRES_USER:-zabbix}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-zabbix_password}
+      POSTGRES_DB: ${POSTGRES_DB:-zabbix}
+      TZ: ${TZ:-America/Cuiaba}
+      PHP_TZ: ${TZ:-America/Cuiaba}
+    volumes:
+      - ./zabbix/local:/usr/share/zabbix/local
+    depends_on:
+      - postgres-server
+      - zabbix-server
+    networks:
+      - zabbix-net
+
+  zabbix-agent:
+    image: zabbix/zabbix-agent2:alpine-trunk
+    container_name: zabbix-agent
+    restart: unless-stopped
+    privileged: true
+    user: root
+    ports:
+      - 10050:10050
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+    environment:
+      TZ: ${TZ:-America/Cuiaba}
+      ZBX_HOSTNAME: Zabbix server
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_SERVER_ACTIVE_HOST: zabbix-server
+      ZBX_PASSIVE_ALLOW: "true"
+      ZBX_PASSIVESERVERS: 0.0.0.0/0
+    depends_on:
+      - zabbix-server
+    networks:
+      - zabbix-net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD:-admin}
+      GF_INSTALL_PLUGINS: alexanderzobnin-zabbix-app
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: alexanderzobnin-zabbix-app
+      # Regras Modernas de Segurança e Defesa Cibernética
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_USERS_ALLOW_ORG_CREATE: "false"
+      GF_USERS_AUTO_ASSIGN_ORG_ROLE: "Viewer"
+      GF_SECURITY_COOKIE_SECURE: "true"
+      GF_SECURITY_COOKIE_SAMESITE: "lax"
+      GF_SECURITY_STRICT_TRANSPORT_SECURITY: "true"
+      GF_SECURITY_STRICT_TRANSPORT_SECURITY_MAX_AGE_SECONDS: "31536000"
+      GF_SECURITY_X_CONTENT_TYPE_OPTIONS: "true"
+      GF_SECURITY_X_XSS_PROTECTION: "true"
+      GF_SECURITY_DISABLE_GRAVATAR: "true"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_SECURITY_LOGIN_MAXIMUM_INACTIVE_LIFETIME_DURATION: "4h"
+      GF_SECURITY_LOGIN_MAXIMUM_LIFETIME_DURATION: "7d"
+      GF_SECURITY_MIN_PASSWORD_LENGTH: "10"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - zabbix-net
+
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    restart: unless-stopped
+    ports:
+      - 443:443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - grafana
+    networks:
+      - zabbix-net
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    command: tunnel --url http://nginx-proxy:80 --no-autoupdate
+    depends_on:
+      - nginx-proxy
+    networks:
+      - zabbix-net
+
+volumes:
+  postgres-data:
+  grafana-data:
+
+networks:
+  zabbix-net:
+    driver: bridge
