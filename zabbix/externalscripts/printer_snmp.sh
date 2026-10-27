@@ -51,7 +51,7 @@ case "$METRIC" in
     serial)
         # OID: 1.3.6.1.2.1.43.5.1.1.17.1
         val=$(snmpget -v2c -c "$COMMUNITY" -t 2 -r 1 "$IP" 1.3.6.1.2.1.43.5.1.1.17.1 2>/dev/null | sed -e 's/.*STRING: //g' -e 's/"//g')
-        echo "${val:-BRBSQ2Q11P}"
+        echo "${val:-CNBEXAMPLE01}"
         ;;
     model)
         # OID: 1.3.6.1.2.1.25.3.2.1.3.1

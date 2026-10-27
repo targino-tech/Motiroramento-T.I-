@@ -101,6 +101,7 @@ monitoring/
 │       └── .gitkeep                # Ponto de montagem para certificados locais
 │
 ├── scripts/                        # Automações de Deploy, Telemetria e Alertas
+│   ├── discover_printers.py            # Coletor e scanner de impressoras por faixa de IP
 │   ├── deploy_dedicated_dashboards.py  # Publicador dos 6 Dashboards Grafana 3D v2.0
 │   ├── deploy_zabbix_dashboards.py     # Publicador dos 6 Dashboards Nativos Zabbix 8.0
 │   ├── setup_zabbix_templates.py       # Sincronizador de Templates Corporativos e Triggers
@@ -176,7 +177,7 @@ monitoring/
 | **📶 Cobertura Wi-Fi & APs UniFi** | **453** | Clientes conectados por AP em tempo real, Latência RTT dos APs em MS, Throughput RX/TX e Perda de pacotes. |
 | **🌐 Links WAN & Operadora Telecom** | **454** | Medidores de Download/Upload, IP público, ISP ativo, gráficos de latência 8.8.8.8/1.1.1.1 e mitigação de perda. |
 | **🖥️ Servidores & Estações de Trabalho** | **455** | Medidores de CPU, RAM, Uptime do SO, Load Average e matriz de servidores corporativos. |
-| **🖨️ Parque de Impressoras & Suprimentos**| **456** | Níveis de toner HP 220 e 221, kit ADF, páginas impressas e latência RTT em MS. |
+| **🖨️ Parque de Impressoras & Suprimentos**| **456** | Níveis de toner das impressoras HP (01 e 02), kit ADF, páginas impressas e latência RTT em MS. |
 | **📞 Ramais VoIP & Telefonia Grandstream**| **457** | RTT de voz em MS, perda de pacotes de áudio e status de registro SIP 5060 dos 14 ramais. |
 
 ---

@@ -174,7 +174,7 @@ dash_wifi = {
         <div style="transform: rotateX(8deg) rotateY(-4deg); transform-style: preserve-3d; transition: all 0.3s; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(0, 230, 118, 0.25);">
             <div style="font-size: 30px; text-shadow: 0 0 15px #00E676;">📡</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD PEÇAS</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.109.99</div>
+            <div style="color: #94A3B8; font-size: 11px;">192.168.1.11</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 28 Clientes</div>
             <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Agro</div>
             <div style="font-size: 10px; color: #CBD5E1;">⚡ 34.2 Mbps | 0.37 ms</div>
@@ -183,7 +183,7 @@ dash_wifi = {
         <div style="transform: rotateX(8deg) rotateY(-2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(0, 176, 255, 0.25);">
             <div style="font-size: 30px; text-shadow: 0 0 15px #00B0FF;">📡</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD TI</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.109.157</div>
+            <div style="color: #94A3B8; font-size: 11px;">192.168.1.12</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 42 Clientes</div>
             <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Corp</div>
             <div style="font-size: 10px; color: #CBD5E1;">⚡ 58.4 Mbps | 0.40 ms</div>
@@ -192,7 +192,7 @@ dash_wifi = {
         <div style="transform: rotateX(8deg) rotateY(0deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(255, 214, 0, 0.25);">
             <div style="font-size: 30px; text-shadow: 0 0 15px #FFD600;">📡</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD GARANTIA</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.109.118</div>
+            <div style="color: #94A3B8; font-size: 11px;">192.168.1.13</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(255,214,0,0.15); color: #FFD600; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 19 Clientes</div>
             <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Agro</div>
             <div style="font-size: 10px; color: #CBD5E1;">⚡ 21.3 Mbps | 4.30 ms</div>
@@ -201,7 +201,7 @@ dash_wifi = {
         <div style="transform: rotateX(8deg) rotateY(2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #FF9100; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(255, 145, 0, 0.25);">
             <div style="font-size: 30px; text-shadow: 0 0 15px #FF9100;">📡</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD ESTOQUE</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.109.23</div>
+            <div style="color: #94A3B8; font-size: 11px;">192.168.1.14</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(255,145,0,0.15); color: #FF9100; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 14 Clientes</div>
             <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Coletores</div>
             <div style="font-size: 10px; color: #CBD5E1;">⚡ 18.6 Mbps | 0.37 ms</div>
@@ -210,7 +210,7 @@ dash_wifi = {
         <div style="transform: rotateX(8deg) rotateY(4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #E040FB; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(224, 64, 251, 0.25);">
             <div style="font-size: 30px; text-shadow: 0 0 15px #E040FB;">📡</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">AC-PRO TI</div>
-            <div style="color: #94A3B8; font-size: 11px;">10.166.10.144</div>
+            <div style="color: #94A3B8; font-size: 11px;">192.168.1.15</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(224,64,251,0.15); color: #E040FB; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 35 Clientes</div>
             <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Corp</div>
             <div style="font-size: 10px; color: #CBD5E1;">⚡ 44.9 Mbps | 0.22 ms</div>
@@ -219,7 +219,7 @@ dash_wifi = {
         <div style="transform: rotateX(8deg) rotateY(6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(69, 10, 10, 0.85), rgba(24, 2, 2, 0.95)); border: 1px solid #FF1744; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(255, 23, 68, 0.35);">
             <div style="font-size: 30px; text-shadow: 0 0 15px #FF1744;">⚠️</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">AC-PRO GERAL</div>
-            <div style="color: #F87171; font-size: 11px;">192.168.0.174</div>
+            <div style="color: #F87171; font-size: 11px;">192.168.1.16</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(255,23,68,0.25); color: #FF5252; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🔴 OFFLINE (100% Loss)</div>
             <div style="font-size: 10px; color: #FCA5A5; margin-top: 4px;">SSID: Inativo</div>
             <div style="font-size: 10px; color: #EF4444;">Falha de Alimentação PoE</div>
@@ -245,7 +245,7 @@ dash_wifi = {
                 }
             },
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-TI (192.168.109.157)", "UniFi AP - Clientes Conectados")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-02 (192.168.1.12)", "UniFi AP - Clientes Conectados")
             ]
         },
         {
@@ -263,7 +263,7 @@ dash_wifi = {
                 }
             },
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-PECAS (192.168.109.99)", "UniFi AP - Conectividade ICMP")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-01 (192.168.1.11)", "UniFi AP - Conectividade ICMP")
             ]
         },
         {
@@ -286,7 +286,7 @@ dash_wifi = {
                 }
             },
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-PECAS (192.168.109.99)", "UniFi AP - Latência ICMP (RTT)")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-01 (192.168.1.11)", "UniFi AP - Latência ICMP (RTT)")
             ]
         },
         {
@@ -302,7 +302,7 @@ dash_wifi = {
                 }
             },
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-TI (192.168.109.157)", "UniFi AP - Velocidade Download (Throughput RX)")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-02 (192.168.1.12)", "UniFi AP - Velocidade Download (Throughput RX)")
             ]
         },
         {
@@ -318,7 +318,7 @@ dash_wifi = {
                 }
             },
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-TI (192.168.109.157)", "UniFi AP - Velocidade Upload (Throughput TX)")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-02 (192.168.1.12)", "UniFi AP - Velocidade Upload (Throughput TX)")
             ]
         },
 
@@ -351,21 +351,21 @@ dash_wifi = {
                     }
                 },
                 "overrides": [
-                    build_override("A", "📡 UAP-HD TI (192.168.109.157)"),
-                    build_override("B", "📡 AC-Pro TI (10.166.10.144)"),
-                    build_override("C", "📡 UAP-HD Peças (192.168.109.99)"),
-                    build_override("D", "📡 UAP-HD Garantia (192.168.109.118)"),
-                    build_override("E", "📡 UAP-HD Estoque (192.168.109.23)"),
-                    build_override("F", "📡 AC-Pro Geral (192.168.0.174)")
+                    build_override("A", "📡 UAP-HD 02 (192.168.1.12)"),
+                    build_override("B", "📡 AC-Pro 05 (192.168.1.15)"),
+                    build_override("C", "📡 UAP-HD 01 (192.168.1.11)"),
+                    build_override("D", "📡 UAP-HD 03 (192.168.1.13)"),
+                    build_override("E", "📡 UAP-HD 04 (192.168.1.14)"),
+                    build_override("F", "📡 AC-Pro 06 (192.168.1.16)")
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-TI (192.168.109.157)", "UniFi AP - Clientes Conectados", alias="📡 UAP-HD TI (192.168.109.157)"),
-                build_zabbix_target("B", "AP-UniFi-AC-Pro-TI (10.166.10.144)", "UniFi AP - Clientes Conectados", alias="📡 AC-Pro TI (10.166.10.144)"),
-                build_zabbix_target("C", "AP-UniFi-UAP-HD-PECAS (192.168.109.99)", "UniFi AP - Clientes Conectados", alias="📡 UAP-HD Peças (192.168.109.99)"),
-                build_zabbix_target("D", "AP-UniFi-UAP-HD-GARANTIA (192.168.109.118)", "UniFi AP - Clientes Conectados", alias="📡 UAP-HD Garantia (192.168.109.118)"),
-                build_zabbix_target("E", "AP-UniFi-UAP-HD-ESTOQUE (192.168.109.23)", "UniFi AP - Clientes Conectados", alias="📡 UAP-HD Estoque (192.168.109.23)"),
-                build_zabbix_target("F", "AP-UniFi-AC-Pro-Geral (192.168.0.174)", "UniFi AP - Clientes Conectados", alias="📡 AC-Pro Geral (192.168.0.174)")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-02 (192.168.1.12)", "UniFi AP - Clientes Conectados", alias="📡 UAP-HD 02 (192.168.1.12)"),
+                build_zabbix_target("B", "AP-UniFi-AC-Pro-05 (192.168.1.15)", "UniFi AP - Clientes Conectados", alias="📡 AC-Pro 05 (192.168.1.15)"),
+                build_zabbix_target("C", "AP-UniFi-UAP-HD-01 (192.168.1.11)", "UniFi AP - Clientes Conectados", alias="📡 UAP-HD 01 (192.168.1.11)"),
+                build_zabbix_target("D", "AP-UniFi-UAP-HD-03 (192.168.1.13)", "UniFi AP - Clientes Conectados", alias="📡 UAP-HD 03 (192.168.1.13)"),
+                build_zabbix_target("E", "AP-UniFi-UAP-HD-04 (192.168.1.14)", "UniFi AP - Clientes Conectados", alias="📡 UAP-HD 04 (192.168.1.14)"),
+                build_zabbix_target("F", "AP-UniFi-AC-Pro-06 (192.168.1.16)", "UniFi AP - Clientes Conectados", alias="📡 AC-Pro 06 (192.168.1.16)")
             ]
         },
         {
@@ -395,19 +395,19 @@ dash_wifi = {
                     }
                 },
                 "overrides": [
-                    build_override("A", "📡 UAP-HD TI (192.168.109.157)"),
-                    build_override("B", "📡 AC-Pro TI (10.166.10.144)"),
-                    build_override("C", "📡 UAP-HD Peças (192.168.109.99)"),
-                    build_override("D", "📡 UAP-HD Garantia (192.168.109.118)"),
-                    build_override("E", "📡 UAP-HD Estoque (192.168.109.23)")
+                    build_override("A", "📡 UAP-HD 02 (192.168.1.12)"),
+                    build_override("B", "📡 AC-Pro 05 (192.168.1.15)"),
+                    build_override("C", "📡 UAP-HD 01 (192.168.1.11)"),
+                    build_override("D", "📡 UAP-HD 03 (192.168.1.13)"),
+                    build_override("E", "📡 UAP-HD 04 (192.168.1.14)")
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-TI (192.168.109.157)", "UniFi AP - Velocidade Download (Throughput RX)", alias="📡 UAP-HD TI (192.168.109.157)"),
-                build_zabbix_target("B", "AP-UniFi-AC-Pro-TI (10.166.10.144)", "UniFi AP - Velocidade Download (Throughput RX)", alias="📡 AC-Pro TI (10.166.10.144)"),
-                build_zabbix_target("C", "AP-UniFi-UAP-HD-PECAS (192.168.109.99)", "UniFi AP - Velocidade Download (Throughput RX)", alias="📡 UAP-HD Peças (192.168.109.99)"),
-                build_zabbix_target("D", "AP-UniFi-UAP-HD-GARANTIA (192.168.109.118)", "UniFi AP - Velocidade Download (Throughput RX)", alias="📡 UAP-HD Garantia (192.168.109.118)"),
-                build_zabbix_target("E", "AP-UniFi-UAP-HD-ESTOQUE (192.168.109.23)", "UniFi AP - Velocidade Download (Throughput RX)", alias="📡 UAP-HD Estoque (192.168.109.23)")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-02 (192.168.1.12)", "UniFi AP - Velocidade Download (Throughput RX)", alias="📡 UAP-HD 02 (192.168.1.12)"),
+                build_zabbix_target("B", "AP-UniFi-AC-Pro-05 (192.168.1.15)", "UniFi AP - Velocidade Download (Throughput RX)", alias="📡 AC-Pro 05 (192.168.1.15)"),
+                build_zabbix_target("C", "AP-UniFi-UAP-HD-01 (192.168.1.11)", "UniFi AP - Velocidade Download (Throughput RX)", alias="📡 UAP-HD 01 (192.168.1.11)"),
+                build_zabbix_target("D", "AP-UniFi-UAP-HD-03 (192.168.1.13)", "UniFi AP - Velocidade Download (Throughput RX)", alias="📡 UAP-HD 03 (192.168.1.13)"),
+                build_zabbix_target("E", "AP-UniFi-UAP-HD-04 (192.168.1.14)", "UniFi AP - Velocidade Download (Throughput RX)", alias="📡 UAP-HD 04 (192.168.1.14)")
             ]
         },
 
@@ -435,19 +435,19 @@ dash_wifi = {
                     }
                 },
                 "overrides": [
-                    build_override("A", "📡 UAP-HD Peças (192.168.109.99)", "#00E676"),
-                    build_override("B", "📡 UAP-HD TI (192.168.109.157)", "#00B0FF"),
-                    build_override("C", "📡 UAP-HD Garantia (192.168.109.118)", "#FFD600"),
-                    build_override("D", "📡 UAP-HD Estoque (192.168.109.23)", "#FF9100"),
-                    build_override("E", "📡 AC-Pro TI (10.166.10.144)", "#E040FB")
+                    build_override("A", "📡 UAP-HD 01 (192.168.1.11)", "#00E676"),
+                    build_override("B", "📡 UAP-HD 02 (192.168.1.12)", "#00B0FF"),
+                    build_override("C", "📡 UAP-HD 03 (192.168.1.13)", "#FFD600"),
+                    build_override("D", "📡 UAP-HD 04 (192.168.1.14)", "#FF9100"),
+                    build_override("E", "📡 AC-Pro 05 (192.168.1.15)", "#E040FB")
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-PECAS (192.168.109.99)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD Peças (192.168.109.99)"),
-                build_zabbix_target("B", "AP-UniFi-UAP-HD-TI (192.168.109.157)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD TI (192.168.109.157)"),
-                build_zabbix_target("C", "AP-UniFi-UAP-HD-GARANTIA (192.168.109.118)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD Garantia (192.168.109.118)"),
-                build_zabbix_target("D", "AP-UniFi-UAP-HD-ESTOQUE (192.168.109.23)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD Estoque (192.168.109.23)"),
-                build_zabbix_target("E", "AP-UniFi-AC-Pro-TI (10.166.10.144)", "UniFi AP - Latência ICMP (RTT)", alias="📡 AC-Pro TI (10.166.10.144)")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-01 (192.168.1.11)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD 01 (192.168.1.11)"),
+                build_zabbix_target("B", "AP-UniFi-UAP-HD-02 (192.168.1.12)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD 02 (192.168.1.12)"),
+                build_zabbix_target("C", "AP-UniFi-UAP-HD-03 (192.168.1.13)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD 03 (192.168.1.13)"),
+                build_zabbix_target("D", "AP-UniFi-UAP-HD-04 (192.168.1.14)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD 04 (192.168.1.14)"),
+                build_zabbix_target("E", "AP-UniFi-AC-Pro-05 (192.168.1.15)", "UniFi AP - Latência ICMP (RTT)", alias="📡 AC-Pro 05 (192.168.1.15)")
             ]
         },
         {
@@ -475,19 +475,19 @@ dash_wifi = {
                     }
                 },
                 "overrides": [
-                    build_override("A", "📡 UAP-HD Peças (192.168.109.99)"),
-                    build_override("B", "📡 UAP-HD TI (192.168.109.157)"),
-                    build_override("C", "📡 UAP-HD Garantia (192.168.109.118)"),
-                    build_override("D", "📡 UAP-HD Estoque (192.168.109.23)"),
-                    build_override("E", "📡 AC-Pro TI (10.166.10.144)")
+                    build_override("A", "📡 UAP-HD 01 (192.168.1.11)"),
+                    build_override("B", "📡 UAP-HD 02 (192.168.1.12)"),
+                    build_override("C", "📡 UAP-HD 03 (192.168.1.13)"),
+                    build_override("D", "📡 UAP-HD 04 (192.168.1.14)"),
+                    build_override("E", "📡 AC-Pro 05 (192.168.1.15)")
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-PECAS (192.168.109.99)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD Peças (192.168.109.99)"),
-                build_zabbix_target("B", "AP-UniFi-UAP-HD-TI (192.168.109.157)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD TI (192.168.109.157)"),
-                build_zabbix_target("C", "AP-UniFi-UAP-HD-GARANTIA (192.168.109.118)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD Garantia (192.168.109.118)"),
-                build_zabbix_target("D", "AP-UniFi-UAP-HD-ESTOQUE (192.168.109.23)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD Estoque (192.168.109.23)"),
-                build_zabbix_target("E", "AP-UniFi-AC-Pro-TI (10.166.10.144)", "UniFi AP - Latência ICMP (RTT)", alias="📡 AC-Pro TI (10.166.10.144)")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-01 (192.168.1.11)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD 01 (192.168.1.11)"),
+                build_zabbix_target("B", "AP-UniFi-UAP-HD-02 (192.168.1.12)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD 02 (192.168.1.12)"),
+                build_zabbix_target("C", "AP-UniFi-UAP-HD-03 (192.168.1.13)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD 03 (192.168.1.13)"),
+                build_zabbix_target("D", "AP-UniFi-UAP-HD-04 (192.168.1.14)", "UniFi AP - Latência ICMP (RTT)", alias="📡 UAP-HD 04 (192.168.1.14)"),
+                build_zabbix_target("E", "AP-UniFi-AC-Pro-05 (192.168.1.15)", "UniFi AP - Latência ICMP (RTT)", alias="📡 AC-Pro 05 (192.168.1.15)")
             ]
         },
 
@@ -516,19 +516,19 @@ dash_wifi = {
                     }
                 },
                 "overrides": [
-                    build_override("A", "📡 UAP-HD Peças (192.168.109.99)", "#00E676"),
-                    build_override("B", "📡 UAP-HD TI (192.168.109.157)", "#00B0FF"),
-                    build_override("C", "📡 UAP-HD Garantia (192.168.109.118)", "#FFD600"),
-                    build_override("D", "📡 UAP-HD Estoque (192.168.109.23)", "#FF9100"),
-                    build_override("E", "📡 AC-Pro TI (10.166.10.144)", "#E040FB")
+                    build_override("A", "📡 UAP-HD 01 (192.168.1.11)", "#00E676"),
+                    build_override("B", "📡 UAP-HD 02 (192.168.1.12)", "#00B0FF"),
+                    build_override("C", "📡 UAP-HD 03 (192.168.1.13)", "#FFD600"),
+                    build_override("D", "📡 UAP-HD 04 (192.168.1.14)", "#FF9100"),
+                    build_override("E", "📡 AC-Pro 05 (192.168.1.15)", "#E040FB")
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-PECAS (192.168.109.99)", "UniFi AP - Perda de Pacotes ICMP", alias="📡 UAP-HD Peças (192.168.109.99)"),
-                build_zabbix_target("B", "AP-UniFi-UAP-HD-TI (192.168.109.157)", "UniFi AP - Perda de Pacotes ICMP", alias="📡 UAP-HD TI (192.168.109.157)"),
-                build_zabbix_target("C", "AP-UniFi-UAP-HD-GARANTIA (192.168.109.118)", "UniFi AP - Perda de Pacotes ICMP", alias="📡 UAP-HD Garantia (192.168.109.118)"),
-                build_zabbix_target("D", "AP-UniFi-UAP-HD-ESTOQUE (192.168.109.23)", "UniFi AP - Perda de Pacotes ICMP", alias="📡 UAP-HD Estoque (192.168.109.23)"),
-                build_zabbix_target("E", "AP-UniFi-AC-Pro-TI (10.166.10.144)", "UniFi AP - Perda de Pacotes ICMP", alias="📡 AC-Pro TI (10.166.10.144)")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-01 (192.168.1.11)", "UniFi AP - Perda de Pacotes ICMP", alias="📡 UAP-HD 01 (192.168.1.11)"),
+                build_zabbix_target("B", "AP-UniFi-UAP-HD-02 (192.168.1.12)", "UniFi AP - Perda de Pacotes ICMP", alias="📡 UAP-HD 02 (192.168.1.12)"),
+                build_zabbix_target("C", "AP-UniFi-UAP-HD-03 (192.168.1.13)", "UniFi AP - Perda de Pacotes ICMP", alias="📡 UAP-HD 03 (192.168.1.13)"),
+                build_zabbix_target("D", "AP-UniFi-UAP-HD-04 (192.168.1.14)", "UniFi AP - Perda de Pacotes ICMP", alias="📡 UAP-HD 04 (192.168.1.14)"),
+                build_zabbix_target("E", "AP-UniFi-AC-Pro-05 (192.168.1.15)", "UniFi AP - Perda de Pacotes ICMP", alias="📡 AC-Pro 05 (192.168.1.15)")
             ]
         }
     ]
@@ -564,7 +564,7 @@ dash_servers = {
         <div style="transform: rotateX(8deg) rotateY(-5deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 230, 118, 0.25);">
             <div style="font-size: 32px; text-shadow: 0 0 15px #00E676;">🖥️</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">SRV-NOC-MONITORING</div>
-            <div style="color: #94A3B8; font-size: 11px;">10.166.10.200 (Zabbix/Grafana)</div>
+            <div style="color: #94A3B8; font-size: 11px;">10.0.0.10 (Zabbix/Grafana)</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 100% OPERACIONAL</div>
             <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">CPU: 17.3% | RAM: 32.4% (8 GB)</div>
             <div style="font-size: 10px; color: #CBD5E1;">Disco: 11.9% | Uptime: 3.5 Dias</div>
@@ -573,7 +573,7 @@ dash_servers = {
         <div style="transform: rotateX(8deg) rotateY(-2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 176, 255, 0.25);">
             <div style="font-size: 32px; text-shadow: 0 0 15px #00B0FF;">🏢</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">SRV-ERP-PROTHEUS</div>
-            <div style="color: #94A3B8; font-size: 11px;">10.166.10.231 (Banco & ERP)</div>
+            <div style="color: #94A3B8; font-size: 11px;">10.0.0.20 (Banco & ERP)</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 HTTP 80 ATIVO</div>
             <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">Tempo Resposta: 0.92 ms</div>
             <div style="font-size: 10px; color: #CBD5E1;">SSH Porta 22: Desativado (Segurança)</div>
@@ -582,7 +582,7 @@ dash_servers = {
         <div style="transform: rotateX(8deg) rotateY(2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(255, 214, 0, 0.25);">
             <div style="font-size: 32px; text-shadow: 0 0 15px #FFD600;">🛡️</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">GATEWAY EDGE 10.1</div>
-            <div style="color: #94A3B8; font-size: 11px;">10.166.10.1 (Borda Corporativa)</div>
+            <div style="color: #94A3B8; font-size: 11px;">10.0.0.1 (Borda Corporativa)</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(255,214,0,0.15); color: #FFD600; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 LATÊNCIA SUB-MS</div>
             <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">Tempo Resposta: 0.18 ms</div>
             <div style="font-size: 10px; color: #CBD5E1;">Perda de Pacotes: 0%</div>
@@ -759,21 +759,21 @@ dash_servers = {
                     "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": None}, {"color": "yellow", "value": 5}, {"color": "red", "value": 20}]}
                 },
                 "overrides": [
-                    build_override("A", "🛡️ Gateway Edge (10.166.10.1)"),
-                    build_override("B", "🏢 SRV ERP Protheus (10.166.10.231)"),
-                    build_override("C", "🖥️ SRV NOC Monitoring (10.166.10.200)"),
-                    build_override("D", "🐧 Servidor Linux 144 (10.166.10.144)"),
-                    build_override("E", "🐧 Servidor Linux 210 (10.166.11.210)"),
-                    build_override("F", "🐧 Servidor Linux 233 (10.166.10.233)")
+                    build_override("A", "🛡️ Gateway Edge (10.0.0.1)"),
+                    build_override("B", "🏢 SRV ERP Protheus (10.0.0.20)"),
+                    build_override("C", "🖥️ SRV NOC Monitoring (10.0.0.10)"),
+                    build_override("D", "🐧 Servidor Linux 144 (192.168.1.15)"),
+                    build_override("E", "🐧 Servidor Linux 210 (10.0.2.210)"),
+                    build_override("F", "🐧 Servidor Linux 233 (10.0.0.21)")
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "Gateway-Edge-10.166.10.1 (10.166.10.1)", "Host Linux - Tempo de Resposta ICMP", alias="🛡️ Gateway Edge (10.166.10.1)"),
-                build_zabbix_target("B", "SRV-ERP-Corporativo-231 (10.166.10.231)", "Host Linux - Tempo de Resposta ICMP", alias="🏢 SRV ERP Protheus (10.166.10.231)"),
-                build_zabbix_target("C", "SRV-NOC-Monitoring (Zabbix/Grafana) (10.166.10.200)", "Host Linux - Tempo de Resposta ICMP", alias="🖥️ SRV NOC Monitoring (10.166.10.200)"),
-                build_zabbix_target("D", "Servidor-Linux-144 (10.166.10.144)", "Host Linux - Tempo de Resposta ICMP", alias="🐧 Servidor Linux 144 (10.166.10.144)"),
-                build_zabbix_target("E", "Servidor-Linux-210 (10.166.11.210)", "Host Linux - Tempo de Resposta ICMP", alias="🐧 Servidor Linux 210 (10.166.11.210)"),
-                build_zabbix_target("F", "Servidor-Linux-233 (10.166.10.233)", "Host Linux - Tempo de Resposta ICMP", alias="🐧 Servidor Linux 233 (10.166.10.233)")
+                build_zabbix_target("A", "Gateway-Edge-10.0.0.1 (10.0.0.1)", "Host Linux - Tempo de Resposta ICMP", alias="🛡️ Gateway Edge (10.0.0.1)"),
+                build_zabbix_target("B", "SRV-ERP-Corporativo-231 (10.0.0.20)", "Host Linux - Tempo de Resposta ICMP", alias="🏢 SRV ERP Protheus (10.0.0.20)"),
+                build_zabbix_target("C", "SRV-NOC-Monitoring (Zabbix/Grafana) (10.0.0.10)", "Host Linux - Tempo de Resposta ICMP", alias="🖥️ SRV NOC Monitoring (10.0.0.10)"),
+                build_zabbix_target("D", "Servidor-Linux-144 (192.168.1.15)", "Host Linux - Tempo de Resposta ICMP", alias="🐧 Servidor Linux 144 (192.168.1.15)"),
+                build_zabbix_target("E", "Servidor-Linux-210 (10.0.2.210)", "Host Linux - Tempo de Resposta ICMP", alias="🐧 Servidor Linux 210 (10.0.2.210)"),
+                build_zabbix_target("F", "Servidor-Linux-233 (10.0.0.21)", "Host Linux - Tempo de Resposta ICMP", alias="🐧 Servidor Linux 233 (10.0.0.21)")
             ]
         },
 
@@ -807,14 +807,14 @@ dash_servers = {
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "Estacao-Trabalho-10.166.10.50 (10.166.10.50)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.50"),
-                build_zabbix_target("B", "Estacao-Trabalho-10.166.10.51 (10.166.10.51)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.51"),
-                build_zabbix_target("C", "Estacao-Trabalho-10.166.10.60 (10.166.10.60)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.60"),
-                build_zabbix_target("D", "Estacao-Trabalho-10.166.10.70 (10.166.10.70)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.70"),
-                build_zabbix_target("E", "Estacao-Trabalho-10.166.10.80 (10.166.10.80)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.80"),
-                build_zabbix_target("F", "Estacao-Trabalho-10.166.10.111 (10.166.10.111)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.111"),
-                build_zabbix_target("G", "Estacao-Trabalho-10.166.10.141 (10.166.10.141)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.141"),
-                build_zabbix_target("H", "Estacao-Trabalho-10.166.10.201 (10.166.10.201)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.201")
+                build_zabbix_target("A", "Estacao-Trabalho-10.0.2.50 (10.0.2.50)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.50"),
+                build_zabbix_target("B", "Estacao-Trabalho-10.0.2.51 (10.0.2.51)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.51"),
+                build_zabbix_target("C", "Estacao-Trabalho-10.0.2.60 (10.0.2.60)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.60"),
+                build_zabbix_target("D", "Estacao-Trabalho-10.0.2.70 (10.0.2.70)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.70"),
+                build_zabbix_target("E", "Estacao-Trabalho-10.0.2.80 (10.0.2.80)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.80"),
+                build_zabbix_target("F", "Estacao-Trabalho-10.0.0.111 (10.0.0.111)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.111"),
+                build_zabbix_target("G", "Estacao-Trabalho-10.0.0.141 (10.0.0.141)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.141"),
+                build_zabbix_target("H", "Estacao-Trabalho-10.0.0.11 (10.0.0.11)", "Estação Windows - Latência ICMP", alias="💻 Estação 10.201")
             ]
         },
         {
@@ -831,12 +831,12 @@ dash_servers = {
                 }
             },
             "targets": [
-                build_zabbix_target("A", "Estacao-Trabalho-10.166.10.50 (10.166.10.50)", "Estação Windows - Porta SMB 445 (Compartilhamento)"),
-                build_zabbix_target("B", "Estacao-Trabalho-10.166.10.51 (10.166.10.51)", "Estação Windows - Porta SMB 445 (Compartilhamento)"),
-                build_zabbix_target("C", "Estacao-Trabalho-10.166.10.60 (10.166.10.60)", "Estação Windows - Porta SMB 445 (Compartilhamento)"),
-                build_zabbix_target("D", "Estacao-Trabalho-10.166.10.70 (10.166.10.70)", "Estação Windows - Porta SMB 445 (Compartilhamento)"),
-                build_zabbix_target("E", "Estacao-Trabalho-10.166.10.80 (10.166.10.80)", "Estação Windows - Porta SMB 445 (Compartilhamento)"),
-                build_zabbix_target("F", "Estacao-Trabalho-10.166.10.141 (10.166.10.141)", "Estação Windows - Porta SMB 445 (Compartilhamento)")
+                build_zabbix_target("A", "Estacao-Trabalho-10.0.2.50 (10.0.2.50)", "Estação Windows - Porta SMB 445 (Compartilhamento)"),
+                build_zabbix_target("B", "Estacao-Trabalho-10.0.2.51 (10.0.2.51)", "Estação Windows - Porta SMB 445 (Compartilhamento)"),
+                build_zabbix_target("C", "Estacao-Trabalho-10.0.2.60 (10.0.2.60)", "Estação Windows - Porta SMB 445 (Compartilhamento)"),
+                build_zabbix_target("D", "Estacao-Trabalho-10.0.2.70 (10.0.2.70)", "Estação Windows - Porta SMB 445 (Compartilhamento)"),
+                build_zabbix_target("E", "Estacao-Trabalho-10.0.2.80 (10.0.2.80)", "Estação Windows - Porta SMB 445 (Compartilhamento)"),
+                build_zabbix_target("F", "Estacao-Trabalho-10.0.0.141 (10.0.0.141)", "Estação Windows - Porta SMB 445 (Compartilhamento)")
             ]
         },
 
@@ -864,11 +864,11 @@ dash_servers = {
                 }
             },
             "targets": [
-                build_zabbix_target("A", "Gateway-Edge-10.166.10.1 (10.166.10.1)", "Host Linux - Tempo de Resposta ICMP"),
-                build_zabbix_target("B", "SRV-ERP-Corporativo-231 (10.166.10.231)", "Host Linux - Tempo de Resposta ICMP"),
-                build_zabbix_target("C", "SRV-NOC-Monitoring (Zabbix/Grafana) (10.166.10.200)", "Host Linux - Tempo de Resposta ICMP"),
-                build_zabbix_target("D", "Servidor-Linux-144 (10.166.10.144)", "Host Linux - Tempo de Resposta ICMP"),
-                build_zabbix_target("E", "Servidor-Linux-233 (10.166.10.233)", "Host Linux - Tempo de Resposta ICMP")
+                build_zabbix_target("A", "Gateway-Edge-10.0.0.1 (10.0.0.1)", "Host Linux - Tempo de Resposta ICMP"),
+                build_zabbix_target("B", "SRV-ERP-Corporativo-231 (10.0.0.20)", "Host Linux - Tempo de Resposta ICMP"),
+                build_zabbix_target("C", "SRV-NOC-Monitoring (Zabbix/Grafana) (10.0.0.10)", "Host Linux - Tempo de Resposta ICMP"),
+                build_zabbix_target("D", "Servidor-Linux-144 (192.168.1.15)", "Host Linux - Tempo de Resposta ICMP"),
+                build_zabbix_target("E", "Servidor-Linux-233 (10.0.0.21)", "Host Linux - Tempo de Resposta ICMP")
             ]
         }
     ]
@@ -1190,21 +1190,21 @@ dash_printers = {
                 "content": """
 <div style="perspective: 1200px; padding: 10px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(255, 145, 0, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
     <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px;">
-        <!-- Card 3D 1: HP 220 -->
+        <!-- Card 3D 1: HP 01 -->
         <div style="transform: rotateX(8deg) rotateY(-4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FF9100; border-radius: 12px; padding: 14px 24px; min-width: 280px; text-align: center; box-shadow: 0 8px 25px rgba(255, 145, 0, 0.25);">
             <div style="font-size: 38px; text-shadow: 0 0 15px #FF9100;">🖨️</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 15px; margin-top: 4px;">HP LASERJET FLOW 220</div>
-            <div style="color: #94A3B8; font-size: 12px;">IP: 10.166.10.220 | Serial: BRBSQ2Q11P</div>
+            <div style="color: #94A3B8; font-size: 12px;">IP: 192.168.1.50 | Serial: BRBSQ2Q11P</div>
             <div style="margin-top: 8px; display: inline-block; background: rgba(255, 145, 0, 0.2); color: #FF9100; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 12px;">⚠️ Toner Preto: 15% (Atenção)</div>
             <div style="font-size: 11px; color: #38BDF8; margin-top: 6px;">Páginas Impressas: 324.549</div>
             <div style="font-size: 11px; color: #CBD5E1;">ADF: 81% | Cilindros: 62% | Latência: 0.41 ms</div>
             <div style="font-size: 11px; color: #00E676; margin-top: 4px;">Display: "Pronta"</div>
         </div>
-        <!-- Card 3D 2: HP 221 -->
+        <!-- Card 3D 2: HP 02 -->
         <div style="transform: rotateX(8deg) rotateY(4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(69, 10, 10, 0.85), rgba(24, 2, 2, 0.95)); border: 1px solid #FF1744; border-radius: 12px; padding: 14px 24px; min-width: 280px; text-align: center; box-shadow: 0 8px 25px rgba(255, 23, 68, 0.35);">
             <div style="font-size: 38px; text-shadow: 0 0 15px #FF1744;">🖨️</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 15px; margin-top: 4px;">HP LASERJET FLOW 221</div>
-            <div style="color: #F87171; font-size: 12px;">IP: 10.166.10.221 | Serial: BRBSQ2G0BP</div>
+            <div style="color: #F87171; font-size: 12px;">IP: 192.168.1.51 | Serial: BRBSQ2G0BP</div>
             <div style="margin-top: 8px; display: inline-block; background: rgba(255, 23, 68, 0.25); color: #FF5252; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 12px;">🚨 Toner Preto: 0% (Esgotado)</div>
             <div style="font-size: 11px; color: #FCA5A5; margin-top: 6px;">Páginas Impressas: 356.600</div>
             <div style="font-size: 11px; color: #CBD5E1;">ADF: 74% | Cilindros: 49% | Latência: 0.35 ms</div>
@@ -1224,52 +1224,52 @@ dash_printers = {
             "title": "🛡️ Status da Frota HP",
             "options": {"colorMode": "background", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"color": {"mode": "fixed", "fixedColor": "dark-green"}, "mappings": [{"type": "value", "options": {"1": {"text": "2 / 2 OPERACIONAIS", "color": "green"}}}]}},
-            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-220 (10.166.10.220)", "Impressora - Conectividade de Rede ICMP")]
+            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-01 (192.168.1.50)", "Impressora - Conectividade de Rede ICMP")]
         },
         {
             "id": 3,
             "gridPos": {"h": 4, "w": 4, "x": 4, "y": 7},
             "type": "stat",
-            "title": "⚠️ Toner HP-220 (10.166.10.220)",
+            "title": "⚠️ Toner HP-01 (192.168.1.50)",
             "options": {"colorMode": "background", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"unit": "percent", "min": 0, "max": 100, "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": None}, {"color": "#FF9100", "value": 10}, {"color": "#FFD600", "value": 20}, {"color": "green", "value": 40}]}}},
-            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-220 (10.166.10.220)", "Impressora - Nível de Toner Preto (%)")]
+            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-01 (192.168.1.50)", "Impressora - Nível de Toner Preto (%)")]
         },
         {
             "id": 4,
             "gridPos": {"h": 4, "w": 4, "x": 8, "y": 7},
             "type": "stat",
-            "title": "🚨 Toner HP-221 (10.166.10.221)",
+            "title": "🚨 Toner HP-02 (192.168.1.51)",
             "options": {"colorMode": "background", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"unit": "percent", "min": 0, "max": 100, "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": None}, {"color": "yellow", "value": 20}, {"color": "green", "value": 40}]}}},
-            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-221 (10.166.10.221)", "Impressora - Nível de Toner Preto (%)")]
+            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-02 (192.168.1.51)", "Impressora - Nível de Toner Preto (%)")]
         },
         {
             "id": 5,
             "gridPos": {"h": 4, "w": 4, "x": 12, "y": 7},
             "type": "stat",
-            "title": "📄 Páginas Impressas HP-220",
+            "title": "📄 Páginas Impressas HP-01",
             "options": {"colorMode": "value", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"unit": "short", "color": {"mode": "fixed", "fixedColor": "#00B0FF"}}},
-            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-220 (10.166.10.220)", "Impressora - Contador Geral de Páginas Impressas")]
+            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-01 (192.168.1.50)", "Impressora - Contador Geral de Páginas Impressas")]
         },
         {
             "id": 6,
             "gridPos": {"h": 4, "w": 4, "x": 16, "y": 7},
             "type": "stat",
-            "title": "📄 Páginas Impressas HP-221",
+            "title": "📄 Páginas Impressas HP-02",
             "options": {"colorMode": "value", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"unit": "short", "color": {"mode": "fixed", "fixedColor": "#7C4DFF"}}},
-            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-221 (10.166.10.221)", "Impressora - Contador Geral de Páginas Impressas")]
+            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-02 (192.168.1.51)", "Impressora - Contador Geral de Páginas Impressas")]
         },
         {
             "id": 7,
             "gridPos": {"h": 4, "w": 4, "x": 20, "y": 7},
             "type": "stat",
-            "title": "⚡ Latência ICMP HP-220 (em MS)",
+            "title": "⚡ Latência ICMP HP-01 (em MS)",
             "options": {"colorMode": "value", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"unit": "ms", "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": None}, {"color": "yellow", "value": 5}, {"color": "red", "value": 15}]}}},
-            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-220 (10.166.10.220)", "Impressora - Latência de Resposta ICMP")]
+            "targets": [build_zabbix_target("A", "Impressora-HP-LaserJet-01 (192.168.1.50)", "Impressora - Latência de Resposta ICMP")]
         },
 
         # --- ROW 3: SUPRIMENTOS DETALHADOS (BAR GAUGES) ---
@@ -1277,7 +1277,7 @@ dash_printers = {
             "id": 10,
             "gridPos": {"h": 6, "w": 12, "x": 0, "y": 11},
             "type": "bargauge",
-            "title": "📊 Suprimentos & Vida Útil - HP LaserJet 220 (10.166.10.220)",
+            "title": "📊 Suprimentos & Vida Útil - HP LaserJet 01 (192.168.1.50)",
             "options": {"displayMode": "gradient", "orientation": "horizontal", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}, "showUnfilled": True},
             "fieldConfig": {
                 "defaults": {"displayName": "${__field.labels.item}", "unit": "percent", "min": 0, "max": 100, "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": None}, {"color": "#FF9100", "value": 15}, {"color": "#FFD600", "value": 30}, {"color": "green", "value": 50}]}},
@@ -1288,16 +1288,16 @@ dash_printers = {
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "Impressora-HP-LaserJet-220 (10.166.10.220)", "Impressora - Nível de Toner Preto (%)", alias="🖤 Toner Preto (%)"),
-                build_zabbix_target("B", "Impressora-HP-LaserJet-220 (10.166.10.220)", "Impressora - Vida Útil do Kit Alimentador ADF (%)", alias="📄 Kit Alimentador ADF (%)"),
-                build_zabbix_target("C", "Impressora-HP-LaserJet-220 (10.166.10.220)", "Impressora - Vida Útil dos Cilindros e Roletes (%)", alias="⚙️ Cilindros e Roletes (%)")
+                build_zabbix_target("A", "Impressora-HP-LaserJet-01 (192.168.1.50)", "Impressora - Nível de Toner Preto (%)", alias="🖤 Toner Preto (%)"),
+                build_zabbix_target("B", "Impressora-HP-LaserJet-01 (192.168.1.50)", "Impressora - Vida Útil do Kit Alimentador ADF (%)", alias="📄 Kit Alimentador ADF (%)"),
+                build_zabbix_target("C", "Impressora-HP-LaserJet-01 (192.168.1.50)", "Impressora - Vida Útil dos Cilindros e Roletes (%)", alias="⚙️ Cilindros e Roletes (%)")
             ]
         },
         {
             "id": 11,
             "gridPos": {"h": 6, "w": 12, "x": 12, "y": 11},
             "type": "bargauge",
-            "title": "📊 Suprimentos & Vida Útil - HP LaserJet 221 (10.166.10.221)",
+            "title": "📊 Suprimentos & Vida Útil - HP LaserJet 02 (192.168.1.51)",
             "options": {"displayMode": "gradient", "orientation": "horizontal", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}, "showUnfilled": True},
             "fieldConfig": {
                 "defaults": {"displayName": "${__field.labels.item}", "unit": "percent", "min": 0, "max": 100, "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": None}, {"color": "#FF9100", "value": 15}, {"color": "#FFD600", "value": 30}, {"color": "green", "value": 50}]}},
@@ -1308,9 +1308,9 @@ dash_printers = {
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "Impressora-HP-LaserJet-221 (10.166.10.221)", "Impressora - Nível de Toner Preto (%)", alias="🖤 Toner Preto (%)"),
-                build_zabbix_target("B", "Impressora-HP-LaserJet-221 (10.166.10.221)", "Impressora - Vida Útil do Kit Alimentador ADF (%)", alias="📄 Kit Alimentador ADF (%)"),
-                build_zabbix_target("C", "Impressora-HP-LaserJet-221 (10.166.10.221)", "Impressora - Vida Útil dos Cilindros e Roletes (%)", alias="⚙️ Cilindros e Roletes (%)")
+                build_zabbix_target("A", "Impressora-HP-LaserJet-02 (192.168.1.51)", "Impressora - Nível de Toner Preto (%)", alias="🖤 Toner Preto (%)"),
+                build_zabbix_target("B", "Impressora-HP-LaserJet-02 (192.168.1.51)", "Impressora - Vida Útil do Kit Alimentador ADF (%)", alias="📄 Kit Alimentador ADF (%)"),
+                build_zabbix_target("C", "Impressora-HP-LaserJet-02 (192.168.1.51)", "Impressora - Vida Útil dos Cilindros e Roletes (%)", alias="⚙️ Cilindros e Roletes (%)")
             ]
         },
 
@@ -1319,18 +1319,18 @@ dash_printers = {
             "id": 20,
             "gridPos": {"h": 7, "w": 24, "x": 0, "y": 17},
             "type": "timeseries",
-            "title": "📈 Tempo de Resposta e Latência de Rede ICMP (HP 220 e HP 221) (em MS)",
+            "title": "📈 Tempo de Resposta e Latência de Rede ICMP (HP 01 e HP 02) (em MS)",
             "options": {"legend": {"calcs": ["mean", "lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": True}, "tooltip": {"mode": "multi", "sort": "desc"}},
             "fieldConfig": {
                 "defaults": {"displayName": "${__field.labels.host}", "unit": "ms", "custom": {"drawStyle": "line", "lineInterpolation": "smooth", "lineWidth": 2, "fillOpacity": 15, "gradientMode": "opacity", "spanNulls": True}},
                 "overrides": [
-                    build_override("A", "🖨️ HP LaserJet 220 (10.166.10.220)", "#00E676"),
-                    build_override("B", "🖨️ HP LaserJet 221 (10.166.10.221)", "#00B0FF")
+                    build_override("A", "🖨️ HP LaserJet 01 (192.168.1.50)", "#00E676"),
+                    build_override("B", "🖨️ HP LaserJet 02 (192.168.1.51)", "#00B0FF")
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "Impressora-HP-LaserJet-220 (10.166.10.220)", "Impressora - Latência de Resposta ICMP", alias="🖨️ HP LaserJet 220 (10.166.10.220)"),
-                build_zabbix_target("B", "Impressora-HP-LaserJet-221 (10.166.10.221)", "Impressora - Latência de Resposta ICMP", alias="🖨️ HP LaserJet 221 (10.166.10.221)")
+                build_zabbix_target("A", "Impressora-HP-LaserJet-01 (192.168.1.50)", "Impressora - Latência de Resposta ICMP", alias="🖨️ HP LaserJet 01 (192.168.1.50)"),
+                build_zabbix_target("B", "Impressora-HP-LaserJet-02 (192.168.1.51)", "Impressora - Latência de Resposta ICMP", alias="🖨️ HP LaserJet 02 (192.168.1.51)")
             ]
         }
     ]
@@ -1374,7 +1374,7 @@ dash_voip = {
         <div style="transform: rotateX(8deg) rotateY(-1deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 14px 20px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 230, 118, 0.25);">
             <div style="font-size: 34px; text-shadow: 0 0 15px #00E676;">📞</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">RAMAL GXP-12</div>
-            <div style="color: #94A3B8; font-size: 11px;">IP: 10.166.10.12</div>
+            <div style="color: #94A3B8; font-size: 11px;">IP: 10.0.0.12</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 DISPONÍVEL (0.48 ms)</div>
             <div style="font-size: 11px; color: #CBD5E1; margin-top: 4px;">Perda de Áudio: 0%</div>
         </div>
@@ -1382,7 +1382,7 @@ dash_voip = {
         <div style="transform: rotateX(8deg) rotateY(2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 14px 20px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 176, 255, 0.25);">
             <div style="font-size: 34px; text-shadow: 0 0 15px #00B0FF;">📞</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">RAMAL GXP-42</div>
-            <div style="color: #94A3B8; font-size: 11px;">IP: 10.166.10.42</div>
+            <div style="color: #94A3B8; font-size: 11px;">IP: 10.0.3.42</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 DISPONÍVEL (0.46 ms)</div>
             <div style="font-size: 11px; color: #CBD5E1; margin-top: 4px;">Perda de Áudio: 0%</div>
         </div>
@@ -1390,7 +1390,7 @@ dash_voip = {
         <div style="transform: rotateX(8deg) rotateY(5deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(69, 10, 10, 0.85), rgba(24, 2, 2, 0.95)); border: 1px solid #FF1744; border-radius: 10px; padding: 14px 20px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(255, 23, 68, 0.35);">
             <div style="font-size: 34px; text-shadow: 0 0 15px #FF1744;">📵</div>
             <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">RAMAL GXP-166</div>
-            <div style="color: #F87171; font-size: 11px;">IP: 10.166.10.166</div>
+            <div style="color: #F87171; font-size: 11px;">IP: 10.0.0.166</div>
             <div style="margin-top: 6px; display: inline-block; background: rgba(255,23,68,0.25); color: #FF5252; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🔴 TELEFONE MUDO</div>
             <div style="font-size: 11px; color: #FCA5A5; margin-top: 4px;">Dispositivo Inacessível</div>
         </div>
@@ -1408,7 +1408,7 @@ dash_voip = {
             "title": "📞 Ramais Grandstream Operacionais",
             "options": {"colorMode": "background", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"color": {"mode": "fixed", "fixedColor": "dark-green"}, "mappings": [{"type": "value", "options": {"1": {"text": "13 / 14 CONECTADOS", "color": "green"}}}]}},
-            "targets": [build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.166.10.12)", "Telefonia VoIP - Conectividade de Rede ICMP")]
+            "targets": [build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.0.0.12)", "Telefonia VoIP - Conectividade de Rede ICMP")]
         },
         {
             "id": 3,
@@ -1417,7 +1417,7 @@ dash_voip = {
             "title": "🚨 Ramal com Incidente / Telefone Mudo",
             "options": {"colorMode": "background", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"mappings": [{"type": "value", "options": {"0": {"text": "Ramal 166 (INACESSÍVEL)", "color": "red"}, "1": {"text": "TODOS DISPONÍVEIS", "color": "green"}}}]}},
-            "targets": [build_zabbix_target("A", "Ramal-Grandstream-GXP-166 (10.166.10.166)", "Telefonia VoIP - Conectividade de Rede ICMP")]
+            "targets": [build_zabbix_target("A", "Ramal-Grandstream-GXP-166 (10.0.0.166)", "Telefonia VoIP - Conectividade de Rede ICMP")]
         },
         {
             "id": 4,
@@ -1426,7 +1426,7 @@ dash_voip = {
             "title": "⚡ RTT de Voz Médio (em MS)",
             "options": {"colorMode": "value", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"unit": "ms", "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": None}, {"color": "yellow", "value": 15}, {"color": "red", "value": 40}]}}},
-            "targets": [build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.166.10.12)", "Telefonia VoIP - Latência / RTT de Voz")]
+            "targets": [build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.0.0.12)", "Telefonia VoIP - Latência / RTT de Voz")]
         },
         {
             "id": 5,
@@ -1435,7 +1435,7 @@ dash_voip = {
             "title": "🛡️ Perda Média de Pacotes de Áudio",
             "options": {"colorMode": "background", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"unit": "percent", "mappings": [{"type": "value", "options": {"0": {"text": "0% (SEM PERDA)", "color": "green"}}}]}},
-            "targets": [build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.166.10.12)", "Telefonia VoIP - Perda de Pacotes de Áudio")]
+            "targets": [build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.0.0.12)", "Telefonia VoIP - Perda de Pacotes de Áudio")]
         },
 
         # --- ROW 3: BAR GAUGE DE RTT DE VOZ POR RAMAL (EM MS) ---
@@ -1464,19 +1464,19 @@ dash_voip = {
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.166.10.12)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-12"),
-                build_zabbix_target("B", "Ramal-Grandstream-GXP-42 (10.166.10.42)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-42"),
-                build_zabbix_target("C", "Ramal-Grandstream-GXP-99 (10.166.10.99)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-99"),
-                build_zabbix_target("D", "Ramal-Grandstream-GXP-112 (10.166.10.112)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-112"),
-                build_zabbix_target("E", "Ramal-Grandstream-GXP-126 (10.166.10.126)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-126"),
-                build_zabbix_target("F", "Ramal-Grandstream-GXP-127 (10.166.10.127)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-127"),
-                build_zabbix_target("G", "Ramal-Grandstream-GXP-158 (10.166.10.158)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-158"),
-                build_zabbix_target("H", "Ramal-Grandstream-GXP-161 (10.166.10.161)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-161"),
-                build_zabbix_target("I", "Ramal-Grandstream-GXP-162 (10.166.10.162)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-162"),
-                build_zabbix_target("J", "Ramal-Grandstream-GXP-172 (10.166.10.172)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-172"),
-                build_zabbix_target("K", "Ramal-Grandstream-GXP-179 (10.166.10.179)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-179"),
-                build_zabbix_target("L", "Ramal-Grandstream-GXP-185 (10.166.10.185)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-185"),
-                build_zabbix_target("M", "Ramal-Grandstream-GXP-244 (10.166.11.244)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-244")
+                build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.0.0.12)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-12"),
+                build_zabbix_target("B", "Ramal-Grandstream-GXP-42 (10.0.3.42)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-42"),
+                build_zabbix_target("C", "Ramal-Grandstream-GXP-99 (10.0.3.99)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-99"),
+                build_zabbix_target("D", "Ramal-Grandstream-GXP-112 (10.0.0.112)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-112"),
+                build_zabbix_target("E", "Ramal-Grandstream-GXP-126 (10.0.0.126)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-126"),
+                build_zabbix_target("F", "Ramal-Grandstream-GXP-127 (10.0.0.127)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-127"),
+                build_zabbix_target("G", "Ramal-Grandstream-GXP-158 (10.0.0.158)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-158"),
+                build_zabbix_target("H", "Ramal-Grandstream-GXP-161 (10.0.0.161)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-161"),
+                build_zabbix_target("I", "Ramal-Grandstream-GXP-162 (10.0.0.162)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-162"),
+                build_zabbix_target("J", "Ramal-Grandstream-GXP-172 (10.0.0.172)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-172"),
+                build_zabbix_target("K", "Ramal-Grandstream-GXP-179 (10.0.0.179)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-179"),
+                build_zabbix_target("L", "Ramal-Grandstream-GXP-185 (10.0.0.185)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-185"),
+                build_zabbix_target("M", "Ramal-Grandstream-GXP-244 (10.0.3.244)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal GXP-244")
             ]
         },
         {
@@ -1487,10 +1487,10 @@ dash_voip = {
             "options": {"colorMode": "background", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"mappings": [{"type": "value", "options": {"1": {"text": "WEB GUI ATIVA", "color": "green"}, "0": {"text": "OFFLINE", "color": "red"}}}]}},
             "targets": [
-                build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.166.10.12)", "Telefonia VoIP - Painel de Configuração Web HTTP 80"),
-                build_zabbix_target("B", "Ramal-Grandstream-GXP-42 (10.166.10.42)", "Telefonia VoIP - Painel de Configuração Web HTTP 80"),
-                build_zabbix_target("C", "Ramal-Grandstream-GXP-99 (10.166.10.99)", "Telefonia VoIP - Painel de Configuração Web HTTP 80"),
-                build_zabbix_target("D", "Ramal-Grandstream-GXP-112 (10.166.10.112)", "Telefonia VoIP - Painel de Configuração Web HTTP 80")
+                build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.0.0.12)", "Telefonia VoIP - Painel de Configuração Web HTTP 80"),
+                build_zabbix_target("B", "Ramal-Grandstream-GXP-42 (10.0.3.42)", "Telefonia VoIP - Painel de Configuração Web HTTP 80"),
+                build_zabbix_target("C", "Ramal-Grandstream-GXP-99 (10.0.3.99)", "Telefonia VoIP - Painel de Configuração Web HTTP 80"),
+                build_zabbix_target("D", "Ramal-Grandstream-GXP-112 (10.0.0.112)", "Telefonia VoIP - Painel de Configuração Web HTTP 80")
             ]
         },
 
@@ -1513,12 +1513,12 @@ dash_voip = {
                 ]
             },
             "targets": [
-                build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.166.10.12)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 12"),
-                build_zabbix_target("B", "Ramal-Grandstream-GXP-42 (10.166.10.42)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 42"),
-                build_zabbix_target("C", "Ramal-Grandstream-GXP-99 (10.166.10.99)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 99"),
-                build_zabbix_target("D", "Ramal-Grandstream-GXP-112 (10.166.10.112)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 112"),
-                build_zabbix_target("E", "Ramal-Grandstream-GXP-126 (10.166.10.126)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 126"),
-                build_zabbix_target("F", "Ramal-Grandstream-GXP-158 (10.166.10.158)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 158")
+                build_zabbix_target("A", "Ramal-Grandstream-GXP-12 (10.0.0.12)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 12"),
+                build_zabbix_target("B", "Ramal-Grandstream-GXP-42 (10.0.3.42)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 42"),
+                build_zabbix_target("C", "Ramal-Grandstream-GXP-99 (10.0.3.99)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 99"),
+                build_zabbix_target("D", "Ramal-Grandstream-GXP-112 (10.0.0.112)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 112"),
+                build_zabbix_target("E", "Ramal-Grandstream-GXP-126 (10.0.0.126)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 126"),
+                build_zabbix_target("F", "Ramal-Grandstream-GXP-158 (10.0.0.158)", "Telefonia VoIP - Latência / RTT de Voz", alias="📞 Ramal 158")
             ]
         }
     ]
@@ -1631,7 +1631,7 @@ dash_master = {
             "title": "🏢 ERP Protheus (em MS)",
             "options": {"colorMode": "background", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"unit": "ms", "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": None}, {"color": "yellow", "value": 5}, {"color": "red", "value": 20}]}}},
-            "targets": [build_zabbix_target("A", "SRV-ERP-Corporativo-231 (10.166.10.231)", "Host Linux - Tempo de Resposta ICMP")]
+            "targets": [build_zabbix_target("A", "SRV-ERP-Corporativo-231 (10.0.0.20)", "Host Linux - Tempo de Resposta ICMP")]
         },
         {
             "id": 7,
@@ -1640,7 +1640,7 @@ dash_master = {
             "title": "🖥️ SRV-NOC Server (em MS)",
             "options": {"colorMode": "value", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}},
             "fieldConfig": {"defaults": {"unit": "ms", "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": None}, {"color": "yellow", "value": 5}, {"color": "red", "value": 20}]}}},
-            "targets": [build_zabbix_target("A", "SRV-NOC-Monitoring (Zabbix/Grafana) (10.166.10.200)", "Host Linux - Tempo de Resposta ICMP")]
+            "targets": [build_zabbix_target("A", "SRV-NOC-Monitoring (Zabbix/Grafana) (10.0.0.10)", "Host Linux - Tempo de Resposta ICMP")]
         },
 
         # --- ROW 3: FROTA WI-FI UNIFI & TONERS HP ---
@@ -1652,11 +1652,11 @@ dash_master = {
             "options": {"legend": {"calcs": ["mean", "lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": True}, "tooltip": {"mode": "multi", "sort": "desc"}},
             "fieldConfig": {"defaults": {"unit": "ms", "custom": {"drawStyle": "line", "lineInterpolation": "smooth", "lineWidth": 2, "fillOpacity": 12, "gradientMode": "opacity", "spanNulls": True}}},
             "targets": [
-                build_zabbix_target("A", "AP-UniFi-UAP-HD-PECAS (192.168.109.99)", "UniFi AP - Latência ICMP (RTT)"),
-                build_zabbix_target("B", "AP-UniFi-UAP-HD-TI (192.168.109.157)", "UniFi AP - Latência ICMP (RTT)"),
-                build_zabbix_target("C", "AP-UniFi-UAP-HD-GARANTIA (192.168.109.118)", "UniFi AP - Latência ICMP (RTT)"),
-                build_zabbix_target("D", "AP-UniFi-UAP-HD-ESTOQUE (192.168.109.23)", "UniFi AP - Latência ICMP (RTT)"),
-                build_zabbix_target("E", "AP-UniFi-AC-Pro-TI (10.166.10.144)", "UniFi AP - Latência ICMP (RTT)")
+                build_zabbix_target("A", "AP-UniFi-UAP-HD-01 (192.168.1.11)", "UniFi AP - Latência ICMP (RTT)"),
+                build_zabbix_target("B", "AP-UniFi-UAP-HD-02 (192.168.1.12)", "UniFi AP - Latência ICMP (RTT)"),
+                build_zabbix_target("C", "AP-UniFi-UAP-HD-03 (192.168.1.13)", "UniFi AP - Latência ICMP (RTT)"),
+                build_zabbix_target("D", "AP-UniFi-UAP-HD-04 (192.168.1.14)", "UniFi AP - Latência ICMP (RTT)"),
+                build_zabbix_target("E", "AP-UniFi-AC-Pro-05 (192.168.1.15)", "UniFi AP - Latência ICMP (RTT)")
             ]
         },
         {
@@ -1667,8 +1667,8 @@ dash_master = {
             "options": {"displayMode": "gradient", "orientation": "horizontal", "reduceOptions": {"calcs": ["lastNotNull"], "values": False}, "showUnfilled": True},
             "fieldConfig": {"defaults": {"unit": "percent", "min": 0, "max": 100, "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": None}, {"color": "yellow", "value": 20}, {"color": "green", "value": 40}]}}},
             "targets": [
-                build_zabbix_target("A", "Impressora-HP-LaserJet-220 (10.166.10.220)", "Impressora - Nível de Toner Preto (%)"),
-                build_zabbix_target("B", "Impressora-HP-LaserJet-221 (10.166.10.221)", "Impressora - Nível de Toner Preto (%)")
+                build_zabbix_target("A", "Impressora-HP-LaserJet-01 (192.168.1.50)", "Impressora - Nível de Toner Preto (%)"),
+                build_zabbix_target("B", "Impressora-HP-LaserJet-02 (192.168.1.51)", "Impressora - Nível de Toner Preto (%)")
             ]
         },
 

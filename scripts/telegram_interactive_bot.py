@@ -175,30 +175,30 @@ def build_dashboards_menu():
         "• Matriz de Impacto Crítico: `ERP > WAN > Wi-Fi > Impressão`\n"
         "• Topologia de Contingência & Rotas com failover dinâmico\n"
         "• Fila Ativa de Incidentes com SLA e Log de Automações\n"
-        "🔗 [Abrir Dashboard 444](http://10.166.10.200/zabbix.php?action=dashboard.view&dashboardid=444)\n\n"
+        "🔗 [Abrir Dashboard 444](http://10.0.0.10/zabbix.php?action=dashboard.view&dashboardid=444)\n\n"
         "🌾 *2. Enterprise NOC NOC Master 360° (Grafana)*\n"
         "• Velocímetros animados de Download (600 Mbps) & Upload\n"
         "• Telemetria em tempo real dos 6 APs UniFi & Latência\n"
         "• Bar Gauges de Toner HP LaserJet 220 e 221 e Páginas\n"
         "• Recursos do Servidor NOC (CPU, Memória RAM, Throughput)\n"
-        "🔗 [Abrir Grafana Master](http://10.166.10.200:3000/d/noc-master/)\n\n"
+        "🔗 [Abrir Grafana Master](http://10.0.0.10:3000/d/noc-master/)\n\n"
         "📈 *3. SLA Executivo, Tráfego e Disponibilidade (Zabbix 445)*\n"
         "• SLA 24x7 de todos os 54 hosts monitorados\n"
         "• Monitoramento de volumetria e disponibilidade contínua\n"
-        "🔗 [Abrir Dashboard 445](http://10.166.10.200/zabbix.php?action=dashboard.view&dashboardid=445)\n\n"
+        "🔗 [Abrir Dashboard 445](http://10.0.0.10/zabbix.php?action=dashboard.view&dashboardid=445)\n\n"
         "🌐 *4. Visão Global Enterprise NOC (Zabbix 1)*\n"
         "• 3 Abas: Visão Geral / UniFi Wi-Fi / Parque de Impressão\n"
-        "🔗 [Abrir Dashboard 1](http://10.166.10.200/zabbix.php?action=dashboard.view&dashboardid=1)\n"
+        "🔗 [Abrir Dashboard 1](http://10.0.0.10/zabbix.php?action=dashboard.view&dashboardid=1)\n"
     )
     keyboard = {
         "inline_keyboard": [
             [
-                {"text": "🛡️ Mitigação (Zbx 444)", "url": "http://10.166.10.200/zabbix.php?action=dashboard.view&dashboardid=444"},
-                {"text": "🌾 Grafana Master 360°", "url": "http://10.166.10.200:3000/d/noc-master/"}
+                {"text": "🛡️ Mitigação (Zbx 444)", "url": "http://10.0.0.10/zabbix.php?action=dashboard.view&dashboardid=444"},
+                {"text": "🌾 Grafana Master 360°", "url": "http://10.0.0.10:3000/d/noc-master/"}
             ],
             [
-                {"text": "📈 SLA Executivo (Zbx 445)", "url": "http://10.166.10.200/zabbix.php?action=dashboard.view&dashboardid=445"},
-                {"text": "🌐 Visão Global (Zbx 1)", "url": "http://10.166.10.200/zabbix.php?action=dashboard.view&dashboardid=1"}
+                {"text": "📈 SLA Executivo (Zbx 445)", "url": "http://10.0.0.10/zabbix.php?action=dashboard.view&dashboardid=445"},
+                {"text": "🌐 Visão Global (Zbx 1)", "url": "http://10.0.0.10/zabbix.php?action=dashboard.view&dashboardid=1"}
             ],
             [
                 {"text": "🔄 Atualizar Painel", "callback_data": "menu_dashboards"},
@@ -433,7 +433,7 @@ def get_printer_status(target_hostid=None):
             }, auth)[0]
             items = zbx_call("item.get", {"hostids": [str(target_hostid)], "output": ["itemid", "key_", "lastvalue", "name"]}, auth)
             info = {it["key_"]: it["lastvalue"] for it in items}
-            ip = host_info.get("interfaces", [{}])[0].get("ip", "10.166.10.x")
+            ip = host_info.get("interfaces", [{}])[0].get("ip", "192.168.1.x")
             
             toner = info.get("printer_snmp.sh[{HOST.CONN},toner_pct]", "0")
             adf = info.get("printer_snmp.sh[{HOST.CONN},adf_pct]", "0")
@@ -505,7 +505,7 @@ def get_printer_status(target_hostid=None):
             hid = ph["hostid"]
             items = zbx_call("item.get", {"hostids": [hid], "output": ["key_", "lastvalue"]}, auth)
             pinfo = {it["key_"]: it["lastvalue"] for it in items}
-            ip = ph.get("interfaces", [{}])[0].get("ip", "10.166.10.x")
+            ip = ph.get("interfaces", [{}])[0].get("ip", "192.168.1.x")
             toner = pinfo.get("printer_snmp.sh[{HOST.CONN},toner_pct]", "0")
             clean = pinfo.get("printer_snmp.sh[{HOST.CONN},cleaning_pct]", "0")
             adf = pinfo.get("printer_snmp.sh[{HOST.CONN},adf_pct]", "0")
@@ -578,7 +578,7 @@ def execute_print_test(hostid, operator_name="Operador TI"):
             "output": ["hostid", "name", "host"],
             "selectInterfaces": ["ip"]
         }, auth)[0]
-        ip = host_info.get("interfaces", [{}])[0].get("ip", "10.166.10.220")
+        ip = host_info.get("interfaces", [{}])[0].get("ip", "192.168.1.50")
         name = host_info["name"]
 
         items = zbx_call("item.get", {"hostids": [str(hostid)], "output": ["key_", "lastvalue"]}, auth)
@@ -786,7 +786,7 @@ def get_wan_status():
             f"• *Taxa de Download Atual:* `{dl_mbps:.1f} Mbps`\n"
             f"• *Taxa de Upload Atual:* `{ul_mbps:.1f} Mbps`\n"
             f"• *Latência de Borda (Google DNS):* `{rtt_ms} ms`\n"
-            f"• *Roteador Core Borda:* `10.166.10.1` (Alta Disponibilidade HA)\n"
+            f"• *Roteador Core Borda:* `10.0.0.1` (Alta Disponibilidade HA)\n"
         )
     except Exception as e:
         text = f"Erro ao consultar WAN: {e}"
@@ -873,7 +873,7 @@ def get_unifi_status():
         text = (
             f"📶 *Rede Wi-Fi Corporativa Ubiquiti UniFi*\n\n"
             f"{body}\n\n"
-            f"• *Controladora UniFi OS:* UDM Pro (`10.166.10.1`) Online\n"
+            f"• *Controladora UniFi OS:* UDM Pro (`10.0.0.1`) Online\n"
             f"• *Acesso Administrativo UniFi:* Porta 8443 / 443 Ativa\n"
         )
     except Exception as e:
@@ -911,7 +911,7 @@ def get_voip_status():
             f"• *Ramais Monitorados:* `{total} aparelhos IP`\n"
             f"• *Ramais Online / Registrados:* `{online}/{total}`\n"
             f"• *Protocolo SIP:* Porta UDP 5060 Operacional\n"
-            f"• *Servidor PABX Central:* `10.166.10.1`\n\n"
+            f"• *Servidor PABX Central:* `10.0.0.1`\n\n"
             f"Destaques:\n"
             f"• Ramal 12 (Diretoria): 🟢 Online (0.3 ms)\n"
             f"• Ramal 42 (Recepção): 🟢 Online (0.4 ms)\n"
