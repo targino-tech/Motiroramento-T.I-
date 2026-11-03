@@ -167,66 +167,234 @@ dash_wifi = {
             "title": "🌐 Topologia Visual 3D - Frota UniFi Enterprise & Cobertura Sem Fio",
             "options": {
                 "mode": "html",
-                "content": """
-<div style="perspective: 1200px; padding: 10px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 15px;">
+                "content": """<style>
+@keyframes pulse-glow-green { 0%, 100% { box-shadow: 0 0 15px rgba(0,230,118,0.25), inset 0 0 10px rgba(0,230,118,0.1); } 50% { box-shadow: 0 0 28px rgba(0,230,118,0.6), inset 0 0 18px rgba(0,230,118,0.25); } }
+@keyframes pulse-glow-blue { 0%, 100% { box-shadow: 0 0 15px rgba(0,176,255,0.25), inset 0 0 10px rgba(0,176,255,0.1); } 50% { box-shadow: 0 0 28px rgba(0,176,255,0.6), inset 0 0 18px rgba(0,176,255,0.25); } }
+@keyframes pulse-glow-amber { 0%, 100% { box-shadow: 0 0 15px rgba(255,214,0,0.25), inset 0 0 10px rgba(255,214,0,0.1); } 50% { box-shadow: 0 0 28px rgba(255,214,0,0.6), inset 0 0 18px rgba(255,214,0,0.25); } }
+@keyframes pulse-glow-purple { 0%, 100% { box-shadow: 0 0 15px rgba(168,85,247,0.25), inset 0 0 10px rgba(168,85,247,0.1); } 50% { box-shadow: 0 0 28px rgba(168,85,247,0.6), inset 0 0 18px rgba(168,85,247,0.25); } }
+@keyframes pulse-glow-red { 0%, 100% { box-shadow: 0 0 15px rgba(255,23,68,0.35), inset 0 0 10px rgba(255,23,68,0.15); } 50% { box-shadow: 0 0 30px rgba(255,23,68,0.8), inset 0 0 20px rgba(255,23,68,0.3); } }
+@keyframes float3d { 0%, 100% { transform: translateY(0px) rotateX(6deg) rotateY(var(--ry, 0deg)); } 50% { transform: translateY(-7px) rotateX(8deg) rotateY(var(--ry, 0deg)); } }
+@keyframes radarSweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+
+.noc-stage-3d {
+    perspective: 1400px;
+    padding: 16px 14px 18px;
+    background: radial-gradient(circle at 50% 20%, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.92) 50%, rgba(2, 6, 23, 0.98) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+}
+.noc-stage-3d::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.7), transparent);
+}
+.noc-grid-cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 16px;
+    transform-style: preserve-3d;
+}
+.card-3d-interactive {
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease, border-color 0.35s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 14px;
+    padding: 14px 16px;
+    min-width: 175px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    animation: float3d 5s ease-in-out infinite;
+}
+.card-3d-interactive:hover {
+    transform: translateY(-12px) scale(1.04) rotateX(0deg) rotateY(0deg) !important;
+    z-index: 10;
+}
+.card-green {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 230, 118, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 230, 118, 0.25);
+    animation: float3d 5.5s ease-in-out infinite, pulse-glow-green 4s infinite ease-in-out;
+}
+.card-blue {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 176, 255, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 176, 255, 0.25);
+    animation: float3d 5.2s ease-in-out infinite 0.4s, pulse-glow-blue 4s infinite ease-in-out 0.5s;
+}
+.card-amber {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(255, 214, 0, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(255, 214, 0, 0.25);
+    animation: float3d 5.8s ease-in-out infinite 0.8s, pulse-glow-amber 4s infinite ease-in-out 1s;
+}
+.card-purple {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(168, 85, 247, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(168, 85, 247, 0.25);
+    animation: float3d 6s ease-in-out infinite 1.2s, pulse-glow-purple 4s infinite ease-in-out 1.5s;
+}
+.card-red {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(30, 10, 15, 0.95) 75%);
+    border: 1px solid rgba(255, 23, 68, 0.65);
+    box-shadow: 0 12px 28px -5px rgba(255, 23, 68, 0.35);
+    animation: float3d 4.8s ease-in-out infinite 1.5s, pulse-glow-red 3s infinite ease-in-out;
+}
+.card-icon-3d {
+    font-size: 32px;
+    margin-bottom: 4px;
+    display: inline-block;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+    transition: transform 0.3s;
+}
+.card-3d-interactive:hover .card-icon-3d {
+    transform: scale(1.22) translateZ(25px);
+}
+.card-title {
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+.card-subtitle {
+    color: #94A3B8;
+    font-size: 11px;
+    font-family: monospace;
+}
+.badge-pill {
+    margin: 8px auto 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulseDot 1.6s infinite ease-in-out;
+}
+.live-dot-green { background: #00E676; box-shadow: 0 0 8px #00E676; }
+.live-dot-blue { background: #00B0FF; box-shadow: 0 0 8px #00B0FF; }
+.live-dot-amber { background: #FFD600; box-shadow: 0 0 8px #FFD600; }
+.live-dot-purple { background: #A855F7; box-shadow: 0 0 8px #A855F7; }
+.live-dot-red { background: #FF1744; box-shadow: 0 0 8px #FF1744; }
+
+.badge-green { background: rgba(0, 230, 118, 0.16); color: #00E676; border: 1px solid rgba(0, 230, 118, 0.3); }
+.badge-blue { background: rgba(0, 176, 255, 0.16); color: #00B0FF; border: 1px solid rgba(0, 176, 255, 0.3); }
+.badge-amber { background: rgba(255, 214, 0, 0.16); color: #FFD600; border: 1px solid rgba(255, 214, 0, 0.3); }
+.badge-purple { background: rgba(168, 85, 247, 0.16); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3); }
+.badge-red { background: rgba(255, 23, 68, 0.22); color: #FF5252; border: 1px solid rgba(255, 23, 68, 0.4); }
+
+.card-info-row {
+    font-size: 10.5px;
+    color: #CBD5E1;
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+.card-highlight {
+    font-size: 11px;
+    color: #38BDF8;
+    font-weight: 600;
+    margin-top: 4px;
+}
+.cyber-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+.cyber-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #00E676, #00B0FF);
+}
+</style>
+<div class="noc-stage-3d">
+    <div class="noc-grid-cards">
         <!-- Card 3D 1: AP Peças -->
-        <div style="transform: rotateX(8deg) rotateY(-4deg); transform-style: preserve-3d; transition: all 0.3s; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(0, 230, 118, 0.25);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #00E676;">📡</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD PEÇAS</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.1.11</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 28 Clientes</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Agro</div>
-            <div style="font-size: 10px; color: #CBD5E1;">⚡ 34.2 Mbps | 0.37 ms</div>
+        <div class="card-3d-interactive card-green" style="--ry: -4deg;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #00E676;">📡</div>
+            <div class="card-title">UAP-HD PEÇAS</div>
+            <div class="card-subtitle">192.168.1.11</div>
+            <div class="badge-pill badge-green"><span class="live-dot live-dot-green"></span> 28 Clientes</div>
+            <div class="card-highlight">SSID: Enterprise-Agro</div>
+            <div class="card-info-row"><span>⚡ 34.2 Mbps</span><span>•</span><span>0.37 ms</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 48%; background: linear-gradient(90deg,#00E676,#38BDF8);"></div></div>
         </div>
         <!-- Card 3D 2: AP TI -->
-        <div style="transform: rotateX(8deg) rotateY(-2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(0, 176, 255, 0.25);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #00B0FF;">📡</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD TI</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.1.12</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 42 Clientes</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Corp</div>
-            <div style="font-size: 10px; color: #CBD5E1;">⚡ 58.4 Mbps | 0.40 ms</div>
+        <div class="card-3d-interactive card-blue" style="--ry: -2deg;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #00B0FF;">📡</div>
+            <div class="card-title">UAP-HD TI</div>
+            <div class="card-subtitle">192.168.1.12</div>
+            <div class="badge-pill badge-blue"><span class="live-dot live-dot-blue"></span> 42 Clientes</div>
+            <div class="card-highlight">SSID: Enterprise-Corp</div>
+            <div class="card-info-row"><span>⚡ 58.4 Mbps</span><span>•</span><span>0.40 ms</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 72%; background: linear-gradient(90deg,#00B0FF,#818CF8);"></div></div>
         </div>
         <!-- Card 3D 3: AP Garantia -->
-        <div style="transform: rotateX(8deg) rotateY(0deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(255, 214, 0, 0.25);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #FFD600;">📡</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD GARANTIA</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.1.13</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,214,0,0.15); color: #FFD600; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 19 Clientes</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Agro</div>
-            <div style="font-size: 10px; color: #CBD5E1;">⚡ 21.3 Mbps | 4.30 ms</div>
+        <div class="card-3d-interactive card-amber" style="--ry: 0deg;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #FFD600;">📡</div>
+            <div class="card-title">UAP-HD GARANTIA</div>
+            <div class="card-subtitle">192.168.1.13</div>
+            <div class="badge-pill badge-amber"><span class="live-dot live-dot-amber"></span> 19 Clientes</div>
+            <div class="card-highlight">SSID: Enterprise-Agro</div>
+            <div class="card-info-row"><span>⚡ 21.3 Mbps</span><span>•</span><span>4.30 ms</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 35%; background: linear-gradient(90deg,#FFD600,#F59E0B);"></div></div>
         </div>
         <!-- Card 3D 4: AP Estoque -->
-        <div style="transform: rotateX(8deg) rotateY(2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #FF9100; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(255, 145, 0, 0.25);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #FF9100;">📡</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD ESTOQUE</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.1.14</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,145,0,0.15); color: #FF9100; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 14 Clientes</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Coletores</div>
-            <div style="font-size: 10px; color: #CBD5E1;">⚡ 18.6 Mbps | 0.37 ms</div>
+        <div class="card-3d-interactive card-purple" style="--ry: 2deg;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #A855F7;">📡</div>
+            <div class="card-title">UAP-HD ESTOQUE</div>
+            <div class="card-subtitle">192.168.1.14</div>
+            <div class="badge-pill badge-purple"><span class="live-dot live-dot-purple"></span> 14 Clientes</div>
+            <div class="card-highlight">SSID: Coletores</div>
+            <div class="card-info-row"><span>⚡ 18.6 Mbps</span><span>•</span><span>0.37 ms</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 25%; background: linear-gradient(90deg,#A855F7,#EC4899);"></div></div>
         </div>
         <!-- Card 3D 5: AP AC-Pro TI -->
-        <div style="transform: rotateX(8deg) rotateY(4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #E040FB; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(224, 64, 251, 0.25);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #E040FB;">📡</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">AC-PRO TI</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.1.15</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(224,64,251,0.15); color: #E040FB; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 35 Clientes</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Corp</div>
-            <div style="font-size: 10px; color: #CBD5E1;">⚡ 44.9 Mbps | 0.22 ms</div>
+        <div class="card-3d-interactive card-blue" style="--ry: 4deg;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #38BDF8;">📡</div>
+            <div class="card-title">AC-PRO TI</div>
+            <div class="card-subtitle">192.168.1.15</div>
+            <div class="badge-pill badge-blue"><span class="live-dot live-dot-blue"></span> 35 Clientes</div>
+            <div class="card-highlight">SSID: Enterprise-Corp</div>
+            <div class="card-info-row"><span>⚡ 44.9 Mbps</span><span>•</span><span>0.22 ms</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 60%; background: linear-gradient(90deg,#38BDF8,#00E676);"></div></div>
         </div>
         <!-- Card 3D 6: AP AC-Pro Geral (Offline) -->
-        <div style="transform: rotateX(8deg) rotateY(6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(69, 10, 10, 0.85), rgba(24, 2, 2, 0.95)); border: 1px solid #FF1744; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(255, 23, 68, 0.35);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #FF1744;">⚠️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">AC-PRO GERAL</div>
-            <div style="color: #F87171; font-size: 11px;">192.168.1.16</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,23,68,0.25); color: #FF5252; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🔴 OFFLINE (100% Loss)</div>
-            <div style="font-size: 10px; color: #FCA5A5; margin-top: 4px;">SSID: Inativo</div>
-            <div style="font-size: 10px; color: #EF4444;">Falha de Alimentação PoE</div>
+        <div class="card-3d-interactive card-red" style="--ry: 6deg;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #FF1744;">⚠️</div>
+            <div class="card-title" style="color: #FCA5A5;">AC-PRO GERAL</div>
+            <div class="card-subtitle" style="color: #F87171;">192.168.1.16</div>
+            <div class="badge-pill badge-red"><span class="live-dot live-dot-red"></span> OFFLINE (100% Loss)</div>
+            <div class="card-highlight" style="color: #FCA5A5;">SSID: Inativo</div>
+            <div class="card-info-row" style="color: #EF4444; font-weight: bold;">Falha de PoE Detectada</div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 100%; background: #EF4444;"></div></div>
         </div>
     </div>
-</div>
-"""
+</div>"""
             }
         },
 
@@ -557,48 +725,214 @@ dash_servers = {
             "title": "🏢 Datacenter 3D - Rack de Servidores Corporativos & Infraestrutura",
             "options": {
                 "mode": "html",
-                "content": """
-<div style="perspective: 1200px; padding: 10px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 15px;">
+                "content": """<style>
+@keyframes pulse-glow-green { 0%, 100% { box-shadow: 0 0 15px rgba(0,230,118,0.25), inset 0 0 10px rgba(0,230,118,0.1); } 50% { box-shadow: 0 0 28px rgba(0,230,118,0.6), inset 0 0 18px rgba(0,230,118,0.25); } }
+@keyframes pulse-glow-blue { 0%, 100% { box-shadow: 0 0 15px rgba(0,176,255,0.25), inset 0 0 10px rgba(0,176,255,0.1); } 50% { box-shadow: 0 0 28px rgba(0,176,255,0.6), inset 0 0 18px rgba(0,176,255,0.25); } }
+@keyframes pulse-glow-amber { 0%, 100% { box-shadow: 0 0 15px rgba(255,214,0,0.25), inset 0 0 10px rgba(255,214,0,0.1); } 50% { box-shadow: 0 0 28px rgba(255,214,0,0.6), inset 0 0 18px rgba(255,214,0,0.25); } }
+@keyframes pulse-glow-purple { 0%, 100% { box-shadow: 0 0 15px rgba(168,85,247,0.25), inset 0 0 10px rgba(168,85,247,0.1); } 50% { box-shadow: 0 0 28px rgba(168,85,247,0.6), inset 0 0 18px rgba(168,85,247,0.25); } }
+@keyframes pulse-glow-red { 0%, 100% { box-shadow: 0 0 15px rgba(255,23,68,0.35), inset 0 0 10px rgba(255,23,68,0.15); } 50% { box-shadow: 0 0 30px rgba(255,23,68,0.8), inset 0 0 20px rgba(255,23,68,0.3); } }
+@keyframes float3d { 0%, 100% { transform: translateY(0px) rotateX(6deg) rotateY(var(--ry, 0deg)); } 50% { transform: translateY(-7px) rotateX(8deg) rotateY(var(--ry, 0deg)); } }
+@keyframes radarSweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+
+.noc-stage-3d {
+    perspective: 1400px;
+    padding: 16px 14px 18px;
+    background: radial-gradient(circle at 50% 20%, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.92) 50%, rgba(2, 6, 23, 0.98) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+}
+.noc-stage-3d::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.7), transparent);
+}
+.noc-grid-cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 16px;
+    transform-style: preserve-3d;
+}
+.card-3d-interactive {
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease, border-color 0.35s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 14px;
+    padding: 14px 16px;
+    min-width: 175px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    animation: float3d 5s ease-in-out infinite;
+}
+.card-3d-interactive:hover {
+    transform: translateY(-12px) scale(1.04) rotateX(0deg) rotateY(0deg) !important;
+    z-index: 10;
+}
+.card-green {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 230, 118, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 230, 118, 0.25);
+    animation: float3d 5.5s ease-in-out infinite, pulse-glow-green 4s infinite ease-in-out;
+}
+.card-blue {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 176, 255, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 176, 255, 0.25);
+    animation: float3d 5.2s ease-in-out infinite 0.4s, pulse-glow-blue 4s infinite ease-in-out 0.5s;
+}
+.card-amber {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(255, 214, 0, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(255, 214, 0, 0.25);
+    animation: float3d 5.8s ease-in-out infinite 0.8s, pulse-glow-amber 4s infinite ease-in-out 1s;
+}
+.card-purple {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(168, 85, 247, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(168, 85, 247, 0.25);
+    animation: float3d 6s ease-in-out infinite 1.2s, pulse-glow-purple 4s infinite ease-in-out 1.5s;
+}
+.card-red {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(30, 10, 15, 0.95) 75%);
+    border: 1px solid rgba(255, 23, 68, 0.65);
+    box-shadow: 0 12px 28px -5px rgba(255, 23, 68, 0.35);
+    animation: float3d 4.8s ease-in-out infinite 1.5s, pulse-glow-red 3s infinite ease-in-out;
+}
+.card-icon-3d {
+    font-size: 32px;
+    margin-bottom: 4px;
+    display: inline-block;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+    transition: transform 0.3s;
+}
+.card-3d-interactive:hover .card-icon-3d {
+    transform: scale(1.22) translateZ(25px);
+}
+.card-title {
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+.card-subtitle {
+    color: #94A3B8;
+    font-size: 11px;
+    font-family: monospace;
+}
+.badge-pill {
+    margin: 8px auto 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulseDot 1.6s infinite ease-in-out;
+}
+.live-dot-green { background: #00E676; box-shadow: 0 0 8px #00E676; }
+.live-dot-blue { background: #00B0FF; box-shadow: 0 0 8px #00B0FF; }
+.live-dot-amber { background: #FFD600; box-shadow: 0 0 8px #FFD600; }
+.live-dot-purple { background: #A855F7; box-shadow: 0 0 8px #A855F7; }
+.live-dot-red { background: #FF1744; box-shadow: 0 0 8px #FF1744; }
+
+.badge-green { background: rgba(0, 230, 118, 0.16); color: #00E676; border: 1px solid rgba(0, 230, 118, 0.3); }
+.badge-blue { background: rgba(0, 176, 255, 0.16); color: #00B0FF; border: 1px solid rgba(0, 176, 255, 0.3); }
+.badge-amber { background: rgba(255, 214, 0, 0.16); color: #FFD600; border: 1px solid rgba(255, 214, 0, 0.3); }
+.badge-purple { background: rgba(168, 85, 247, 0.16); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3); }
+.badge-red { background: rgba(255, 23, 68, 0.22); color: #FF5252; border: 1px solid rgba(255, 23, 68, 0.4); }
+
+.card-info-row {
+    font-size: 10.5px;
+    color: #CBD5E1;
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+.card-highlight {
+    font-size: 11px;
+    color: #38BDF8;
+    font-weight: 600;
+    margin-top: 4px;
+}
+.cyber-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+.cyber-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #00E676, #00B0FF);
+}
+</style>
+<div class="noc-stage-3d">
+    <div class="noc-grid-cards">
         <!-- Card 3D 1: SRV NOC Monitoring -->
-        <div style="transform: rotateX(8deg) rotateY(-5deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 230, 118, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #00E676;">🖥️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">SRV-NOC-MONITORING</div>
-            <div style="color: #94A3B8; font-size: 11px;">10.0.0.10 (Zabbix/Grafana)</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 100% OPERACIONAL</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">CPU: 17.3% | RAM: 32.4% (8 GB)</div>
-            <div style="font-size: 10px; color: #CBD5E1;">Disco: 11.9% | Uptime: 3.5 Dias</div>
+        <div class="card-3d-interactive card-green" style="--ry: -5deg; min-width: 210px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #00E676;">🖥️</div>
+            <div class="card-title">SRV-NOC-MONITORING</div>
+            <div class="card-subtitle">10.0.0.10 (Zabbix/Grafana)</div>
+            <div class="badge-pill badge-green"><span class="live-dot live-dot-green"></span> 100% OPERACIONAL</div>
+            <div class="card-highlight">CPU: 17.3% | RAM: 32.4% (8 GB)</div>
+            <div class="card-info-row"><span>💾 Disco: 11.9%</span><span>•</span><span>⏱️ Uptime: 3.5d</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 32%; background: linear-gradient(90deg,#00E676,#38BDF8);"></div></div>
         </div>
         <!-- Card 3D 2: ERP TOTVS Protheus -->
-        <div style="transform: rotateX(8deg) rotateY(-2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 176, 255, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #00B0FF;">🏢</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">SRV-ERP-PROTHEUS</div>
-            <div style="color: #94A3B8; font-size: 11px;">10.0.0.20 (Banco & ERP)</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 HTTP 80 ATIVO</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">Tempo Resposta: 0.92 ms</div>
-            <div style="font-size: 10px; color: #CBD5E1;">SSH Porta 22: Desativado (Segurança)</div>
+        <div class="card-3d-interactive card-blue" style="--ry: -2deg; min-width: 210px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #00B0FF;">🏢</div>
+            <div class="card-title">SRV-ERP-PROTHEUS</div>
+            <div class="card-subtitle">10.0.0.20 (Banco & ERP)</div>
+            <div class="badge-pill badge-blue"><span class="live-dot live-dot-blue"></span> HTTP 80 ATIVO</div>
+            <div class="card-highlight">Tempo Resposta: 0.92 ms</div>
+            <div class="card-info-row"><span>🛡️ Hardening Rígido</span><span>•</span><span>SSH Restrito</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 45%; background: linear-gradient(90deg,#00B0FF,#818CF8);"></div></div>
         </div>
         <!-- Card 3D 3: Gateway Edge -->
-        <div style="transform: rotateX(8deg) rotateY(2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(255, 214, 0, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #FFD600;">🛡️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">GATEWAY EDGE 10.1</div>
-            <div style="color: #94A3B8; font-size: 11px;">10.0.0.1 (Borda Corporativa)</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,214,0,0.15); color: #FFD600; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 LATÊNCIA SUB-MS</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">Tempo Resposta: 0.18 ms</div>
-            <div style="font-size: 10px; color: #CBD5E1;">Perda de Pacotes: 0%</div>
+        <div class="card-3d-interactive card-amber" style="--ry: 2deg; min-width: 210px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #FFD600;">🛡️</div>
+            <div class="card-title">GATEWAY EDGE 10.1</div>
+            <div class="card-subtitle">10.0.0.1 (Borda Corporativa)</div>
+            <div class="badge-pill badge-amber"><span class="live-dot live-dot-amber"></span> LATÊNCIA SUB-MS</div>
+            <div class="card-highlight">Tempo Resposta: 0.18 ms</div>
+            <div class="card-info-row"><span>⚡ Perda: 0.00%</span><span>•</span><span>Firewall State: OK</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 15%; background: linear-gradient(90deg,#FFD600,#F59E0B);"></div></div>
         </div>
         <!-- Card 3D 4: Estações Windows -->
-        <div style="transform: rotateX(8deg) rotateY(5deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #7C4DFF; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(124, 77, 255, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #7C4DFF;">💻</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">PARQUE ESTAÇÕES</div>
-            <div style="color: #94A3B8; font-size: 11px;">28 Desktops / Notebooks</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(124,77,255,0.15); color: #B388FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">💻 26 ONLINE / 2 OFFLINE</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">Porta RDP 3389 / SMB 445</div>
-            <div style="font-size: 10px; color: #CBD5E1;">Latência Média: 0.45 ms</div>
+        <div class="card-3d-interactive card-purple" style="--ry: 5deg; min-width: 210px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #A855F7;">💻</div>
+            <div class="card-title">PARQUE ESTAÇÕES</div>
+            <div class="card-subtitle">28 Desktops / Workstations</div>
+            <div class="badge-pill badge-purple"><span class="live-dot live-dot-purple"></span> 26 ONLINE / 2 OFFLINE</div>
+            <div class="card-highlight">RDP 3389 / SMB 445 Ativos</div>
+            <div class="card-info-row"><span>⚡ Latência Média: 0.45 ms</span><span>•</span><span>92.8% Up</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 93%; background: linear-gradient(90deg,#A855F7,#38BDF8);"></div></div>
         </div>
     </div>
-</div>
-"""
+</div>"""
             }
         },
 
@@ -897,55 +1231,224 @@ dash_links = {
             "title": "🌐 Telecom WAN 3D - Borda de Conectividade & Mitigação Ativa Fibra Óptica",
             "options": {
                 "mode": "html",
-                "content": """
-<div style="perspective: 1200px; padding: 12px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(0, 230, 118, 0.35); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 14px;">
+                "content": """<style>
+@keyframes pulse-glow-green { 0%, 100% { box-shadow: 0 0 15px rgba(0,230,118,0.25), inset 0 0 10px rgba(0,230,118,0.1); } 50% { box-shadow: 0 0 28px rgba(0,230,118,0.6), inset 0 0 18px rgba(0,230,118,0.25); } }
+@keyframes pulse-glow-blue { 0%, 100% { box-shadow: 0 0 15px rgba(0,176,255,0.25), inset 0 0 10px rgba(0,176,255,0.1); } 50% { box-shadow: 0 0 28px rgba(0,176,255,0.6), inset 0 0 18px rgba(0,176,255,0.25); } }
+@keyframes pulse-glow-amber { 0%, 100% { box-shadow: 0 0 15px rgba(255,214,0,0.25), inset 0 0 10px rgba(255,214,0,0.1); } 50% { box-shadow: 0 0 28px rgba(255,214,0,0.6), inset 0 0 18px rgba(255,214,0,0.25); } }
+@keyframes pulse-glow-purple { 0%, 100% { box-shadow: 0 0 15px rgba(168,85,247,0.25), inset 0 0 10px rgba(168,85,247,0.1); } 50% { box-shadow: 0 0 28px rgba(168,85,247,0.6), inset 0 0 18px rgba(168,85,247,0.25); } }
+@keyframes pulse-glow-red { 0%, 100% { box-shadow: 0 0 15px rgba(255,23,68,0.35), inset 0 0 10px rgba(255,23,68,0.15); } 50% { box-shadow: 0 0 30px rgba(255,23,68,0.8), inset 0 0 20px rgba(255,23,68,0.3); } }
+@keyframes float3d { 0%, 100% { transform: translateY(0px) rotateX(6deg) rotateY(var(--ry, 0deg)); } 50% { transform: translateY(-7px) rotateX(8deg) rotateY(var(--ry, 0deg)); } }
+@keyframes radarSweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+
+.noc-stage-3d {
+    perspective: 1400px;
+    padding: 16px 14px 18px;
+    background: radial-gradient(circle at 50% 20%, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.92) 50%, rgba(2, 6, 23, 0.98) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+}
+.noc-stage-3d::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.7), transparent);
+}
+.noc-grid-cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 16px;
+    transform-style: preserve-3d;
+}
+.card-3d-interactive {
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease, border-color 0.35s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 14px;
+    padding: 14px 16px;
+    min-width: 175px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    animation: float3d 5s ease-in-out infinite;
+}
+.card-3d-interactive:hover {
+    transform: translateY(-12px) scale(1.04) rotateX(0deg) rotateY(0deg) !important;
+    z-index: 10;
+}
+.card-green {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 230, 118, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 230, 118, 0.25);
+    animation: float3d 5.5s ease-in-out infinite, pulse-glow-green 4s infinite ease-in-out;
+}
+.card-blue {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 176, 255, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 176, 255, 0.25);
+    animation: float3d 5.2s ease-in-out infinite 0.4s, pulse-glow-blue 4s infinite ease-in-out 0.5s;
+}
+.card-amber {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(255, 214, 0, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(255, 214, 0, 0.25);
+    animation: float3d 5.8s ease-in-out infinite 0.8s, pulse-glow-amber 4s infinite ease-in-out 1s;
+}
+.card-purple {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(168, 85, 247, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(168, 85, 247, 0.25);
+    animation: float3d 6s ease-in-out infinite 1.2s, pulse-glow-purple 4s infinite ease-in-out 1.5s;
+}
+.card-red {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(30, 10, 15, 0.95) 75%);
+    border: 1px solid rgba(255, 23, 68, 0.65);
+    box-shadow: 0 12px 28px -5px rgba(255, 23, 68, 0.35);
+    animation: float3d 4.8s ease-in-out infinite 1.5s, pulse-glow-red 3s infinite ease-in-out;
+}
+.card-icon-3d {
+    font-size: 32px;
+    margin-bottom: 4px;
+    display: inline-block;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+    transition: transform 0.3s;
+}
+.card-3d-interactive:hover .card-icon-3d {
+    transform: scale(1.22) translateZ(25px);
+}
+.card-title {
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+.card-subtitle {
+    color: #94A3B8;
+    font-size: 11px;
+    font-family: monospace;
+}
+.badge-pill {
+    margin: 8px auto 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulseDot 1.6s infinite ease-in-out;
+}
+.live-dot-green { background: #00E676; box-shadow: 0 0 8px #00E676; }
+.live-dot-blue { background: #00B0FF; box-shadow: 0 0 8px #00B0FF; }
+.live-dot-amber { background: #FFD600; box-shadow: 0 0 8px #FFD600; }
+.live-dot-purple { background: #A855F7; box-shadow: 0 0 8px #A855F7; }
+.live-dot-red { background: #FF1744; box-shadow: 0 0 8px #FF1744; }
+
+.badge-green { background: rgba(0, 230, 118, 0.16); color: #00E676; border: 1px solid rgba(0, 230, 118, 0.3); }
+.badge-blue { background: rgba(0, 176, 255, 0.16); color: #00B0FF; border: 1px solid rgba(0, 176, 255, 0.3); }
+.badge-amber { background: rgba(255, 214, 0, 0.16); color: #FFD600; border: 1px solid rgba(255, 214, 0, 0.3); }
+.badge-purple { background: rgba(168, 85, 247, 0.16); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3); }
+.badge-red { background: rgba(255, 23, 68, 0.22); color: #FF5252; border: 1px solid rgba(255, 23, 68, 0.4); }
+
+.card-info-row {
+    font-size: 10.5px;
+    color: #CBD5E1;
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+.card-highlight {
+    font-size: 11px;
+    color: #38BDF8;
+    font-weight: 600;
+    margin-top: 4px;
+}
+.cyber-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+.cyber-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #00E676, #00B0FF);
+}
+</style>
+<div class="noc-stage-3d">
+    <div class="noc-grid-cards">
         <!-- Card 3D 1: Provedor ISP -->
-        <div style="transform: rotateX(8deg) rotateY(-6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 230, 118, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #00E676;">🏢</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">TOP FIBRA TELECOM</div>
-            <div style="color: #94A3B8; font-size: 11px;">Link Dedicado WAN 1:1</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 FIBRA ILUMINADA</div>
-            <div style="font-size: 11px; color: #38BDF8; margin-top: 4px;">IP: 203.0.113.1 (WAN)</div>
-            <div style="font-size: 10px; color: #CBD5E1;">SLA 99.98% Garantido</div>
+        <div class="card-3d-interactive card-green" style="--ry: -6deg; min-width: 210px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #00E676;">🏢</div>
+            <div class="card-title">TOP FIBRA TELECOM</div>
+            <div class="card-subtitle">Link Dedicado WAN 1:1</div>
+            <div class="badge-pill badge-green"><span class="live-dot live-dot-green"></span> FIBRA ILUMINADA</div>
+            <div class="card-highlight">IP: 203.0.113.1 (BGP/WAN)</div>
+            <div class="card-info-row"><span>🌐 SLA 99.98% Garantido</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 100%; background: linear-gradient(90deg,#00E676,#38BDF8);"></div></div>
         </div>
         <!-- Card 3D 2: MITIGAÇÃO ATIVA DE PERDA DE PACOTES -->
-        <div style="transform: rotateX(8deg) rotateY(-3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.95)); border: 1px solid #10B981; border-radius: 10px; padding: 12px 18px; min-width: 230px; text-align: center; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #10B981;">🛡️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">MITIGAÇÃO PERDA PACOTES</div>
-            <div style="color: #34D399; font-size: 11px; font-weight: bold;">🟢 0.00% LOSS (PROTEÇÃO ATIVA)</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(16,185,129,0.2); color: #6EE7B7; padding: 2px 8px; border-radius: 12px; font-size: 10px;">QoS FQ-CoDel + Anti-Bufferbloat</div>
-            <div style="font-size: 10px; color: #94A3B8; margin-top: 4px;">Failover Automático Multi-Gateway</div>
-            <div style="font-size: 10px; color: #A7F3D0;">0 descartes / 10.000 probes</div>
+        <div class="card-3d-interactive card-green" style="--ry: -3deg; min-width: 230px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #10B981;">🛡️</div>
+            <div class="card-title">MITIGAÇÃO PERDA PACOTES</div>
+            <div class="card-subtitle">Zero Packet Loss Engine</div>
+            <div class="badge-pill badge-green"><span class="live-dot live-dot-green"></span> 0.00% LOSS (PROTEGIDO)</div>
+            <div class="card-highlight">QoS FQ-CoDel + Anti-Bufferbloat</div>
+            <div class="card-info-row"><span>🚀 Failover Automático</span><span>•</span><span>0 descartes</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 100%; background: linear-gradient(90deg,#10B981,#00E676);"></div></div>
         </div>
         <!-- Card 3D 3: CONSUMO DE BANDA EM TEMPO REAL -->
-        <div style="transform: rotateX(8deg) rotateY(0deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(15, 23, 42, 0.95)); border: 1px solid #3B82F6; border-radius: 10px; padding: 12px 18px; min-width: 230px; text-align: center; box-shadow: 0 8px 25px rgba(59, 130, 246, 0.35);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #3B82F6;">🚀</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">CONSUMO DE BANDA WAN</div>
-            <div style="color: #60A5FA; font-size: 11px; font-weight: bold;">⚡ 135.8M RX (22%) | 40.7M TX (13%)</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(59,130,246,0.2); color: #93C5FD; padding: 2px 8px; border-radius: 12px; font-size: 10px;">Contrato: 600M Down / 300M Up</div>
-            <div style="font-size: 10px; color: #94A3B8; margin-top: 4px;">Shaper Anti-Saturação Ativo (85%)</div>
-            <div style="font-size: 10px; color: #00E676;">🟢 Sem Gargalos de Tráfego</div>
+        <div class="card-3d-interactive card-blue" style="--ry: 0deg; min-width: 230px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #3B82F6;">🚀</div>
+            <div class="card-title">CONSUMO DE BANDA WAN</div>
+            <div class="card-subtitle">Contrato 600M Down / 300M Up</div>
+            <div class="badge-pill badge-blue"><span class="live-dot live-dot-blue"></span> 135.8M RX | 40.7M TX</div>
+            <div class="card-highlight">Uso: 22.6% Down • 13.5% Up</div>
+            <div class="card-info-row"><span>⚡ Shaper Anti-Saturação Ativo (85%)</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 23%; background: linear-gradient(90deg,#38BDF8,#3B82F6);"></div></div>
         </div>
         <!-- Card 3D 4: Gateway Google -->
-        <div style="transform: rotateX(8deg) rotateY(3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 12px 18px; min-width: 190px; text-align: center; box-shadow: 0 8px 25px rgba(0, 176, 255, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #00B0FF;">🌍</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">ROTA GOOGLE (8.8.8.8)</div>
-            <div style="color: #94A3B8; font-size: 11px;">Gateway Primário Ativo</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">⚡ 29.1 ms (ESTÁVEL)</div>
-            <div style="font-size: 10px; color: #CBD5E1; margin-top: 4px;">Perda de Pacotes: 0.0%</div>
+        <div class="card-3d-interactive card-blue" style="--ry: 3deg; min-width: 200px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #00B0FF;">🌍</div>
+            <div class="card-title">ROTA GOOGLE (8.8.8.8)</div>
+            <div class="card-subtitle">Gateway Primário Anycast</div>
+            <div class="badge-pill badge-blue"><span class="live-dot live-dot-blue"></span> 29.1 ms (ESTÁVEL)</div>
+            <div class="card-highlight">Perda de Pacotes: 0.0%</div>
+            <div class="card-info-row"><span>🎯 Jitter: 0.12 ms</span><span>•</span><span>RTT Ótimo</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 85%; background: linear-gradient(90deg,#00B0FF,#818CF8);"></div></div>
         </div>
         <!-- Card 3D 5: Gateway Cloudflare -->
-        <div style="transform: rotateX(8deg) rotateY(6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 12px 18px; min-width: 190px; text-align: center; box-shadow: 0 8px 25px rgba(255, 214, 0, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #FFD600;">☁️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">ROTA CLOUDFLARE (1.1.1.1)</div>
-            <div style="color: #94A3B8; font-size: 11px;">Gateway Backup Standby</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,214,0,0.15); color: #FFD600; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">⚡ 53.7 ms (STANDBY)</div>
-            <div style="font-size: 10px; color: #CBD5E1; margin-top: 4px;">Perda de Pacotes: 0.0%</div>
+        <div class="card-3d-interactive card-amber" style="--ry: 6deg; min-width: 200px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #FFD600;">☁️</div>
+            <div class="card-title">ROTA CLOUDFLARE (1.1.1.1)</div>
+            <div class="card-subtitle">Gateway Backup Standby</div>
+            <div class="badge-pill badge-amber"><span class="live-dot live-dot-amber"></span> 53.7 ms (STANDBY)</div>
+            <div class="card-highlight">Perda de Pacotes: 0.0%</div>
+            <div class="card-info-row"><span>🛡️ Rota de Contingência Ativa</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 65%; background: linear-gradient(90deg,#FFD600,#F59E0B);"></div></div>
         </div>
     </div>
-</div>
-"""
+</div>"""
             }
         },
 
@@ -1187,32 +1690,196 @@ dash_printers = {
             "title": "🖨️ Parque HP LaserJet Flow 3D - Nível de Suprimentos & Telemetria",
             "options": {
                 "mode": "html",
-                "content": """
-<div style="perspective: 1200px; padding: 10px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(255, 145, 0, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px;">
+                "content": """<style>
+@keyframes pulse-glow-green { 0%, 100% { box-shadow: 0 0 15px rgba(0,230,118,0.25), inset 0 0 10px rgba(0,230,118,0.1); } 50% { box-shadow: 0 0 28px rgba(0,230,118,0.6), inset 0 0 18px rgba(0,230,118,0.25); } }
+@keyframes pulse-glow-blue { 0%, 100% { box-shadow: 0 0 15px rgba(0,176,255,0.25), inset 0 0 10px rgba(0,176,255,0.1); } 50% { box-shadow: 0 0 28px rgba(0,176,255,0.6), inset 0 0 18px rgba(0,176,255,0.25); } }
+@keyframes pulse-glow-amber { 0%, 100% { box-shadow: 0 0 15px rgba(255,214,0,0.25), inset 0 0 10px rgba(255,214,0,0.1); } 50% { box-shadow: 0 0 28px rgba(255,214,0,0.6), inset 0 0 18px rgba(255,214,0,0.25); } }
+@keyframes pulse-glow-purple { 0%, 100% { box-shadow: 0 0 15px rgba(168,85,247,0.25), inset 0 0 10px rgba(168,85,247,0.1); } 50% { box-shadow: 0 0 28px rgba(168,85,247,0.6), inset 0 0 18px rgba(168,85,247,0.25); } }
+@keyframes pulse-glow-red { 0%, 100% { box-shadow: 0 0 15px rgba(255,23,68,0.35), inset 0 0 10px rgba(255,23,68,0.15); } 50% { box-shadow: 0 0 30px rgba(255,23,68,0.8), inset 0 0 20px rgba(255,23,68,0.3); } }
+@keyframes float3d { 0%, 100% { transform: translateY(0px) rotateX(6deg) rotateY(var(--ry, 0deg)); } 50% { transform: translateY(-7px) rotateX(8deg) rotateY(var(--ry, 0deg)); } }
+@keyframes radarSweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+
+.noc-stage-3d {
+    perspective: 1400px;
+    padding: 16px 14px 18px;
+    background: radial-gradient(circle at 50% 20%, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.92) 50%, rgba(2, 6, 23, 0.98) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+}
+.noc-stage-3d::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.7), transparent);
+}
+.noc-grid-cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 16px;
+    transform-style: preserve-3d;
+}
+.card-3d-interactive {
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease, border-color 0.35s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 14px;
+    padding: 14px 16px;
+    min-width: 175px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    animation: float3d 5s ease-in-out infinite;
+}
+.card-3d-interactive:hover {
+    transform: translateY(-12px) scale(1.04) rotateX(0deg) rotateY(0deg) !important;
+    z-index: 10;
+}
+.card-green {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 230, 118, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 230, 118, 0.25);
+    animation: float3d 5.5s ease-in-out infinite, pulse-glow-green 4s infinite ease-in-out;
+}
+.card-blue {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 176, 255, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 176, 255, 0.25);
+    animation: float3d 5.2s ease-in-out infinite 0.4s, pulse-glow-blue 4s infinite ease-in-out 0.5s;
+}
+.card-amber {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(255, 214, 0, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(255, 214, 0, 0.25);
+    animation: float3d 5.8s ease-in-out infinite 0.8s, pulse-glow-amber 4s infinite ease-in-out 1s;
+}
+.card-purple {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(168, 85, 247, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(168, 85, 247, 0.25);
+    animation: float3d 6s ease-in-out infinite 1.2s, pulse-glow-purple 4s infinite ease-in-out 1.5s;
+}
+.card-red {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(30, 10, 15, 0.95) 75%);
+    border: 1px solid rgba(255, 23, 68, 0.65);
+    box-shadow: 0 12px 28px -5px rgba(255, 23, 68, 0.35);
+    animation: float3d 4.8s ease-in-out infinite 1.5s, pulse-glow-red 3s infinite ease-in-out;
+}
+.card-icon-3d {
+    font-size: 32px;
+    margin-bottom: 4px;
+    display: inline-block;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+    transition: transform 0.3s;
+}
+.card-3d-interactive:hover .card-icon-3d {
+    transform: scale(1.22) translateZ(25px);
+}
+.card-title {
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+.card-subtitle {
+    color: #94A3B8;
+    font-size: 11px;
+    font-family: monospace;
+}
+.badge-pill {
+    margin: 8px auto 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulseDot 1.6s infinite ease-in-out;
+}
+.live-dot-green { background: #00E676; box-shadow: 0 0 8px #00E676; }
+.live-dot-blue { background: #00B0FF; box-shadow: 0 0 8px #00B0FF; }
+.live-dot-amber { background: #FFD600; box-shadow: 0 0 8px #FFD600; }
+.live-dot-purple { background: #A855F7; box-shadow: 0 0 8px #A855F7; }
+.live-dot-red { background: #FF1744; box-shadow: 0 0 8px #FF1744; }
+
+.badge-green { background: rgba(0, 230, 118, 0.16); color: #00E676; border: 1px solid rgba(0, 230, 118, 0.3); }
+.badge-blue { background: rgba(0, 176, 255, 0.16); color: #00B0FF; border: 1px solid rgba(0, 176, 255, 0.3); }
+.badge-amber { background: rgba(255, 214, 0, 0.16); color: #FFD600; border: 1px solid rgba(255, 214, 0, 0.3); }
+.badge-purple { background: rgba(168, 85, 247, 0.16); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3); }
+.badge-red { background: rgba(255, 23, 68, 0.22); color: #FF5252; border: 1px solid rgba(255, 23, 68, 0.4); }
+
+.card-info-row {
+    font-size: 10.5px;
+    color: #CBD5E1;
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+.card-highlight {
+    font-size: 11px;
+    color: #38BDF8;
+    font-weight: 600;
+    margin-top: 4px;
+}
+.cyber-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+.cyber-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #00E676, #00B0FF);
+}
+</style>
+<div class="noc-stage-3d">
+    <div class="noc-grid-cards">
         <!-- Card 3D 1: HP 01 -->
-        <div style="transform: rotateX(8deg) rotateY(-4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FF9100; border-radius: 12px; padding: 14px 24px; min-width: 280px; text-align: center; box-shadow: 0 8px 25px rgba(255, 145, 0, 0.25);">
-            <div style="font-size: 38px; text-shadow: 0 0 15px #FF9100;">🖨️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 15px; margin-top: 4px;">HP LASERJET FLOW 220</div>
-            <div style="color: #94A3B8; font-size: 12px;">IP: 192.168.1.50 | Serial: BRBSQ2Q11P</div>
-            <div style="margin-top: 8px; display: inline-block; background: rgba(255, 145, 0, 0.2); color: #FF9100; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 12px;">⚠️ Toner Preto: 15% (Atenção)</div>
-            <div style="font-size: 11px; color: #38BDF8; margin-top: 6px;">Páginas Impressas: 324.549</div>
-            <div style="font-size: 11px; color: #CBD5E1;">ADF: 81% | Cilindros: 62% | Latência: 0.41 ms</div>
-            <div style="font-size: 11px; color: #00E676; margin-top: 4px;">Display: "Pronta"</div>
+        <div class="card-3d-interactive card-amber" style="--ry: -4deg; min-width: 290px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 20px #FF9100;">🖨️</div>
+            <div class="card-title">HP LASERJET FLOW 220</div>
+            <div class="card-subtitle">IP: 192.168.1.50 | BRBSQ2Q11P</div>
+            <div class="badge-pill badge-amber"><span class="live-dot live-dot-amber"></span> Toner Preto: 15% (Atenção)</div>
+            <div class="card-highlight">📄 324.549 Páginas Impressas</div>
+            <div class="card-info-row"><span>ADF: 81%</span><span>•</span><span>Cilindros: 62%</span><span>•</span><span>0.41 ms</span></div>
+            <div class="card-info-row" style="color: #00E676; font-weight: bold; margin-top: 4px;">🟢 Display Status: "Pronta"</div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 15%; background: linear-gradient(90deg,#EF4444,#FF9100);"></div></div>
         </div>
         <!-- Card 3D 2: HP 02 -->
-        <div style="transform: rotateX(8deg) rotateY(4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(69, 10, 10, 0.85), rgba(24, 2, 2, 0.95)); border: 1px solid #FF1744; border-radius: 12px; padding: 14px 24px; min-width: 280px; text-align: center; box-shadow: 0 8px 25px rgba(255, 23, 68, 0.35);">
-            <div style="font-size: 38px; text-shadow: 0 0 15px #FF1744;">🖨️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 15px; margin-top: 4px;">HP LASERJET FLOW 221</div>
-            <div style="color: #F87171; font-size: 12px;">IP: 192.168.1.51 | Serial: BRBSQ2G0BP</div>
-            <div style="margin-top: 8px; display: inline-block; background: rgba(255, 23, 68, 0.25); color: #FF5252; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 12px;">🚨 Toner Preto: 0% (Esgotado)</div>
-            <div style="font-size: 11px; color: #FCA5A5; margin-top: 6px;">Páginas Impressas: 356.600</div>
-            <div style="font-size: 11px; color: #CBD5E1;">ADF: 74% | Cilindros: 49% | Latência: 0.35 ms</div>
-            <div style="font-size: 11px; color: #00E676; margin-top: 4px;">Display: "Pronta"</div>
+        <div class="card-3d-interactive card-red" style="--ry: 4deg; min-width: 290px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 20px #FF1744;">🖨️</div>
+            <div class="card-title" style="color: #FCA5A5;">HP LASERJET FLOW 221</div>
+            <div class="card-subtitle" style="color: #F87171;">IP: 192.168.1.51 | BRBSQ2G0BP</div>
+            <div class="badge-pill badge-red"><span class="live-dot live-dot-red"></span> Toner Preto: 0% (Esgotado)</div>
+            <div class="card-highlight" style="color: #FCA5A5;">📄 356.600 Páginas Impressas</div>
+            <div class="card-info-row"><span>ADF: 74%</span><span>•</span><span>Cilindros: 49%</span><span>•</span><span>0.35 ms</span></div>
+            <div class="card-info-row" style="color: #EF4444; font-weight: bold; margin-top: 4px;">🚨 Substituir Cartucho Imediatamente</div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 100%; background: #EF4444;"></div></div>
         </div>
     </div>
-</div>
-"""
+</div>"""
             }
         },
 
@@ -1359,44 +2026,214 @@ dash_voip = {
             "title": "📞 Telefonia VoIP Grandstream 3D - Central PABX & Telefonia IP",
             "options": {
                 "mode": "html",
-                "content": """
-<div style="perspective: 1200px; padding: 10px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(124, 77, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 15px;">
+                "content": """<style>
+@keyframes pulse-glow-green { 0%, 100% { box-shadow: 0 0 15px rgba(0,230,118,0.25), inset 0 0 10px rgba(0,230,118,0.1); } 50% { box-shadow: 0 0 28px rgba(0,230,118,0.6), inset 0 0 18px rgba(0,230,118,0.25); } }
+@keyframes pulse-glow-blue { 0%, 100% { box-shadow: 0 0 15px rgba(0,176,255,0.25), inset 0 0 10px rgba(0,176,255,0.1); } 50% { box-shadow: 0 0 28px rgba(0,176,255,0.6), inset 0 0 18px rgba(0,176,255,0.25); } }
+@keyframes pulse-glow-amber { 0%, 100% { box-shadow: 0 0 15px rgba(255,214,0,0.25), inset 0 0 10px rgba(255,214,0,0.1); } 50% { box-shadow: 0 0 28px rgba(255,214,0,0.6), inset 0 0 18px rgba(255,214,0,0.25); } }
+@keyframes pulse-glow-purple { 0%, 100% { box-shadow: 0 0 15px rgba(168,85,247,0.25), inset 0 0 10px rgba(168,85,247,0.1); } 50% { box-shadow: 0 0 28px rgba(168,85,247,0.6), inset 0 0 18px rgba(168,85,247,0.25); } }
+@keyframes pulse-glow-red { 0%, 100% { box-shadow: 0 0 15px rgba(255,23,68,0.35), inset 0 0 10px rgba(255,23,68,0.15); } 50% { box-shadow: 0 0 30px rgba(255,23,68,0.8), inset 0 0 20px rgba(255,23,68,0.3); } }
+@keyframes float3d { 0%, 100% { transform: translateY(0px) rotateX(6deg) rotateY(var(--ry, 0deg)); } 50% { transform: translateY(-7px) rotateX(8deg) rotateY(var(--ry, 0deg)); } }
+@keyframes radarSweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+
+.noc-stage-3d {
+    perspective: 1400px;
+    padding: 16px 14px 18px;
+    background: radial-gradient(circle at 50% 20%, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.92) 50%, rgba(2, 6, 23, 0.98) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+}
+.noc-stage-3d::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.7), transparent);
+}
+.noc-grid-cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 16px;
+    transform-style: preserve-3d;
+}
+.card-3d-interactive {
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease, border-color 0.35s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 14px;
+    padding: 14px 16px;
+    min-width: 175px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    animation: float3d 5s ease-in-out infinite;
+}
+.card-3d-interactive:hover {
+    transform: translateY(-12px) scale(1.04) rotateX(0deg) rotateY(0deg) !important;
+    z-index: 10;
+}
+.card-green {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 230, 118, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 230, 118, 0.25);
+    animation: float3d 5.5s ease-in-out infinite, pulse-glow-green 4s infinite ease-in-out;
+}
+.card-blue {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 176, 255, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 176, 255, 0.25);
+    animation: float3d 5.2s ease-in-out infinite 0.4s, pulse-glow-blue 4s infinite ease-in-out 0.5s;
+}
+.card-amber {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(255, 214, 0, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(255, 214, 0, 0.25);
+    animation: float3d 5.8s ease-in-out infinite 0.8s, pulse-glow-amber 4s infinite ease-in-out 1s;
+}
+.card-purple {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(168, 85, 247, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(168, 85, 247, 0.25);
+    animation: float3d 6s ease-in-out infinite 1.2s, pulse-glow-purple 4s infinite ease-in-out 1.5s;
+}
+.card-red {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(30, 10, 15, 0.95) 75%);
+    border: 1px solid rgba(255, 23, 68, 0.65);
+    box-shadow: 0 12px 28px -5px rgba(255, 23, 68, 0.35);
+    animation: float3d 4.8s ease-in-out infinite 1.5s, pulse-glow-red 3s infinite ease-in-out;
+}
+.card-icon-3d {
+    font-size: 32px;
+    margin-bottom: 4px;
+    display: inline-block;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+    transition: transform 0.3s;
+}
+.card-3d-interactive:hover .card-icon-3d {
+    transform: scale(1.22) translateZ(25px);
+}
+.card-title {
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+.card-subtitle {
+    color: #94A3B8;
+    font-size: 11px;
+    font-family: monospace;
+}
+.badge-pill {
+    margin: 8px auto 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulseDot 1.6s infinite ease-in-out;
+}
+.live-dot-green { background: #00E676; box-shadow: 0 0 8px #00E676; }
+.live-dot-blue { background: #00B0FF; box-shadow: 0 0 8px #00B0FF; }
+.live-dot-amber { background: #FFD600; box-shadow: 0 0 8px #FFD600; }
+.live-dot-purple { background: #A855F7; box-shadow: 0 0 8px #A855F7; }
+.live-dot-red { background: #FF1744; box-shadow: 0 0 8px #FF1744; }
+
+.badge-green { background: rgba(0, 230, 118, 0.16); color: #00E676; border: 1px solid rgba(0, 230, 118, 0.3); }
+.badge-blue { background: rgba(0, 176, 255, 0.16); color: #00B0FF; border: 1px solid rgba(0, 176, 255, 0.3); }
+.badge-amber { background: rgba(255, 214, 0, 0.16); color: #FFD600; border: 1px solid rgba(255, 214, 0, 0.3); }
+.badge-purple { background: rgba(168, 85, 247, 0.16); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3); }
+.badge-red { background: rgba(255, 23, 68, 0.22); color: #FF5252; border: 1px solid rgba(255, 23, 68, 0.4); }
+
+.card-info-row {
+    font-size: 10.5px;
+    color: #CBD5E1;
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+.card-highlight {
+    font-size: 11px;
+    color: #38BDF8;
+    font-weight: 600;
+    margin-top: 4px;
+}
+.cyber-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+.cyber-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #00E676, #00B0FF);
+}
+</style>
+<div class="noc-stage-3d">
+    <div class="noc-grid-cards">
         <!-- Card 3D 1: PABX Central -->
-        <div style="transform: rotateX(8deg) rotateY(-4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #7C4DFF; border-radius: 10px; padding: 14px 20px; min-width: 220px; text-align: center; box-shadow: 0 8px 25px rgba(124, 77, 255, 0.25);">
-            <div style="font-size: 34px; text-shadow: 0 0 15px #7C4DFF;">🎛️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">CENTRAL PABX VOIP</div>
-            <div style="color: #94A3B8; font-size: 11px;">Sinalização SIP Porta 5060</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(124,77,255,0.15); color: #B388FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 13 DE 14 RAMAIS ATIVOS</div>
-            <div style="font-size: 11px; color: #38BDF8; margin-top: 4px;">RTT de Voz Médio: 0.45 ms</div>
+        <div class="card-3d-interactive card-purple" style="--ry: -4deg; min-width: 230px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #A855F7;">🎛️</div>
+            <div class="card-title">CENTRAL PABX VOIP</div>
+            <div class="card-subtitle">Sinalização SIP Porta 5060</div>
+            <div class="badge-pill badge-purple"><span class="live-dot live-dot-purple"></span> 13 DE 14 RAMAIS ATIVOS</div>
+            <div class="card-highlight">RTT de Voz Médio: 0.45 ms</div>
+            <div class="card-info-row"><span>📞 Codec: G.711u / Opus</span><span>•</span><span>Jitter: 0.08ms</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 93%; background: linear-gradient(90deg,#A855F7,#38BDF8);"></div></div>
         </div>
         <!-- Card 3D 2: Ramal 12 -->
-        <div style="transform: rotateX(8deg) rotateY(-1deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 14px 20px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 230, 118, 0.25);">
-            <div style="font-size: 34px; text-shadow: 0 0 15px #00E676;">📞</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">RAMAL GXP-12</div>
-            <div style="color: #94A3B8; font-size: 11px;">IP: 10.0.0.12</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 DISPONÍVEL (0.48 ms)</div>
-            <div style="font-size: 11px; color: #CBD5E1; margin-top: 4px;">Perda de Áudio: 0%</div>
+        <div class="card-3d-interactive card-green" style="--ry: -1deg; min-width: 210px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #00E676;">📞</div>
+            <div class="card-title">RAMAL GXP-12</div>
+            <div class="card-subtitle">IP: 10.0.0.12 (Diretoria)</div>
+            <div class="badge-pill badge-green"><span class="live-dot live-dot-green"></span> DISPONÍVEL (0.48 ms)</div>
+            <div class="card-highlight">Perda de Áudio: 0.00%</div>
+            <div class="card-info-row"><span>🔊 Áudio HD Cristalline</span><span>•</span><span>MOS: 4.41</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 95%; background: linear-gradient(90deg,#00E676,#38BDF8);"></div></div>
         </div>
         <!-- Card 3D 3: Ramal 42 -->
-        <div style="transform: rotateX(8deg) rotateY(2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 14px 20px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 176, 255, 0.25);">
-            <div style="font-size: 34px; text-shadow: 0 0 15px #00B0FF;">📞</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">RAMAL GXP-42</div>
-            <div style="color: #94A3B8; font-size: 11px;">IP: 10.0.3.42</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 DISPONÍVEL (0.46 ms)</div>
-            <div style="font-size: 11px; color: #CBD5E1; margin-top: 4px;">Perda de Áudio: 0%</div>
+        <div class="card-3d-interactive card-blue" style="--ry: 2deg; min-width: 210px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #00B0FF;">📞</div>
+            <div class="card-title">RAMAL GXP-42</div>
+            <div class="card-subtitle">IP: 10.0.3.42 (Operações)</div>
+            <div class="badge-pill badge-blue"><span class="live-dot live-dot-blue"></span> DISPONÍVEL (0.46 ms)</div>
+            <div class="card-highlight">Perda de Áudio: 0.00%</div>
+            <div class="card-info-row"><span>🔊 Áudio HD Cristalline</span><span>•</span><span>MOS: 4.39</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 95%; background: linear-gradient(90deg,#00B0FF,#818CF8);"></div></div>
         </div>
         <!-- Card 3D 4: Ramal 166 (Alerta) -->
-        <div style="transform: rotateX(8deg) rotateY(5deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(69, 10, 10, 0.85), rgba(24, 2, 2, 0.95)); border: 1px solid #FF1744; border-radius: 10px; padding: 14px 20px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(255, 23, 68, 0.35);">
-            <div style="font-size: 34px; text-shadow: 0 0 15px #FF1744;">📵</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">RAMAL GXP-166</div>
-            <div style="color: #F87171; font-size: 11px;">IP: 10.0.0.166</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,23,68,0.25); color: #FF5252; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🔴 TELEFONE MUDO</div>
-            <div style="font-size: 11px; color: #FCA5A5; margin-top: 4px;">Dispositivo Inacessível</div>
+        <div class="card-3d-interactive card-red" style="--ry: 5deg; min-width: 210px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 18px #FF1744;">📵</div>
+            <div class="card-title" style="color: #FCA5A5;">RAMAL GXP-166</div>
+            <div class="card-subtitle" style="color: #F87171;">IP: 10.0.0.166 (Almoxarifado)</div>
+            <div class="badge-pill badge-red"><span class="live-dot live-dot-red"></span> TELEFONE MUDO</div>
+            <div class="card-highlight" style="color: #FCA5A5;">Dispositivo Inacessível</div>
+            <div class="card-info-row" style="color: #EF4444; font-weight: bold;">Verificar Cabo RJ45 / Switch</div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 100%; background: #EF4444;"></div></div>
         </div>
     </div>
-</div>
-"""
+</div>"""
             }
         },
 
@@ -1547,43 +2384,214 @@ dash_master = {
             "title": "🌐 Centro Integrado de Operações NOC 3D - Enterprise NOC",
             "options": {
                 "mode": "html",
-                "content": """
-<div style="perspective: 1200px; padding: 12px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(0, 230, 118, 0.4); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 12px;">
-        <div style="transform: rotateX(8deg) rotateY(-6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 10px 14px; min-width: 155px; text-align: center; box-shadow: 0 6px 18px rgba(0, 230, 118, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #00E676;">🌐</div>
-            <div style="font-weight: bold; color: #FFF; font-size: 13px;">WAN TOP FIBRA</div>
-            <div style="color: #00E676; font-size: 11px; font-weight: bold;">🟢 29.1 ms | 0% Loss</div>
-            <div style="color: #38BDF8; font-size: 10px;">Consumo: 136M (22.6%)</div>
-            <div style="color: #94A3B8; font-size: 10px;">🛡️ Mitigação Ativa</div>
+                "content": """<style>
+@keyframes pulse-glow-green { 0%, 100% { box-shadow: 0 0 15px rgba(0,230,118,0.25), inset 0 0 10px rgba(0,230,118,0.1); } 50% { box-shadow: 0 0 28px rgba(0,230,118,0.6), inset 0 0 18px rgba(0,230,118,0.25); } }
+@keyframes pulse-glow-blue { 0%, 100% { box-shadow: 0 0 15px rgba(0,176,255,0.25), inset 0 0 10px rgba(0,176,255,0.1); } 50% { box-shadow: 0 0 28px rgba(0,176,255,0.6), inset 0 0 18px rgba(0,176,255,0.25); } }
+@keyframes pulse-glow-amber { 0%, 100% { box-shadow: 0 0 15px rgba(255,214,0,0.25), inset 0 0 10px rgba(255,214,0,0.1); } 50% { box-shadow: 0 0 28px rgba(255,214,0,0.6), inset 0 0 18px rgba(255,214,0,0.25); } }
+@keyframes pulse-glow-purple { 0%, 100% { box-shadow: 0 0 15px rgba(168,85,247,0.25), inset 0 0 10px rgba(168,85,247,0.1); } 50% { box-shadow: 0 0 28px rgba(168,85,247,0.6), inset 0 0 18px rgba(168,85,247,0.25); } }
+@keyframes pulse-glow-red { 0%, 100% { box-shadow: 0 0 15px rgba(255,23,68,0.35), inset 0 0 10px rgba(255,23,68,0.15); } 50% { box-shadow: 0 0 30px rgba(255,23,68,0.8), inset 0 0 20px rgba(255,23,68,0.3); } }
+@keyframes float3d { 0%, 100% { transform: translateY(0px) rotateX(6deg) rotateY(var(--ry, 0deg)); } 50% { transform: translateY(-7px) rotateX(8deg) rotateY(var(--ry, 0deg)); } }
+@keyframes radarSweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+
+.noc-stage-3d {
+    perspective: 1400px;
+    padding: 16px 14px 18px;
+    background: radial-gradient(circle at 50% 20%, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.92) 50%, rgba(2, 6, 23, 0.98) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+}
+.noc-stage-3d::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.7), transparent);
+}
+.noc-grid-cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 16px;
+    transform-style: preserve-3d;
+}
+.card-3d-interactive {
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease, border-color 0.35s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 14px;
+    padding: 14px 16px;
+    min-width: 175px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    animation: float3d 5s ease-in-out infinite;
+}
+.card-3d-interactive:hover {
+    transform: translateY(-12px) scale(1.04) rotateX(0deg) rotateY(0deg) !important;
+    z-index: 10;
+}
+.card-green {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 230, 118, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 230, 118, 0.25);
+    animation: float3d 5.5s ease-in-out infinite, pulse-glow-green 4s infinite ease-in-out;
+}
+.card-blue {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(0, 176, 255, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(0, 176, 255, 0.25);
+    animation: float3d 5.2s ease-in-out infinite 0.4s, pulse-glow-blue 4s infinite ease-in-out 0.5s;
+}
+.card-amber {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(255, 214, 0, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(255, 214, 0, 0.25);
+    animation: float3d 5.8s ease-in-out infinite 0.8s, pulse-glow-amber 4s infinite ease-in-out 1s;
+}
+.card-purple {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(15, 23, 42, 0.92) 75%);
+    border: 1px solid rgba(168, 85, 247, 0.55);
+    box-shadow: 0 12px 28px -5px rgba(168, 85, 247, 0.25);
+    animation: float3d 6s ease-in-out infinite 1.2s, pulse-glow-purple 4s infinite ease-in-out 1.5s;
+}
+.card-red {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(30, 10, 15, 0.95) 75%);
+    border: 1px solid rgba(255, 23, 68, 0.65);
+    box-shadow: 0 12px 28px -5px rgba(255, 23, 68, 0.35);
+    animation: float3d 4.8s ease-in-out infinite 1.5s, pulse-glow-red 3s infinite ease-in-out;
+}
+.card-icon-3d {
+    font-size: 32px;
+    margin-bottom: 4px;
+    display: inline-block;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+    transition: transform 0.3s;
+}
+.card-3d-interactive:hover .card-icon-3d {
+    transform: scale(1.22) translateZ(25px);
+}
+.card-title {
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+.card-subtitle {
+    color: #94A3B8;
+    font-size: 11px;
+    font-family: monospace;
+}
+.badge-pill {
+    margin: 8px auto 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulseDot 1.6s infinite ease-in-out;
+}
+.live-dot-green { background: #00E676; box-shadow: 0 0 8px #00E676; }
+.live-dot-blue { background: #00B0FF; box-shadow: 0 0 8px #00B0FF; }
+.live-dot-amber { background: #FFD600; box-shadow: 0 0 8px #FFD600; }
+.live-dot-purple { background: #A855F7; box-shadow: 0 0 8px #A855F7; }
+.live-dot-red { background: #FF1744; box-shadow: 0 0 8px #FF1744; }
+
+.badge-green { background: rgba(0, 230, 118, 0.16); color: #00E676; border: 1px solid rgba(0, 230, 118, 0.3); }
+.badge-blue { background: rgba(0, 176, 255, 0.16); color: #00B0FF; border: 1px solid rgba(0, 176, 255, 0.3); }
+.badge-amber { background: rgba(255, 214, 0, 0.16); color: #FFD600; border: 1px solid rgba(255, 214, 0, 0.3); }
+.badge-purple { background: rgba(168, 85, 247, 0.16); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3); }
+.badge-red { background: rgba(255, 23, 68, 0.22); color: #FF5252; border: 1px solid rgba(255, 23, 68, 0.4); }
+
+.card-info-row {
+    font-size: 10.5px;
+    color: #CBD5E1;
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+.card-highlight {
+    font-size: 11px;
+    color: #38BDF8;
+    font-weight: 600;
+    margin-top: 4px;
+}
+.cyber-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+.cyber-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #00E676, #00B0FF);
+}
+</style>
+<div class="noc-stage-3d">
+    <div class="noc-grid-cards">
+        <div class="card-3d-interactive card-green" style="--ry: -6deg; min-width: 165px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #00E676;">🌐</div>
+            <div class="card-title">WAN TOP FIBRA</div>
+            <div class="badge-pill badge-green"><span class="live-dot live-dot-green"></span> 29.1 ms | 0% Loss</div>
+            <div class="card-highlight">136M RX (22.6%)</div>
+            <div class="card-info-row"><span>🛡️ Mitigação Ativa</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 23%; background: linear-gradient(90deg,#00E676,#38BDF8);"></div></div>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(-3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(0, 176, 255, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #00B0FF;">📡</div>
-            <div style="font-weight: bold; color: #FFF; font-size: 13px;">WI-FI UNIFI</div>
-            <div style="color: #00B0FF; font-size: 11px; font-weight: bold;">👥 138 Clientes</div>
-            <div style="color: #94A3B8; font-size: 10px;">5/6 APs Online</div>
+        <div class="card-3d-interactive card-blue" style="--ry: -3deg; min-width: 160px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #00B0FF;">📡</div>
+            <div class="card-title">WI-FI UNIFI</div>
+            <div class="badge-pill badge-blue"><span class="live-dot live-dot-blue"></span> 138 Clientes</div>
+            <div class="card-highlight">5/6 APs Online</div>
+            <div class="card-info-row"><span>⚡ 177 Mbps Total</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 83%; background: linear-gradient(90deg,#00B0FF,#818CF8);"></div></div>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(0deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(255, 214, 0, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #FFD600;">🖥️</div>
-            <div style="font-weight: bold; color: #FFF; font-size: 13px;">SRV NOC 200</div>
-            <div style="color: #FFD600; font-size: 11px; font-weight: bold;">CPU 17% | RAM 32%</div>
-            <div style="color: #94A3B8; font-size: 10px;">Disco / 11.9%</div>
+        <div class="card-3d-interactive card-amber" style="--ry: 0deg; min-width: 160px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #FFD600;">🖥️</div>
+            <div class="card-title">SRV NOC 200</div>
+            <div class="badge-pill badge-amber"><span class="live-dot live-dot-amber"></span> CPU 17% | RAM 32%</div>
+            <div class="card-highlight">Disco / 11.9%</div>
+            <div class="card-info-row"><span>⏱️ Uptime: 3.5d</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 32%; background: linear-gradient(90deg,#FFD600,#F59E0B);"></div></div>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FF9100; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(255, 145, 0, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #FF9100;">🖨️</div>
-            <div style="font-weight: bold; color: #FFF; font-size: 13px;">PARQUE HP</div>
-            <div style="color: #FF9100; font-size: 11px; font-weight: bold;">Toners 15% / 0%</div>
-            <div style="color: #94A3B8; font-size: 10px;">681k Páginas</div>
+        <div class="card-3d-interactive card-amber" style="--ry: 3deg; min-width: 160px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #FF9100;">🖨️</div>
+            <div class="card-title">PARQUE HP</div>
+            <div class="badge-pill badge-amber"><span class="live-dot live-dot-amber"></span> Toners 15% / 0%</div>
+            <div class="card-highlight">681k Páginas</div>
+            <div class="card-info-row"><span>2/2 Impressoras</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 50%; background: linear-gradient(90deg,#FF9100,#EF4444);"></div></div>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #7C4DFF; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(124, 77, 255, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #7C4DFF;">📞</div>
-            <div style="font-weight: bold; color: #FFF; font-size: 13px;">VOIP GRANDSTREAM</div>
-            <div style="color: #B388FF; font-size: 11px; font-weight: bold;">13/14 Ramais OK</div>
-            <div style="color: #94A3B8; font-size: 10px;">RTT 0.45 ms</div>
+        <div class="card-3d-interactive card-purple" style="--ry: 6deg; min-width: 160px;">
+            <div class="card-icon-3d" style="text-shadow: 0 0 16px #A855F7;">📞</div>
+            <div class="card-title">VOIP GRANDSTREAM</div>
+            <div class="badge-pill badge-purple"><span class="live-dot live-dot-purple"></span> 13/14 Ramais OK</div>
+            <div class="card-highlight">RTT 0.45 ms</div>
+            <div class="card-info-row"><span>Sinal SIP 5060</span></div>
+            <div class="cyber-bar"><div class="cyber-bar-fill" style="width: 93%; background: linear-gradient(90deg,#A855F7,#38BDF8);"></div></div>
         </div>
     </div>
-</div>
-"""
+</div>"""
             }
         },
 
