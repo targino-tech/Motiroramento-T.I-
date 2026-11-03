@@ -132,7 +132,13 @@ monitoring/
 
 ## 📊 4. Matriz de Dashboards & Indicadores em Produção
 
-### A. Grafana v2.0 (Sessões 3D, Milissegundos & Tooltips Interativos)
+### A. Grafana v2.0 (Sessões 3D Vivas, Elementos Animados, UX/UI & Milissegundos)
+
+> **Inovações de UX/UI & Efeitos 3D**:
+> • **Animações Fluidas em Tempo Real**: Keyframes CSS dinâmicos com flutuação isométrica 3D (`float3D`), pulsos de glow neon (`pulseGlow`), radar e beacons de status (`beaconPing`), e feixes de transmissão de dados (`streamFlow`).
+> • **Micro-Interações & Profundidade**: Efeito de *hover* interativo nos cards com rotação compensatória 3D, ampliação (`scale3d`) e iluminação perimetral temática (verde, ciano, amarelo, magenta e vermelho de alerta).
+> • **Seções Personalizadas Isométricas**: Topologia viva para Wi-Fi UniFi, Datacenter virtual, Borda Telecom WAN com mitigação ativa, Parque de Impressoras LaserJet Flow e Telefonia VoIP Grandstream.
+
 
 | Dashboard | UID | Principais Métricas & Destaques |
 | :--- | :---: | :--- |

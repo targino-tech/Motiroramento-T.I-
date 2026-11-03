@@ -168,61 +168,279 @@ dash_wifi = {
             "options": {
                 "mode": "html",
                 "content": """
-<div style="perspective: 1200px; padding: 10px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 15px;">
-        <!-- Card 3D 1: AP Peças -->
-        <div style="transform: rotateX(8deg) rotateY(-4deg); transform-style: preserve-3d; transition: all 0.3s; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(0, 230, 118, 0.25);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #00E676;">📡</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD PEÇAS</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.1.11</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 28 Clientes</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Agro</div>
-            <div style="font-size: 10px; color: #CBD5E1;">⚡ 34.2 Mbps | 0.37 ms</div>
+<style>
+@keyframes float3D {
+    0%, 100% { transform: translateY(0px) rotateX(7deg) rotateY(var(--ry, 0deg)); }
+    50% { transform: translateY(-8px) rotateX(10deg) rotateY(var(--ry, 0deg)); }
+}
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px var(--glow-c, rgba(0,230,118,0.25)), inset 0 0 10px rgba(255,255,255,0.03); }
+    50% { box-shadow: 0 0 30px var(--glow-c, rgba(0,230,118,0.55)), 0 0 45px var(--glow-c, rgba(0,230,118,0.2)), inset 0 0 16px rgba(255,255,255,0.08); }
+}
+@keyframes beaconPing {
+    0% { transform: scale(0.9); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.35; }
+    100% { transform: scale(0.9); opacity: 1; }
+}
+@keyframes shimmerStream {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+@keyframes streamFlow {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+.noc-viewport {
+    perspective: 1300px;
+    padding: 12px 16px;
+    background: radial-gradient(ellipse at 50% 15%, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 1));
+    border-radius: 14px;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+.noc-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+}
+.noc-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.noc-topbar-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #F8FAFC;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.noc-topbar-pills {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.noc-pill {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+.noc-cards-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.noc-card-3d {
+    flex: 1 1 170px;
+    min-width: 170px;
+    max-width: 230px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: float3D 4.5s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.88), rgba(15, 23, 42, 0.96));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-c, rgba(59, 130, 246, 0.4));
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    overflow: hidden;
+}
+.noc-card-3d:hover {
+    transform: translateY(-9px) scale3d(1.04, 1.04, 1.04) rotateX(4deg) rotateY(0deg) !important;
+    border-color: #38BDF8 !important;
+    box-shadow: 0 18px 32px var(--glow-c, rgba(56, 189, 248, 0.45)), inset 0 0 15px rgba(255,255,255,0.12) !important;
+    z-index: 10;
+}
+.noc-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.noc-icon-box {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 22px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.noc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+.noc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: beaconPing 1.8s infinite ease-in-out;
+}
+.noc-title {
+    font-weight: 700;
+    color: #FFFFFF;
+    font-size: 13px;
+    margin-top: 2px;
+}
+.noc-sub {
+    color: #94A3B8;
+    font-size: 11px;
+}
+.noc-stream-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin: 6px 0;
+    position: relative;
+    overflow: hidden;
+}
+.noc-stream-flow {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, var(--stream-c, #00E676), transparent);
+    animation: streamFlow 2.2s infinite linear;
+}
+.noc-metric-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #CBD5E1;
+    margin-top: 3px;
+}
+.noc-metric-val {
+    font-weight: 600;
+    color: #38BDF8;
+}
+</style>
+<div class="noc-viewport">
+    <div class="noc-grid-overlay"></div>
+    <div class="noc-topbar">
+        <div class="noc-topbar-title">
+            <span style="font-size: 18px;">📡</span> TOPOLOGIA 3D MULTI-ZONA - FROTA UNIFI ENTERPRISE
         </div>
-        <!-- Card 3D 2: AP TI -->
-        <div style="transform: rotateX(8deg) rotateY(-2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(0, 176, 255, 0.25);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #00B0FF;">📡</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD TI</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.1.12</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 42 Clientes</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Corp</div>
-            <div style="font-size: 10px; color: #CBD5E1;">⚡ 58.4 Mbps | 0.40 ms</div>
+        <div class="noc-topbar-pills">
+            <span class="noc-pill" style="background: rgba(0,230,118,0.15); color: #00E676; border: 1px solid rgba(0,230,118,0.3);">🟢 5 ONLINE</span>
+            <span class="noc-pill" style="background: rgba(255,23,68,0.15); color: #FF5252; border: 1px solid rgba(255,23,68,0.3);">🔴 1 OFFLINE</span>
+            <span class="noc-pill" style="background: rgba(56,189,248,0.15); color: #38BDF8; border: 1px solid rgba(56,189,248,0.3);">👥 138 CLIENTES REAIS</span>
         </div>
-        <!-- Card 3D 3: AP Garantia -->
-        <div style="transform: rotateX(8deg) rotateY(0deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(255, 214, 0, 0.25);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #FFD600;">📡</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD GARANTIA</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.1.13</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,214,0,0.15); color: #FFD600; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 19 Clientes</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Agro</div>
-            <div style="font-size: 10px; color: #CBD5E1;">⚡ 21.3 Mbps | 4.30 ms</div>
+    </div>
+    <div class="noc-cards-container">
+        <!-- AP 1: Peças -->
+        <div class="noc-card-3d" style="--ry: -5deg; --delay: 0s; --border-c: #00E676; --glow-c: rgba(0,230,118,0.3); --stream-c: #00E676;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #00E676;">📡</div>
+                <span class="noc-badge" style="background: rgba(0,230,118,0.15); color: #00E676;">
+                    <span class="noc-dot" style="background: #00E676;"></span> ONLINE
+                </span>
+            </div>
+            <div class="noc-title">UAP-HD PEÇAS</div>
+            <div class="noc-sub">192.168.1.11 • Ch 1/44</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Clientes:</span><span class="noc-metric-val">👥 28 Conectados</span></div>
+            <div class="noc-metric-row"><span>Throughput:</span><span class="noc-metric-val">⚡ 34.2 Mbps</span></div>
+            <div class="noc-metric-row"><span>Latência RTT:</span><span class="noc-metric-val" style="color: #00E676;">0.37 ms</span></div>
         </div>
-        <!-- Card 3D 4: AP Estoque -->
-        <div style="transform: rotateX(8deg) rotateY(2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #FF9100; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(255, 145, 0, 0.25);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #FF9100;">📡</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">UAP-HD ESTOQUE</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.1.14</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,145,0,0.15); color: #FF9100; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 14 Clientes</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Coletores</div>
-            <div style="font-size: 10px; color: #CBD5E1;">⚡ 18.6 Mbps | 0.37 ms</div>
+        <!-- AP 2: TI -->
+        <div class="noc-card-3d" style="--ry: -3deg; --delay: 0.3s; --border-c: #00B0FF; --glow-c: rgba(0,176,255,0.3); --stream-c: #00B0FF;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #00B0FF;">📡</div>
+                <span class="noc-badge" style="background: rgba(0,176,255,0.15); color: #00B0FF;">
+                    <span class="noc-dot" style="background: #00B0FF;"></span> ONLINE
+                </span>
+            </div>
+            <div class="noc-title">UAP-HD TI</div>
+            <div class="noc-sub">192.168.1.12 • Ch 6/48</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Clientes:</span><span class="noc-metric-val">👥 42 Conectados</span></div>
+            <div class="noc-metric-row"><span>Throughput:</span><span class="noc-metric-val">⚡ 58.4 Mbps</span></div>
+            <div class="noc-metric-row"><span>Latência RTT:</span><span class="noc-metric-val" style="color: #00E676;">0.40 ms</span></div>
         </div>
-        <!-- Card 3D 5: AP AC-Pro TI -->
-        <div style="transform: rotateX(8deg) rotateY(4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid #E040FB; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(224, 64, 251, 0.25);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #E040FB;">📡</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">AC-PRO TI</div>
-            <div style="color: #94A3B8; font-size: 11px;">192.168.1.15</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(224,64,251,0.15); color: #E040FB; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">👥 35 Clientes</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">SSID: Enterprise NOC-Corp</div>
-            <div style="font-size: 10px; color: #CBD5E1;">⚡ 44.9 Mbps | 0.22 ms</div>
+        <!-- AP 3: Garantia -->
+        <div class="noc-card-3d" style="--ry: -1deg; --delay: 0.6s; --border-c: #FFD600; --glow-c: rgba(255,214,0,0.3); --stream-c: #FFD600;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #FFD600;">📡</div>
+                <span class="noc-badge" style="background: rgba(255,214,0,0.15); color: #FFD600;">
+                    <span class="noc-dot" style="background: #FFD600;"></span> ONLINE
+                </span>
+            </div>
+            <div class="noc-title">UAP-HD GARANTIA</div>
+            <div class="noc-sub">192.168.1.13 • Ch 11/149</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Clientes:</span><span class="noc-metric-val">👥 19 Conectados</span></div>
+            <div class="noc-metric-row"><span>Throughput:</span><span class="noc-metric-val">⚡ 21.3 Mbps</span></div>
+            <div class="noc-metric-row"><span>Latência RTT:</span><span class="noc-metric-val" style="color: #FFD600;">4.30 ms</span></div>
         </div>
-        <!-- Card 3D 6: AP AC-Pro Geral (Offline) -->
-        <div style="transform: rotateX(8deg) rotateY(6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(69, 10, 10, 0.85), rgba(24, 2, 2, 0.95)); border: 1px solid #FF1744; border-radius: 10px; padding: 12px 16px; min-width: 170px; text-align: center; box-shadow: 0 8px 20px rgba(255, 23, 68, 0.35);">
-            <div style="font-size: 30px; text-shadow: 0 0 15px #FF1744;">⚠️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 13px; margin-top: 4px;">AC-PRO GERAL</div>
-            <div style="color: #F87171; font-size: 11px;">192.168.1.16</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,23,68,0.25); color: #FF5252; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🔴 OFFLINE (100% Loss)</div>
-            <div style="font-size: 10px; color: #FCA5A5; margin-top: 4px;">SSID: Inativo</div>
-            <div style="font-size: 10px; color: #EF4444;">Falha de Alimentação PoE</div>
+        <!-- AP 4: Estoque -->
+        <div class="noc-card-3d" style="--ry: 1deg; --delay: 0.9s; --border-c: #FF9100; --glow-c: rgba(255,145,0,0.3); --stream-c: #FF9100;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #FF9100;">📡</div>
+                <span class="noc-badge" style="background: rgba(255,145,0,0.15); color: #FF9100;">
+                    <span class="noc-dot" style="background: #FF9100;"></span> ONLINE
+                </span>
+            </div>
+            <div class="noc-title">UAP-HD ESTOQUE</div>
+            <div class="noc-sub">192.168.1.14 • Coletores</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Clientes:</span><span class="noc-metric-val">👥 14 Conectados</span></div>
+            <div class="noc-metric-row"><span>Throughput:</span><span class="noc-metric-val">⚡ 18.6 Mbps</span></div>
+            <div class="noc-metric-row"><span>Latência RTT:</span><span class="noc-metric-val" style="color: #00E676;">0.37 ms</span></div>
+        </div>
+        <!-- AP 5: AC-Pro TI -->
+        <div class="noc-card-3d" style="--ry: 3deg; --delay: 1.2s; --border-c: #E040FB; --glow-c: rgba(224,64,251,0.3); --stream-c: #E040FB;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #E040FB;">📡</div>
+                <span class="noc-badge" style="background: rgba(224,64,251,0.15); color: #E040FB;">
+                    <span class="noc-dot" style="background: #E040FB;"></span> ONLINE
+                </span>
+            </div>
+            <div class="noc-title">AC-PRO TI</div>
+            <div class="noc-sub">192.168.1.15 • Corp High</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Clientes:</span><span class="noc-metric-val">👥 35 Conectados</span></div>
+            <div class="noc-metric-row"><span>Throughput:</span><span class="noc-metric-val">⚡ 44.9 Mbps</span></div>
+            <div class="noc-metric-row"><span>Latência RTT:</span><span class="noc-metric-val" style="color: #00E676;">0.22 ms</span></div>
+        </div>
+        <!-- AP 6: Geral Offline -->
+        <div class="noc-card-3d" style="--ry: 5deg; --delay: 1.5s; --border-c: #FF1744; --glow-c: rgba(255,23,68,0.4); --stream-c: #FF1744; background: linear-gradient(135deg, rgba(69,10,10,0.85), rgba(24,2,2,0.95));">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #FF1744;">⚠️</div>
+                <span class="noc-badge" style="background: rgba(255,23,68,0.25); color: #FF5252;">
+                    <span class="noc-dot" style="background: #FF5252;"></span> OFFLINE
+                </span>
+            </div>
+            <div class="noc-title">AC-PRO GERAL</div>
+            <div class="noc-sub">192.168.1.16 • Sem Link</div>
+            <div class="noc-stream-bar" style="background: rgba(255,23,68,0.2);"><div class="noc-stream-flow" style="display:none;"></div></div>
+            <div class="noc-metric-row"><span style="color:#FCA5A5;">Perda ICMP:</span><span class="noc-metric-val" style="color:#FF5252;">100% Loss</span></div>
+            <div class="noc-metric-row"><span style="color:#FCA5A5;">Causa:</span><span class="noc-metric-val" style="color:#FF5252;">Falha PoE</span></div>
+            <div class="noc-metric-row"><span style="color:#FCA5A5;">Ação:</span><span class="noc-metric-val" style="color:#FF5252;">Verificar Cabo</span></div>
         </div>
     </div>
 </div>
@@ -558,43 +776,249 @@ dash_servers = {
             "options": {
                 "mode": "html",
                 "content": """
-<div style="perspective: 1200px; padding: 10px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 15px;">
-        <!-- Card 3D 1: SRV NOC Monitoring -->
-        <div style="transform: rotateX(8deg) rotateY(-5deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 230, 118, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #00E676;">🖥️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">SRV-NOC-MONITORING</div>
-            <div style="color: #94A3B8; font-size: 11px;">10.0.0.10 (Zabbix/Grafana)</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 100% OPERACIONAL</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">CPU: 17.3% | RAM: 32.4% (8 GB)</div>
-            <div style="font-size: 10px; color: #CBD5E1;">Disco: 11.9% | Uptime: 3.5 Dias</div>
+<style>
+@keyframes float3D {
+    0%, 100% { transform: translateY(0px) rotateX(7deg) rotateY(var(--ry, 0deg)); }
+    50% { transform: translateY(-8px) rotateX(10deg) rotateY(var(--ry, 0deg)); }
+}
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px var(--glow-c, rgba(0,230,118,0.25)), inset 0 0 10px rgba(255,255,255,0.03); }
+    50% { box-shadow: 0 0 30px var(--glow-c, rgba(0,230,118,0.55)), 0 0 45px var(--glow-c, rgba(0,230,118,0.2)), inset 0 0 16px rgba(255,255,255,0.08); }
+}
+@keyframes beaconPing {
+    0% { transform: scale(0.9); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.35; }
+    100% { transform: scale(0.9); opacity: 1; }
+}
+@keyframes shimmerStream {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+@keyframes streamFlow {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+.noc-viewport {
+    perspective: 1300px;
+    padding: 12px 16px;
+    background: radial-gradient(ellipse at 50% 15%, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 1));
+    border-radius: 14px;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+.noc-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+}
+.noc-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.noc-topbar-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #F8FAFC;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.noc-topbar-pills {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.noc-pill {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+.noc-cards-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.noc-card-3d {
+    flex: 1 1 170px;
+    min-width: 170px;
+    max-width: 230px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: float3D 4.5s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.88), rgba(15, 23, 42, 0.96));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-c, rgba(59, 130, 246, 0.4));
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    overflow: hidden;
+}
+.noc-card-3d:hover {
+    transform: translateY(-9px) scale3d(1.04, 1.04, 1.04) rotateX(4deg) rotateY(0deg) !important;
+    border-color: #38BDF8 !important;
+    box-shadow: 0 18px 32px var(--glow-c, rgba(56, 189, 248, 0.45)), inset 0 0 15px rgba(255,255,255,0.12) !important;
+    z-index: 10;
+}
+.noc-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.noc-icon-box {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 22px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.noc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+.noc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: beaconPing 1.8s infinite ease-in-out;
+}
+.noc-title {
+    font-weight: 700;
+    color: #FFFFFF;
+    font-size: 13px;
+    margin-top: 2px;
+}
+.noc-sub {
+    color: #94A3B8;
+    font-size: 11px;
+}
+.noc-stream-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin: 6px 0;
+    position: relative;
+    overflow: hidden;
+}
+.noc-stream-flow {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, var(--stream-c, #00E676), transparent);
+    animation: streamFlow 2.2s infinite linear;
+}
+.noc-metric-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #CBD5E1;
+    margin-top: 3px;
+}
+.noc-metric-val {
+    font-weight: 600;
+    color: #38BDF8;
+}
+</style>
+<div class="noc-viewport">
+    <div class="noc-grid-overlay"></div>
+    <div class="noc-topbar">
+        <div class="noc-topbar-title">
+            <span style="font-size: 18px;">🏢</span> DATACENTER 3D - INFRAESTRUTURA DE SERVIDORES & ESTAÇÕES
         </div>
-        <!-- Card 3D 2: ERP TOTVS Protheus -->
-        <div style="transform: rotateX(8deg) rotateY(-2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 176, 255, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #00B0FF;">🏢</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">SRV-ERP-PROTHEUS</div>
-            <div style="color: #94A3B8; font-size: 11px;">10.0.0.20 (Banco & ERP)</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 HTTP 80 ATIVO</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">Tempo Resposta: 0.92 ms</div>
-            <div style="font-size: 10px; color: #CBD5E1;">SSH Porta 22: Desativado (Segurança)</div>
+        <div class="noc-topbar-pills">
+            <span class="noc-pill" style="background: rgba(0,230,118,0.15); color: #00E676; border: 1px solid rgba(0,230,118,0.3);">🟢 RACK VIRTUAL OK</span>
+            <span class="noc-pill" style="background: rgba(124,77,255,0.15); color: #B388FF; border: 1px solid rgba(124,77,255,0.3);">💻 26/28 ESTAÇÕES</span>
+            <span class="noc-pill" style="background: rgba(56,189,248,0.15); color: #38BDF8; border: 1px solid rgba(56,189,248,0.3);">⚡ RESPOSTA &lt; 1ms</span>
         </div>
-        <!-- Card 3D 3: Gateway Edge -->
-        <div style="transform: rotateX(8deg) rotateY(2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(255, 214, 0, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #FFD600;">🛡️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">GATEWAY EDGE 10.1</div>
-            <div style="color: #94A3B8; font-size: 11px;">10.0.0.1 (Borda Corporativa)</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,214,0,0.15); color: #FFD600; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 LATÊNCIA SUB-MS</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">Tempo Resposta: 0.18 ms</div>
-            <div style="font-size: 10px; color: #CBD5E1;">Perda de Pacotes: 0%</div>
+    </div>
+    <div class="noc-cards-container">
+        <!-- SRV NOC -->
+        <div class="noc-card-3d" style="--ry: -4deg; --delay: 0s; --border-c: #00E676; --glow-c: rgba(0,230,118,0.3); --stream-c: #00E676; min-width: 210px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #00E676;">🖥️</div>
+                <span class="noc-badge" style="background: rgba(0,230,118,0.15); color: #00E676;">
+                    <span class="noc-dot" style="background: #00E676;"></span> 100% ATIVO
+                </span>
+            </div>
+            <div class="noc-title">SRV-NOC-MONITORING</div>
+            <div class="noc-sub">10.0.0.10 • Zabbix 8 / Grafana</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>CPU / RAM:</span><span class="noc-metric-val">17.3% / 32.4%</span></div>
+            <div class="noc-metric-row"><span>Disco /:</span><span class="noc-metric-val">11.9% Utilizado</span></div>
+            <div class="noc-metric-row"><span>Uptime:</span><span class="noc-metric-val" style="color: #00E676;">3.5 Dias sem quedas</span></div>
         </div>
-        <!-- Card 3D 4: Estações Windows -->
-        <div style="transform: rotateX(8deg) rotateY(5deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #7C4DFF; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(124, 77, 255, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #7C4DFF;">💻</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">PARQUE ESTAÇÕES</div>
-            <div style="color: #94A3B8; font-size: 11px;">28 Desktops / Notebooks</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(124,77,255,0.15); color: #B388FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">💻 26 ONLINE / 2 OFFLINE</div>
-            <div style="font-size: 10px; color: #38BDF8; margin-top: 4px;">Porta RDP 3389 / SMB 445</div>
-            <div style="font-size: 10px; color: #CBD5E1;">Latência Média: 0.45 ms</div>
+        <!-- ERP PROTHEUS -->
+        <div class="noc-card-3d" style="--ry: -1deg; --delay: 0.3s; --border-c: #00B0FF; --glow-c: rgba(0,176,255,0.3); --stream-c: #00B0FF; min-width: 210px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #00B0FF;">🏢</div>
+                <span class="noc-badge" style="background: rgba(0,176,255,0.15); color: #00B0FF;">
+                    <span class="noc-dot" style="background: #00B0FF;"></span> HTTP 80 OK
+                </span>
+            </div>
+            <div class="noc-title">SRV-ERP-PROTHEUS</div>
+            <div class="noc-sub">10.0.0.20 • Base Corporativa</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Tempo Resposta:</span><span class="noc-metric-val">0.92 ms</span></div>
+            <div class="noc-metric-row"><span>Porta SSH:</span><span class="noc-metric-val" style="color: #94A3B8;">22 Blindada</span></div>
+            <div class="noc-metric-row"><span>Status ERP:</span><span class="noc-metric-val" style="color: #00E676;">🟢 Operacional</span></div>
+        </div>
+        <!-- GATEWAY EDGE -->
+        <div class="noc-card-3d" style="--ry: 1deg; --delay: 0.6s; --border-c: #FFD600; --glow-c: rgba(255,214,0,0.3); --stream-c: #FFD600; min-width: 210px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #FFD600;">🛡️</div>
+                <span class="noc-badge" style="background: rgba(255,214,0,0.15); color: #FFD600;">
+                    <span class="noc-dot" style="background: #FFD600;"></span> SUB-MS
+                </span>
+            </div>
+            <div class="noc-title">GATEWAY EDGE 10.1</div>
+            <div class="noc-sub">10.0.0.1 • Borda LAN / WAN</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Tempo Resposta:</span><span class="noc-metric-val">0.18 ms</span></div>
+            <div class="noc-metric-row"><span>Descarte Pacotes:</span><span class="noc-metric-val" style="color: #00E676;">0.00% Zero Loss</span></div>
+            <div class="noc-metric-row"><span>Firewall Rule:</span><span class="noc-metric-val">Zero-Trust Ativo</span></div>
+        </div>
+        <!-- PARQUE ESTAÇÕES -->
+        <div class="noc-card-3d" style="--ry: 4deg; --delay: 0.9s; --border-c: #7C4DFF; --glow-c: rgba(124,77,255,0.3); --stream-c: #7C4DFF; min-width: 210px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #7C4DFF;">💻</div>
+                <span class="noc-badge" style="background: rgba(124,77,255,0.15); color: #B388FF;">
+                    <span class="noc-dot" style="background: #B388FF;"></span> 26 ONLINE
+                </span>
+            </div>
+            <div class="noc-title">ESTAÇÕES WINDOWS</div>
+            <div class="noc-sub">28 Desktops / Notebooks</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Latência Média:</span><span class="noc-metric-val">0.45 ms</span></div>
+            <div class="noc-metric-row"><span>RDP / SMB:</span><span class="noc-metric-val">3389 / 445 OK</span></div>
+            <div class="noc-metric-row"><span>Em Manutenção:</span><span class="noc-metric-val" style="color: #FFD600;">2 Máquinas</span></div>
         </div>
     </div>
 </div>
@@ -898,50 +1322,264 @@ dash_links = {
             "options": {
                 "mode": "html",
                 "content": """
-<div style="perspective: 1200px; padding: 12px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(0, 230, 118, 0.35); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 14px;">
-        <!-- Card 3D 1: Provedor ISP -->
-        <div style="transform: rotateX(8deg) rotateY(-6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 12px 18px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 230, 118, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #00E676;">🏢</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">TOP FIBRA TELECOM</div>
-            <div style="color: #94A3B8; font-size: 11px;">Link Dedicado WAN 1:1</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 FIBRA ILUMINADA</div>
-            <div style="font-size: 11px; color: #38BDF8; margin-top: 4px;">IP: 203.0.113.1 (WAN)</div>
-            <div style="font-size: 10px; color: #CBD5E1;">SLA 99.98% Garantido</div>
+<style>
+@keyframes float3D {
+    0%, 100% { transform: translateY(0px) rotateX(7deg) rotateY(var(--ry, 0deg)); }
+    50% { transform: translateY(-8px) rotateX(10deg) rotateY(var(--ry, 0deg)); }
+}
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px var(--glow-c, rgba(0,230,118,0.25)), inset 0 0 10px rgba(255,255,255,0.03); }
+    50% { box-shadow: 0 0 30px var(--glow-c, rgba(0,230,118,0.55)), 0 0 45px var(--glow-c, rgba(0,230,118,0.2)), inset 0 0 16px rgba(255,255,255,0.08); }
+}
+@keyframes beaconPing {
+    0% { transform: scale(0.9); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.35; }
+    100% { transform: scale(0.9); opacity: 1; }
+}
+@keyframes shimmerStream {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+@keyframes streamFlow {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+.noc-viewport {
+    perspective: 1300px;
+    padding: 12px 16px;
+    background: radial-gradient(ellipse at 50% 15%, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 1));
+    border-radius: 14px;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+.noc-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+}
+.noc-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.noc-topbar-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #F8FAFC;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.noc-topbar-pills {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.noc-pill {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+.noc-cards-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.noc-card-3d {
+    flex: 1 1 170px;
+    min-width: 170px;
+    max-width: 230px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: float3D 4.5s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.88), rgba(15, 23, 42, 0.96));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-c, rgba(59, 130, 246, 0.4));
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    overflow: hidden;
+}
+.noc-card-3d:hover {
+    transform: translateY(-9px) scale3d(1.04, 1.04, 1.04) rotateX(4deg) rotateY(0deg) !important;
+    border-color: #38BDF8 !important;
+    box-shadow: 0 18px 32px var(--glow-c, rgba(56, 189, 248, 0.45)), inset 0 0 15px rgba(255,255,255,0.12) !important;
+    z-index: 10;
+}
+.noc-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.noc-icon-box {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 22px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.noc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+.noc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: beaconPing 1.8s infinite ease-in-out;
+}
+.noc-title {
+    font-weight: 700;
+    color: #FFFFFF;
+    font-size: 13px;
+    margin-top: 2px;
+}
+.noc-sub {
+    color: #94A3B8;
+    font-size: 11px;
+}
+.noc-stream-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin: 6px 0;
+    position: relative;
+    overflow: hidden;
+}
+.noc-stream-flow {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, var(--stream-c, #00E676), transparent);
+    animation: streamFlow 2.2s infinite linear;
+}
+.noc-metric-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #CBD5E1;
+    margin-top: 3px;
+}
+.noc-metric-val {
+    font-weight: 600;
+    color: #38BDF8;
+}
+</style>
+<div class="noc-viewport">
+    <div class="noc-grid-overlay"></div>
+    <div class="noc-topbar">
+        <div class="noc-topbar-title">
+            <span style="font-size: 18px;">🌐</span> TELECOM WAN 3D - BORDA DE CONECTIVIDADE & MITIGAÇÃO FIBRA ÓPTICA
         </div>
-        <!-- Card 3D 2: MITIGAÇÃO ATIVA DE PERDA DE PACOTES -->
-        <div style="transform: rotateX(8deg) rotateY(-3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.95)); border: 1px solid #10B981; border-radius: 10px; padding: 12px 18px; min-width: 230px; text-align: center; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #10B981;">🛡️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">MITIGAÇÃO PERDA PACOTES</div>
-            <div style="color: #34D399; font-size: 11px; font-weight: bold;">🟢 0.00% LOSS (PROTEÇÃO ATIVA)</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(16,185,129,0.2); color: #6EE7B7; padding: 2px 8px; border-radius: 12px; font-size: 10px;">QoS FQ-CoDel + Anti-Bufferbloat</div>
-            <div style="font-size: 10px; color: #94A3B8; margin-top: 4px;">Failover Automático Multi-Gateway</div>
-            <div style="font-size: 10px; color: #A7F3D0;">0 descartes / 10.000 probes</div>
+        <div class="noc-topbar-pills">
+            <span class="noc-pill" style="background: rgba(0,230,118,0.15); color: #00E676; border: 1px solid rgba(0,230,118,0.3);">🟢 0.00% LOSS (MITIGAÇÃO ATIVA)</span>
+            <span class="noc-pill" style="background: rgba(56,189,248,0.15); color: #38BDF8; border: 1px solid rgba(56,189,248,0.3);">🚀 CONTRATO 600M / 300M</span>
+            <span class="noc-pill" style="background: rgba(255,214,0,0.15); color: #FFD600; border: 1px solid rgba(255,214,0,0.3);">⚡ SLA 99.98%</span>
         </div>
-        <!-- Card 3D 3: CONSUMO DE BANDA EM TEMPO REAL -->
-        <div style="transform: rotateX(8deg) rotateY(0deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(15, 23, 42, 0.95)); border: 1px solid #3B82F6; border-radius: 10px; padding: 12px 18px; min-width: 230px; text-align: center; box-shadow: 0 8px 25px rgba(59, 130, 246, 0.35);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #3B82F6;">🚀</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">CONSUMO DE BANDA WAN</div>
-            <div style="color: #60A5FA; font-size: 11px; font-weight: bold;">⚡ 135.8M RX (22%) | 40.7M TX (13%)</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(59,130,246,0.2); color: #93C5FD; padding: 2px 8px; border-radius: 12px; font-size: 10px;">Contrato: 600M Down / 300M Up</div>
-            <div style="font-size: 10px; color: #94A3B8; margin-top: 4px;">Shaper Anti-Saturação Ativo (85%)</div>
-            <div style="font-size: 10px; color: #00E676;">🟢 Sem Gargalos de Tráfego</div>
+    </div>
+    <div class="noc-cards-container">
+        <!-- ISP Link -->
+        <div class="noc-card-3d" style="--ry: -5deg; --delay: 0s; --border-c: #00E676; --glow-c: rgba(0,230,118,0.3); --stream-c: #00E676; min-width: 200px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #00E676;">🏢</div>
+                <span class="noc-badge" style="background: rgba(0,230,118,0.15); color: #00E676;">
+                    <span class="noc-dot" style="background: #00E676;"></span> FIBRA ATIVA
+                </span>
+            </div>
+            <div class="noc-title">TOP FIBRA TELECOM</div>
+            <div class="noc-sub">Link Dedicado WAN 1:1</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>IP Público:</span><span class="noc-metric-val">203.0.113.1</span></div>
+            <div class="noc-metric-row"><span>Interface WAN:</span><span class="noc-metric-val">Gigabit SFP+</span></div>
+            <div class="noc-metric-row"><span>Disponibilidade:</span><span class="noc-metric-val" style="color: #00E676;">99.98% SLA</span></div>
         </div>
-        <!-- Card 3D 4: Gateway Google -->
-        <div style="transform: rotateX(8deg) rotateY(3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 12px 18px; min-width: 190px; text-align: center; box-shadow: 0 8px 25px rgba(0, 176, 255, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #00B0FF;">🌍</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">ROTA GOOGLE (8.8.8.8)</div>
-            <div style="color: #94A3B8; font-size: 11px;">Gateway Primário Ativo</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">⚡ 29.1 ms (ESTÁVEL)</div>
-            <div style="font-size: 10px; color: #CBD5E1; margin-top: 4px;">Perda de Pacotes: 0.0%</div>
+        <!-- Mitigação -->
+        <div class="noc-card-3d" style="--ry: -2deg; --delay: 0.3s; --border-c: #10B981; --glow-c: rgba(16,185,129,0.35); --stream-c: #10B981; min-width: 215px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #10B981;">🛡️</div>
+                <span class="noc-badge" style="background: rgba(16,185,129,0.2); color: #34D399;">
+                    <span class="noc-dot" style="background: #34D399;"></span> MITIGAÇÃO ON
+                </span>
+            </div>
+            <div class="noc-title">MITIGAÇÃO DE PERDA</div>
+            <div class="noc-sub">FQ-CoDel + Anti-Bufferbloat</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Perda Medida:</span><span class="noc-metric-val" style="color: #00E676;">0.00% Zero Loss</span></div>
+            <div class="noc-metric-row"><span>Failover:</span><span class="noc-metric-val">Multi-Rota Standby</span></div>
+            <div class="noc-metric-row"><span>Descartes:</span><span class="noc-metric-val" style="color: #00E676;">0 / 10.000 probes</span></div>
         </div>
-        <!-- Card 3D 5: Gateway Cloudflare -->
-        <div style="transform: rotateX(8deg) rotateY(6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 12px 18px; min-width: 190px; text-align: center; box-shadow: 0 8px 25px rgba(255, 214, 0, 0.25);">
-            <div style="font-size: 32px; text-shadow: 0 0 15px #FFD600;">☁️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">ROTA CLOUDFLARE (1.1.1.1)</div>
-            <div style="color: #94A3B8; font-size: 11px;">Gateway Backup Standby</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,214,0,0.15); color: #FFD600; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">⚡ 53.7 ms (STANDBY)</div>
-            <div style="font-size: 10px; color: #CBD5E1; margin-top: 4px;">Perda de Pacotes: 0.0%</div>
+        <!-- Consumo Banda -->
+        <div class="noc-card-3d" style="--ry: 0deg; --delay: 0.6s; --border-c: #3B82F6; --glow-c: rgba(59,130,246,0.35); --stream-c: #3B82F6; min-width: 215px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #3B82F6;">🚀</div>
+                <span class="noc-badge" style="background: rgba(59,130,246,0.2); color: #60A5FA;">
+                    <span class="noc-dot" style="background: #60A5FA;"></span> BANDA REAL
+                </span>
+            </div>
+            <div class="noc-title">CONSUMO DE TRÁFEGO</div>
+            <div class="noc-sub">600M Down / 300M Up</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Download Real:</span><span class="noc-metric-val">135.8 Mbps (22%)</span></div>
+            <div class="noc-metric-row"><span>Upload Real:</span><span class="noc-metric-val">40.7 Mbps (13%)</span></div>
+            <div class="noc-metric-row"><span>Margem Livre:</span><span class="noc-metric-val" style="color: #00E676;">464.2 Mbps (78%)</span></div>
+        </div>
+        <!-- Rota Google -->
+        <div class="noc-card-3d" style="--ry: 2deg; --delay: 0.9s; --border-c: #00B0FF; --glow-c: rgba(0,176,255,0.3); --stream-c: #00B0FF; min-width: 190px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #00B0FF;">🌍</div>
+                <span class="noc-badge" style="background: rgba(0,176,255,0.15); color: #00B0FF;">
+                    <span class="noc-dot" style="background: #00B0FF;"></span> PRIMÁRIA
+                </span>
+            </div>
+            <div class="noc-title">ROTA GOOGLE (8.8.8.8)</div>
+            <div class="noc-sub">DNS Primário Ativo</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Latência RTT:</span><span class="noc-metric-val" style="color: #00E676;">29.1 ms</span></div>
+            <div class="noc-metric-row"><span>Jitter:</span><span class="noc-metric-val">&lt; 1.2 ms</span></div>
+            <div class="noc-metric-row"><span>Status:</span><span class="noc-metric-val" style="color: #00E676;">🟢 Estável</span></div>
+        </div>
+        <!-- Rota Cloudflare -->
+        <div class="noc-card-3d" style="--ry: 5deg; --delay: 1.2s; --border-c: #FFD600; --glow-c: rgba(255,214,0,0.3); --stream-c: #FFD600; min-width: 190px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #FFD600;">☁️</div>
+                <span class="noc-badge" style="background: rgba(255,214,0,0.15); color: #FFD600;">
+                    <span class="noc-dot" style="background: #FFD600;"></span> BACKUP
+                </span>
+            </div>
+            <div class="noc-title">CLOUDFLARE (1.1.1.1)</div>
+            <div class="noc-sub">DNS Backup Standby</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Latência RTT:</span><span class="noc-metric-val">53.7 ms</span></div>
+            <div class="noc-metric-row"><span>Perda:</span><span class="noc-metric-val" style="color: #00E676;">0.00%</span></div>
+            <div class="noc-metric-row"><span>Status:</span><span class="noc-metric-val" style="color: #FFD600;">🟡 Standby OK</span></div>
         </div>
     </div>
 </div>
@@ -1188,27 +1826,221 @@ dash_printers = {
             "options": {
                 "mode": "html",
                 "content": """
-<div style="perspective: 1200px; padding: 10px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(255, 145, 0, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px;">
-        <!-- Card 3D 1: HP 01 -->
-        <div style="transform: rotateX(8deg) rotateY(-4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FF9100; border-radius: 12px; padding: 14px 24px; min-width: 280px; text-align: center; box-shadow: 0 8px 25px rgba(255, 145, 0, 0.25);">
-            <div style="font-size: 38px; text-shadow: 0 0 15px #FF9100;">🖨️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 15px; margin-top: 4px;">HP LASERJET FLOW 220</div>
-            <div style="color: #94A3B8; font-size: 12px;">IP: 192.168.1.50 | Serial: BRBSQ2Q11P</div>
-            <div style="margin-top: 8px; display: inline-block; background: rgba(255, 145, 0, 0.2); color: #FF9100; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 12px;">⚠️ Toner Preto: 15% (Atenção)</div>
-            <div style="font-size: 11px; color: #38BDF8; margin-top: 6px;">Páginas Impressas: 324.549</div>
-            <div style="font-size: 11px; color: #CBD5E1;">ADF: 81% | Cilindros: 62% | Latência: 0.41 ms</div>
-            <div style="font-size: 11px; color: #00E676; margin-top: 4px;">Display: "Pronta"</div>
+<style>
+@keyframes float3D {
+    0%, 100% { transform: translateY(0px) rotateX(7deg) rotateY(var(--ry, 0deg)); }
+    50% { transform: translateY(-8px) rotateX(10deg) rotateY(var(--ry, 0deg)); }
+}
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px var(--glow-c, rgba(0,230,118,0.25)), inset 0 0 10px rgba(255,255,255,0.03); }
+    50% { box-shadow: 0 0 30px var(--glow-c, rgba(0,230,118,0.55)), 0 0 45px var(--glow-c, rgba(0,230,118,0.2)), inset 0 0 16px rgba(255,255,255,0.08); }
+}
+@keyframes beaconPing {
+    0% { transform: scale(0.9); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.35; }
+    100% { transform: scale(0.9); opacity: 1; }
+}
+@keyframes shimmerStream {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+@keyframes streamFlow {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+.noc-viewport {
+    perspective: 1300px;
+    padding: 12px 16px;
+    background: radial-gradient(ellipse at 50% 15%, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 1));
+    border-radius: 14px;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+.noc-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+}
+.noc-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.noc-topbar-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #F8FAFC;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.noc-topbar-pills {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.noc-pill {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+.noc-cards-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.noc-card-3d {
+    flex: 1 1 170px;
+    min-width: 170px;
+    max-width: 230px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: float3D 4.5s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.88), rgba(15, 23, 42, 0.96));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-c, rgba(59, 130, 246, 0.4));
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    overflow: hidden;
+}
+.noc-card-3d:hover {
+    transform: translateY(-9px) scale3d(1.04, 1.04, 1.04) rotateX(4deg) rotateY(0deg) !important;
+    border-color: #38BDF8 !important;
+    box-shadow: 0 18px 32px var(--glow-c, rgba(56, 189, 248, 0.45)), inset 0 0 15px rgba(255,255,255,0.12) !important;
+    z-index: 10;
+}
+.noc-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.noc-icon-box {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 22px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.noc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+.noc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: beaconPing 1.8s infinite ease-in-out;
+}
+.noc-title {
+    font-weight: 700;
+    color: #FFFFFF;
+    font-size: 13px;
+    margin-top: 2px;
+}
+.noc-sub {
+    color: #94A3B8;
+    font-size: 11px;
+}
+.noc-stream-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin: 6px 0;
+    position: relative;
+    overflow: hidden;
+}
+.noc-stream-flow {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, var(--stream-c, #00E676), transparent);
+    animation: streamFlow 2.2s infinite linear;
+}
+.noc-metric-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #CBD5E1;
+    margin-top: 3px;
+}
+.noc-metric-val {
+    font-weight: 600;
+    color: #38BDF8;
+}
+</style>
+<div class="noc-viewport">
+    <div class="noc-grid-overlay"></div>
+    <div class="noc-topbar">
+        <div class="noc-topbar-title">
+            <span style="font-size: 18px;">🖨️</span> PARQUE HP LASERJET FLOW 3D - SUPRIMENTOS & TELEMETRIA SNMP
         </div>
-        <!-- Card 3D 2: HP 02 -->
-        <div style="transform: rotateX(8deg) rotateY(4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(69, 10, 10, 0.85), rgba(24, 2, 2, 0.95)); border: 1px solid #FF1744; border-radius: 12px; padding: 14px 24px; min-width: 280px; text-align: center; box-shadow: 0 8px 25px rgba(255, 23, 68, 0.35);">
-            <div style="font-size: 38px; text-shadow: 0 0 15px #FF1744;">🖨️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 15px; margin-top: 4px;">HP LASERJET FLOW 221</div>
-            <div style="color: #F87171; font-size: 12px;">IP: 192.168.1.51 | Serial: BRBSQ2G0BP</div>
-            <div style="margin-top: 8px; display: inline-block; background: rgba(255, 23, 68, 0.25); color: #FF5252; padding: 4px 12px; border-radius: 12px; font-weight: bold; font-size: 12px;">🚨 Toner Preto: 0% (Esgotado)</div>
-            <div style="font-size: 11px; color: #FCA5A5; margin-top: 6px;">Páginas Impressas: 356.600</div>
-            <div style="font-size: 11px; color: #CBD5E1;">ADF: 74% | Cilindros: 49% | Latência: 0.35 ms</div>
-            <div style="font-size: 11px; color: #00E676; margin-top: 4px;">Display: "Pronta"</div>
+        <div class="noc-topbar-pills">
+            <span class="noc-pill" style="background: rgba(0,230,118,0.15); color: #00E676; border: 1px solid rgba(0,230,118,0.3);">🟢 2 IMPRESSORAS OPERACIONAIS</span>
+            <span class="noc-pill" style="background: rgba(255,145,0,0.15); color: #FF9100; border: 1px solid rgba(255,145,0,0.3);">⚠️ HP-01 TONER 15%</span>
+            <span class="noc-pill" style="background: rgba(255,23,68,0.15); color: #FF5252; border: 1px solid rgba(255,23,68,0.3);">🚨 HP-02 TONER 0%</span>
+        </div>
+    </div>
+    <div class="noc-cards-container">
+        <!-- HP 01 -->
+        <div class="noc-card-3d" style="--ry: -3deg; --delay: 0s; --border-c: #FF9100; --glow-c: rgba(255,145,0,0.3); --stream-c: #FF9100; min-width: 290px; max-width: 380px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #FF9100; font-size: 26px;">🖨️</div>
+                <span class="noc-badge" style="background: rgba(255,145,0,0.2); color: #FF9100;">
+                    <span class="noc-dot" style="background: #FF9100;"></span> ATENÇÃO TONER
+                </span>
+            </div>
+            <div class="noc-title">HP LASERJET FLOW 220</div>
+            <div class="noc-sub">192.168.1.50 • Serial BRBSQ2Q11P</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Toner Preto:</span><span class="noc-metric-val" style="color: #FF9100; font-weight: 700;">15% Restante</span></div>
+            <div class="noc-metric-row"><span>Kit ADF / Cilindros:</span><span class="noc-metric-val">81% / 62%</span></div>
+            <div class="noc-metric-row"><span>Total de Páginas:</span><span class="noc-metric-val">324.549 págs</span></div>
+            <div class="noc-metric-row"><span>Latência ICMP:</span><span class="noc-metric-val" style="color: #00E676;">0.41 ms • Display "Pronta"</span></div>
+        </div>
+        <!-- HP 02 -->
+        <div class="noc-card-3d" style="--ry: 3deg; --delay: 0.4s; --border-c: #FF1744; --glow-c: rgba(255,23,68,0.4); --stream-c: #FF1744; min-width: 290px; max-width: 380px; background: linear-gradient(135deg, rgba(69,10,10,0.85), rgba(24,2,2,0.95));">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #FF1744; font-size: 26px;">🖨️</div>
+                <span class="noc-badge" style="background: rgba(255,23,68,0.25); color: #FF5252;">
+                    <span class="noc-dot" style="background: #FF5252;"></span> ESGOTADO
+                </span>
+            </div>
+            <div class="noc-title">HP LASERJET FLOW 221</div>
+            <div class="noc-sub">192.168.1.51 • Serial BRBSQ2G0BP</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span style="color:#FCA5A5;">Toner Preto:</span><span class="noc-metric-val" style="color: #FF5252; font-weight: 700;">0% (Troca Urgente)</span></div>
+            <div class="noc-metric-row"><span style="color:#FCA5A5;">Kit ADF / Cilindros:</span><span class="noc-metric-val">74% / 49%</span></div>
+            <div class="noc-metric-row"><span style="color:#FCA5A5;">Total de Páginas:</span><span class="noc-metric-val">356.600 págs</span></div>
+            <div class="noc-metric-row"><span style="color:#FCA5A5;">Latência ICMP:</span><span class="noc-metric-val" style="color: #00E676;">0.35 ms • Display "Pronta"</span></div>
         </div>
     </div>
 </div>
@@ -1360,39 +2192,249 @@ dash_voip = {
             "options": {
                 "mode": "html",
                 "content": """
-<div style="perspective: 1200px; padding: 10px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(124, 77, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 15px;">
-        <!-- Card 3D 1: PABX Central -->
-        <div style="transform: rotateX(8deg) rotateY(-4deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #7C4DFF; border-radius: 10px; padding: 14px 20px; min-width: 220px; text-align: center; box-shadow: 0 8px 25px rgba(124, 77, 255, 0.25);">
-            <div style="font-size: 34px; text-shadow: 0 0 15px #7C4DFF;">🎛️</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">CENTRAL PABX VOIP</div>
-            <div style="color: #94A3B8; font-size: 11px;">Sinalização SIP Porta 5060</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(124,77,255,0.15); color: #B388FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 13 DE 14 RAMAIS ATIVOS</div>
-            <div style="font-size: 11px; color: #38BDF8; margin-top: 4px;">RTT de Voz Médio: 0.45 ms</div>
+<style>
+@keyframes float3D {
+    0%, 100% { transform: translateY(0px) rotateX(7deg) rotateY(var(--ry, 0deg)); }
+    50% { transform: translateY(-8px) rotateX(10deg) rotateY(var(--ry, 0deg)); }
+}
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px var(--glow-c, rgba(0,230,118,0.25)), inset 0 0 10px rgba(255,255,255,0.03); }
+    50% { box-shadow: 0 0 30px var(--glow-c, rgba(0,230,118,0.55)), 0 0 45px var(--glow-c, rgba(0,230,118,0.2)), inset 0 0 16px rgba(255,255,255,0.08); }
+}
+@keyframes beaconPing {
+    0% { transform: scale(0.9); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.35; }
+    100% { transform: scale(0.9); opacity: 1; }
+}
+@keyframes shimmerStream {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+@keyframes streamFlow {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+.noc-viewport {
+    perspective: 1300px;
+    padding: 12px 16px;
+    background: radial-gradient(ellipse at 50% 15%, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 1));
+    border-radius: 14px;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+.noc-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+}
+.noc-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.noc-topbar-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #F8FAFC;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.noc-topbar-pills {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.noc-pill {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+.noc-cards-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.noc-card-3d {
+    flex: 1 1 170px;
+    min-width: 170px;
+    max-width: 230px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: float3D 4.5s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.88), rgba(15, 23, 42, 0.96));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-c, rgba(59, 130, 246, 0.4));
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    overflow: hidden;
+}
+.noc-card-3d:hover {
+    transform: translateY(-9px) scale3d(1.04, 1.04, 1.04) rotateX(4deg) rotateY(0deg) !important;
+    border-color: #38BDF8 !important;
+    box-shadow: 0 18px 32px var(--glow-c, rgba(56, 189, 248, 0.45)), inset 0 0 15px rgba(255,255,255,0.12) !important;
+    z-index: 10;
+}
+.noc-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.noc-icon-box {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 22px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.noc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+.noc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: beaconPing 1.8s infinite ease-in-out;
+}
+.noc-title {
+    font-weight: 700;
+    color: #FFFFFF;
+    font-size: 13px;
+    margin-top: 2px;
+}
+.noc-sub {
+    color: #94A3B8;
+    font-size: 11px;
+}
+.noc-stream-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin: 6px 0;
+    position: relative;
+    overflow: hidden;
+}
+.noc-stream-flow {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, var(--stream-c, #00E676), transparent);
+    animation: streamFlow 2.2s infinite linear;
+}
+.noc-metric-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #CBD5E1;
+    margin-top: 3px;
+}
+.noc-metric-val {
+    font-weight: 600;
+    color: #38BDF8;
+}
+</style>
+<div class="noc-viewport">
+    <div class="noc-grid-overlay"></div>
+    <div class="noc-topbar">
+        <div class="noc-topbar-title">
+            <span style="font-size: 18px;">📞</span> TELEFONIA VOIP GRANDSTREAM 3D - CENTRAL PABX & RAMAIS IP
         </div>
-        <!-- Card 3D 2: Ramal 12 -->
-        <div style="transform: rotateX(8deg) rotateY(-1deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 14px 20px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 230, 118, 0.25);">
-            <div style="font-size: 34px; text-shadow: 0 0 15px #00E676;">📞</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">RAMAL GXP-12</div>
-            <div style="color: #94A3B8; font-size: 11px;">IP: 10.0.0.12</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,230,118,0.15); color: #00E676; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 DISPONÍVEL (0.48 ms)</div>
-            <div style="font-size: 11px; color: #CBD5E1; margin-top: 4px;">Perda de Áudio: 0%</div>
+        <div class="noc-topbar-pills">
+            <span class="noc-pill" style="background: rgba(0,230,118,0.15); color: #00E676; border: 1px solid rgba(0,230,118,0.3);">🟢 13 RAMAIS CONECTADOS</span>
+            <span class="noc-pill" style="background: rgba(255,23,68,0.15); color: #FF5252; border: 1px solid rgba(255,23,68,0.3);">🔴 1 RAMAL MUDO (166)</span>
+            <span class="noc-pill" style="background: rgba(124,77,255,0.15); color: #B388FF; border: 1px solid rgba(124,77,255,0.3);">⚡ RTT MÉDIO 0.45 ms</span>
         </div>
-        <!-- Card 3D 3: Ramal 42 -->
-        <div style="transform: rotateX(8deg) rotateY(2deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 14px 20px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(0, 176, 255, 0.25);">
-            <div style="font-size: 34px; text-shadow: 0 0 15px #00B0FF;">📞</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">RAMAL GXP-42</div>
-            <div style="color: #94A3B8; font-size: 11px;">IP: 10.0.3.42</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(0,176,255,0.15); color: #00B0FF; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🟢 DISPONÍVEL (0.46 ms)</div>
-            <div style="font-size: 11px; color: #CBD5E1; margin-top: 4px;">Perda de Áudio: 0%</div>
+    </div>
+    <div class="noc-cards-container">
+        <!-- Central PABX -->
+        <div class="noc-card-3d" style="--ry: -4deg; --delay: 0s; --border-c: #7C4DFF; --glow-c: rgba(124,77,255,0.3); --stream-c: #7C4DFF; min-width: 210px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #7C4DFF;">🎛️</div>
+                <span class="noc-badge" style="background: rgba(124,77,255,0.2); color: #B388FF;">
+                    <span class="noc-dot" style="background: #B388FF;"></span> SIP 5060 OK
+                </span>
+            </div>
+            <div class="noc-title">CENTRAL PABX VOIP</div>
+            <div class="noc-sub">Sinalização SIP & Asterisk</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Ramais Ativos:</span><span class="noc-metric-val">13 de 14 Ramais</span></div>
+            <div class="noc-metric-row"><span>Qualidade Áudio:</span><span class="noc-metric-val" style="color: #00E676;">Excelente (0% Loss)</span></div>
+            <div class="noc-metric-row"><span>Codec de Voz:</span><span class="noc-metric-val">G.711 / G.729</span></div>
         </div>
-        <!-- Card 3D 4: Ramal 166 (Alerta) -->
-        <div style="transform: rotateX(8deg) rotateY(5deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(69, 10, 10, 0.85), rgba(24, 2, 2, 0.95)); border: 1px solid #FF1744; border-radius: 10px; padding: 14px 20px; min-width: 200px; text-align: center; box-shadow: 0 8px 25px rgba(255, 23, 68, 0.35);">
-            <div style="font-size: 34px; text-shadow: 0 0 15px #FF1744;">📵</div>
-            <div style="font-weight: bold; color: #FFFFFF; font-size: 14px; margin-top: 4px;">RAMAL GXP-166</div>
-            <div style="color: #F87171; font-size: 11px;">IP: 10.0.0.166</div>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(255,23,68,0.25); color: #FF5252; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 11px;">🔴 TELEFONE MUDO</div>
-            <div style="font-size: 11px; color: #FCA5A5; margin-top: 4px;">Dispositivo Inacessível</div>
+        <!-- Ramal 12 -->
+        <div class="noc-card-3d" style="--ry: -1deg; --delay: 0.3s; --border-c: #00E676; --glow-c: rgba(0,230,118,0.3); --stream-c: #00E676; min-width: 200px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #00E676;">📞</div>
+                <span class="noc-badge" style="background: rgba(0,230,118,0.15); color: #00E676;">
+                    <span class="noc-dot" style="background: #00E676;"></span> ATIVO
+                </span>
+            </div>
+            <div class="noc-title">RAMAL GXP-12</div>
+            <div class="noc-sub">10.0.0.12 • Diretoria</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>RTT de Voz:</span><span class="noc-metric-val" style="color: #00E676;">0.48 ms</span></div>
+            <div class="noc-metric-row"><span>Perda de Áudio:</span><span class="noc-metric-val" style="color: #00E676;">0.00%</span></div>
+            <div class="noc-metric-row"><span>Painel Web:</span><span class="noc-metric-val">HTTP 80 Ativo</span></div>
+        </div>
+        <!-- Ramal 42 -->
+        <div class="noc-card-3d" style="--ry: 1deg; --delay: 0.6s; --border-c: #00B0FF; --glow-c: rgba(0,176,255,0.3); --stream-c: #00B0FF; min-width: 200px;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #00B0FF;">📞</div>
+                <span class="noc-badge" style="background: rgba(0,176,255,0.15); color: #00B0FF;">
+                    <span class="noc-dot" style="background: #00B0FF;"></span> ATIVO
+                </span>
+            </div>
+            <div class="noc-title">RAMAL GXP-42</div>
+            <div class="noc-sub">10.0.3.42 • Operações</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>RTT de Voz:</span><span class="noc-metric-val" style="color: #00E676;">0.46 ms</span></div>
+            <div class="noc-metric-row"><span>Perda de Áudio:</span><span class="noc-metric-val" style="color: #00E676;">0.00%</span></div>
+            <div class="noc-metric-row"><span>Painel Web:</span><span class="noc-metric-val">HTTP 80 Ativo</span></div>
+        </div>
+        <!-- Ramal 166 (Alerta) -->
+        <div class="noc-card-3d" style="--ry: 4deg; --delay: 0.9s; --border-c: #FF1744; --glow-c: rgba(255,23,68,0.4); --stream-c: #FF1744; min-width: 200px; background: linear-gradient(135deg, rgba(69,10,10,0.85), rgba(24,2,2,0.95));">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #FF1744;">📵</div>
+                <span class="noc-badge" style="background: rgba(255,23,68,0.25); color: #FF5252;">
+                    <span class="noc-dot" style="background: #FF5252;"></span> INCIDENTE
+                </span>
+            </div>
+            <div class="noc-title">RAMAL GXP-166</div>
+            <div class="noc-sub">10.0.0.166 • Expedição</div>
+            <div class="noc-stream-bar" style="background: rgba(255,23,68,0.2);"><div class="noc-stream-flow" style="display:none;"></div></div>
+            <div class="noc-metric-row"><span style="color:#FCA5A5;">Status:</span><span class="noc-metric-val" style="color: #FF5252;">Telefone Mudo</span></div>
+            <div class="noc-metric-row"><span style="color:#FCA5A5;">Ping ICMP:</span><span class="noc-metric-val" style="color: #FF5252;">100% Desconectado</span></div>
+            <div class="noc-metric-row"><span style="color:#FCA5A5;">Chamado:</span><span class="noc-metric-val" style="color: #FFD600;">Verificar Cabo RJ45</span></div>
         </div>
     </div>
 </div>
@@ -1548,38 +2590,264 @@ dash_master = {
             "options": {
                 "mode": "html",
                 "content": """
-<div style="perspective: 1200px; padding: 12px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(0, 230, 118, 0.4); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 12px;">
-        <div style="transform: rotateX(8deg) rotateY(-6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 10px 14px; min-width: 155px; text-align: center; box-shadow: 0 6px 18px rgba(0, 230, 118, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #00E676;">🌐</div>
-            <div style="font-weight: bold; color: #FFF; font-size: 13px;">WAN TOP FIBRA</div>
-            <div style="color: #00E676; font-size: 11px; font-weight: bold;">🟢 29.1 ms | 0% Loss</div>
-            <div style="color: #38BDF8; font-size: 10px;">Consumo: 136M (22.6%)</div>
-            <div style="color: #94A3B8; font-size: 10px;">🛡️ Mitigação Ativa</div>
+<style>
+@keyframes float3D {
+    0%, 100% { transform: translateY(0px) rotateX(7deg) rotateY(var(--ry, 0deg)); }
+    50% { transform: translateY(-8px) rotateX(10deg) rotateY(var(--ry, 0deg)); }
+}
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px var(--glow-c, rgba(0,230,118,0.25)), inset 0 0 10px rgba(255,255,255,0.03); }
+    50% { box-shadow: 0 0 30px var(--glow-c, rgba(0,230,118,0.55)), 0 0 45px var(--glow-c, rgba(0,230,118,0.2)), inset 0 0 16px rgba(255,255,255,0.08); }
+}
+@keyframes beaconPing {
+    0% { transform: scale(0.9); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.35; }
+    100% { transform: scale(0.9); opacity: 1; }
+}
+@keyframes shimmerStream {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+@keyframes streamFlow {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+.noc-viewport {
+    perspective: 1300px;
+    padding: 12px 16px;
+    background: radial-gradient(ellipse at 50% 15%, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 1));
+    border-radius: 14px;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+.noc-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+}
+.noc-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.noc-topbar-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #F8FAFC;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.noc-topbar-pills {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.noc-pill {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+.noc-cards-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.noc-card-3d {
+    flex: 1 1 170px;
+    min-width: 170px;
+    max-width: 230px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: float3D 4.5s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.88), rgba(15, 23, 42, 0.96));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-c, rgba(59, 130, 246, 0.4));
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    overflow: hidden;
+}
+.noc-card-3d:hover {
+    transform: translateY(-9px) scale3d(1.04, 1.04, 1.04) rotateX(4deg) rotateY(0deg) !important;
+    border-color: #38BDF8 !important;
+    box-shadow: 0 18px 32px var(--glow-c, rgba(56, 189, 248, 0.45)), inset 0 0 15px rgba(255,255,255,0.12) !important;
+    z-index: 10;
+}
+.noc-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.noc-icon-box {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 22px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.noc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+.noc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: beaconPing 1.8s infinite ease-in-out;
+}
+.noc-title {
+    font-weight: 700;
+    color: #FFFFFF;
+    font-size: 13px;
+    margin-top: 2px;
+}
+.noc-sub {
+    color: #94A3B8;
+    font-size: 11px;
+}
+.noc-stream-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin: 6px 0;
+    position: relative;
+    overflow: hidden;
+}
+.noc-stream-flow {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, var(--stream-c, #00E676), transparent);
+    animation: streamFlow 2.2s infinite linear;
+}
+.noc-metric-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #CBD5E1;
+    margin-top: 3px;
+}
+.noc-metric-val {
+    font-weight: 600;
+    color: #38BDF8;
+}
+</style>
+<div class="noc-viewport">
+    <div class="noc-grid-overlay"></div>
+    <div class="noc-topbar">
+        <div class="noc-topbar-title">
+            <span style="font-size: 18px;">🌾</span> CENTRO INTEGRADO DE OPERAÇÕES NOC MASTER 360° - VISÃO EXECUTIVA
         </div>
-        <div style="transform: rotateX(8deg) rotateY(-3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(0, 176, 255, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #00B0FF;">📡</div>
-            <div style="font-weight: bold; color: #FFF; font-size: 13px;">WI-FI UNIFI</div>
-            <div style="color: #00B0FF; font-size: 11px; font-weight: bold;">👥 138 Clientes</div>
-            <div style="color: #94A3B8; font-size: 10px;">5/6 APs Online</div>
+        <div class="noc-topbar-pills">
+            <span class="noc-pill" style="background: rgba(0,230,118,0.15); color: #00E676; border: 1px solid rgba(0,230,118,0.3);">🟢 STATUS GLOBAL OPERACIONAL</span>
+            <span class="noc-pill" style="background: rgba(56,189,248,0.15); color: #38BDF8; border: 1px solid rgba(56,189,248,0.3);">⚡ LATÊNCIAS EM MS</span>
+            <span class="noc-pill" style="background: rgba(124,77,255,0.15); color: #B388FF; border: 1px solid rgba(124,77,255,0.3);">🛡️ ZERO-TRUST ATIVO</span>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(0deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(255, 214, 0, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #FFD600;">🖥️</div>
-            <div style="font-weight: bold; color: #FFF; font-size: 13px;">SRV NOC 200</div>
-            <div style="color: #FFD600; font-size: 11px; font-weight: bold;">CPU 17% | RAM 32%</div>
-            <div style="color: #94A3B8; font-size: 10px;">Disco / 11.9%</div>
+    </div>
+    <div class="noc-cards-container">
+        <!-- WAN -->
+        <div class="noc-card-3d" style="--ry: -6deg; --delay: 0s; --border-c: #00E676; --glow-c: rgba(0,230,118,0.3); --stream-c: #00E676;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #00E676;">🌐</div>
+                <span class="noc-badge" style="background: rgba(0,230,118,0.15); color: #00E676;">
+                    <span class="noc-dot" style="background: #00E676;"></span> WAN OK
+                </span>
+            </div>
+            <div class="noc-title">WAN TOP FIBRA</div>
+            <div class="noc-sub">Contrato 600M / 300M</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Latência 8.8.8.8:</span><span class="noc-metric-val" style="color: #00E676;">29.1 ms</span></div>
+            <div class="noc-metric-row"><span>Consumo Real:</span><span class="noc-metric-val">136M (22.6%)</span></div>
+            <div class="noc-metric-row"><span>Perda Pacotes:</span><span class="noc-metric-val" style="color: #00E676;">0.00% Zero Loss</span></div>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FF9100; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(255, 145, 0, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #FF9100;">🖨️</div>
-            <div style="font-weight: bold; color: #FFF; font-size: 13px;">PARQUE HP</div>
-            <div style="color: #FF9100; font-size: 11px; font-weight: bold;">Toners 15% / 0%</div>
-            <div style="color: #94A3B8; font-size: 10px;">681k Páginas</div>
+        <!-- Wi-Fi -->
+        <div class="noc-card-3d" style="--ry: -3deg; --delay: 0.3s; --border-c: #00B0FF; --glow-c: rgba(0,176,255,0.3); --stream-c: #00B0FF;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #00B0FF;">📡</div>
+                <span class="noc-badge" style="background: rgba(0,176,255,0.15); color: #00B0FF;">
+                    <span class="noc-dot" style="background: #00B0FF;"></span> WI-FI 5/6
+                </span>
+            </div>
+            <div class="noc-title">FROTA UNIFI</div>
+            <div class="noc-sub">6 Access Points HD/Pro</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Clientes Ativos:</span><span class="noc-metric-val">👥 138 Clientes</span></div>
+            <div class="noc-metric-row"><span>Latência Média:</span><span class="noc-metric-val" style="color: #00E676;">0.37 ms</span></div>
+            <div class="noc-metric-row"><span>Throughput:</span><span class="noc-metric-val">178 Mbps Total</span></div>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #7C4DFF; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(124, 77, 255, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #7C4DFF;">📞</div>
-            <div style="font-weight: bold; color: #FFF; font-size: 13px;">VOIP GRANDSTREAM</div>
-            <div style="color: #B388FF; font-size: 11px; font-weight: bold;">13/14 Ramais OK</div>
-            <div style="color: #94A3B8; font-size: 10px;">RTT 0.45 ms</div>
+        <!-- SRV NOC -->
+        <div class="noc-card-3d" style="--ry: 0deg; --delay: 0.6s; --border-c: #FFD600; --glow-c: rgba(255,214,0,0.3); --stream-c: #FFD600;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #FFD600;">🖥️</div>
+                <span class="noc-badge" style="background: rgba(255,214,0,0.15); color: #FFD600;">
+                    <span class="noc-dot" style="background: #FFD600;"></span> SRV NOC
+                </span>
+            </div>
+            <div class="noc-title">SRV NOC 200</div>
+            <div class="noc-sub">10.0.0.10 • Zabbix / GF</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>CPU / RAM:</span><span class="noc-metric-val">17% / 32%</span></div>
+            <div class="noc-metric-row"><span>Disco /:</span><span class="noc-metric-val">11.9% Usado</span></div>
+            <div class="noc-metric-row"><span>Uptime:</span><span class="noc-metric-val" style="color: #00E676;">3.5 Dias Ativo</span></div>
+        </div>
+        <!-- Parque HP -->
+        <div class="noc-card-3d" style="--ry: 3deg; --delay: 0.9s; --border-c: #FF9100; --glow-c: rgba(255,145,0,0.3); --stream-c: #FF9100;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #FF9100;">🖨️</div>
+                <span class="noc-badge" style="background: rgba(255,145,0,0.15); color: #FF9100;">
+                    <span class="noc-dot" style="background: #FF9100;"></span> PARQUE HP
+                </span>
+            </div>
+            <div class="noc-title">HP LASERJET FLOW</div>
+            <div class="noc-sub">2 Impressoras Flow</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Toners 220/221:</span><span class="noc-metric-val" style="color: #FF9100;">15% / 0%</span></div>
+            <div class="noc-metric-row"><span>Páginas Totais:</span><span class="noc-metric-val">681.149 págs</span></div>
+            <div class="noc-metric-row"><span>Latência ICMP:</span><span class="noc-metric-val" style="color: #00E676;">0.38 ms</span></div>
+        </div>
+        <!-- VoIP -->
+        <div class="noc-card-3d" style="--ry: 6deg; --delay: 1.2s; --border-c: #7C4DFF; --glow-c: rgba(124,77,255,0.3); --stream-c: #7C4DFF;">
+            <div class="noc-card-head">
+                <div class="noc-icon-box" style="text-shadow: 0 0 12px #7C4DFF;">📞</div>
+                <span class="noc-badge" style="background: rgba(124,77,255,0.15); color: #B388FF;">
+                    <span class="noc-dot" style="background: #B388FF;"></span> PABX IP
+                </span>
+            </div>
+            <div class="noc-title">VOIP GRANDSTREAM</div>
+            <div class="noc-sub">14 Ramais Corporativos</div>
+            <div class="noc-stream-bar"><div class="noc-stream-flow"></div></div>
+            <div class="noc-metric-row"><span>Conectividade:</span><span class="noc-metric-val">13 Conectados / 1 Mudo</span></div>
+            <div class="noc-metric-row"><span>RTT de Áudio:</span><span class="noc-metric-val" style="color: #00E676;">0.45 ms</span></div>
+            <div class="noc-metric-row"><span>Sinalização:</span><span class="noc-metric-val">SIP 5060 Ativa</span></div>
         </div>
     </div>
 </div>
