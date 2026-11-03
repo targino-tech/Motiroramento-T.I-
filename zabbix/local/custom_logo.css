@@ -1,1 +1,179 @@
-/* Enterprise NOC Master 360° - Custom Styling */
+/* ==========================================================================
+   Enterprise NOC Master 360° - High-Tech Cyber UI & 3D Design Theme
+   Modern UI/UX with Smooth Animations, Glassmorphism & Neon Indicators
+   ========================================================================== */
+
+:root {
+  --noc-primary-glow: #00E676;
+  --noc-secondary-glow: #00B0FF;
+  --noc-warning-glow: #FFD600;
+  --noc-danger-glow: #FF1744;
+  --noc-purple-glow: #A855F7;
+  --noc-dark-bg: #0b0f19;
+  --noc-card-bg: rgba(15, 23, 42, 0.85);
+  --noc-card-border: rgba(56, 189, 248, 0.25);
+  --noc-text-primary: #F8FAFC;
+  --noc-text-secondary: #94A3B8;
+}
+
+/* Keyframes for Ambient & Alert Animations */
+@keyframes noc-pulse-green {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.85);
+  }
+}
+
+@keyframes noc-pulse-red {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(255, 23, 68, 0.5);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(255, 23, 68, 0.95);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes noc-float-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes noc-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Sidebar & Navigation Header Polish */
+.sidebar,
+header.header-title {
+  background: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
+  border-right: 1px solid rgba(59, 130, 246, 0.2) !important;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Glassmorphism on Dashboard Widgets & Cards */
+.dashboard-grid-widget,
+.dashboard-widget,
+.dashbrd-grid-widget-container {
+  background: var(--noc-card-bg) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--noc-card-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 1px rgba(255, 255, 255, 0.1) inset !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
+}
+
+.dashboard-grid-widget:hover,
+.dashboard-widget:hover {
+  transform: translateY(-2px) scale(1.005) !important;
+  box-shadow: 0 14px 30px -5px rgba(0, 176, 255, 0.25), 0 0 15px rgba(59, 130, 246, 0.2) !important;
+  border-color: rgba(56, 189, 248, 0.5) !important;
+}
+
+/* Widget Headers */
+.dashboard-grid-widget-head,
+.dashboard-widget-head {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(15, 23, 42, 0.6) !important;
+  padding: 8px 12px !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.dashboard-grid-widget-head h4,
+.dashboard-widget-head h4 {
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  color: var(--noc-text-primary) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Severity Alarms with High-Impact Animated Glow */
+.disaster-bg,
+.high-bg,
+td.disaster-bg,
+td.high-bg,
+span.disaster-bg,
+span.high-bg {
+  animation: noc-pulse-red 2s infinite ease-in-out !important;
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8) !important;
+}
+
+.normal-bg,
+td.normal-bg,
+span.normal-bg,
+.info-bg {
+  animation: noc-pulse-green 4s infinite ease-in-out !important;
+  border-radius: 6px !important;
+}
+
+/* Buttons and Interactive Elements */
+.btn-primary,
+button.btn-primary {
+  background: linear-gradient(135deg, #00B0FF 0%, #0081CB 100%) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 14px rgba(0, 176, 255, 0.35) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-primary:hover,
+button.btn-primary:hover {
+  transform: translateY(-1px) scale(1.02) !important;
+  box-shadow: 0 6px 20px rgba(0, 176, 255, 0.6) !important;
+}
+
+/* Tables & Data Lists Polish */
+table.list-table {
+  border-collapse: separate !important;
+  border-spacing: 0 4px !important;
+}
+
+table.list-table tbody tr {
+  background: rgba(15, 23, 42, 0.65) !important;
+  transition: background 0.2s ease, transform 0.2s ease !important;
+}
+
+table.list-table tbody tr:hover {
+  background: rgba(30, 41, 59, 0.85) !important;
+  transform: scale(1.002) !important;
+}
+
+table.list-table tbody tr td {
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Scrollbars High-Tech Finish */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.35);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.65);
+}
