@@ -1,1 +1,37 @@
-/* Enterprise NOC Master 360° - Custom Styling */
+/* Enterprise NOC Master 360° - Custom Styling & Accessibility Enhancements */
+
+/* Keyboard Accessibility: High-contrast focus-visible ring for interactive controls */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+    outline: 2px solid #00B0FF !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 4px rgba(0, 176, 255, 0.35) !important;
+}
+
+/* Accessible Interactive Tactile Feedback */
+button,
+.btn-primary,
+.dashboard-grid-widget-container {
+    transition: transform 0.15s ease, box-shadow 0.15s ease, outline 0.15s ease;
+}
+
+button:active,
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Motion Accessibility: Respect user prefers-reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
