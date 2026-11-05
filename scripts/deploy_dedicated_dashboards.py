@@ -1548,35 +1548,40 @@ dash_master = {
             "options": {
                 "mode": "html",
                 "content": """
+<style>
+    @media (prefers-reduced-motion: reduce) {
+        .noc-topo-card { transform: none !important; }
+    }
+</style>
 <div style="perspective: 1200px; padding: 12px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 1)); border-radius: 12px; border: 1px solid rgba(0, 230, 118, 0.4); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
     <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 12px;">
-        <div style="transform: rotateX(8deg) rotateY(-6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 10px 14px; min-width: 155px; text-align: center; box-shadow: 0 6px 18px rgba(0, 230, 118, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #00E676;">🌐</div>
+        <div class="noc-topo-card" role="region" title="WAN TOP FIBRA: 29.1 ms | 0% Loss | 136 Mbps de Consumo" aria-label="WAN TOP FIBRA: 29.1 ms de latência, 0% perda de pacotes, 136 Mbps de consumo" style="transform: rotateX(8deg) rotateY(-6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00E676; border-radius: 10px; padding: 10px 14px; min-width: 155px; text-align: center; box-shadow: 0 6px 18px rgba(0, 230, 118, 0.2);">
+            <div style="font-size: 28px; text-shadow: 0 0 12px #00E676;" aria-hidden="true">🌐</div>
             <div style="font-weight: bold; color: #FFF; font-size: 13px;">WAN TOP FIBRA</div>
             <div style="color: #00E676; font-size: 11px; font-weight: bold;">🟢 29.1 ms | 0% Loss</div>
             <div style="color: #38BDF8; font-size: 10px;">Consumo: 136M (22.6%)</div>
             <div style="color: #94A3B8; font-size: 10px;">🛡️ Mitigação Ativa</div>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(-3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(0, 176, 255, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #00B0FF;">📡</div>
+        <div class="noc-topo-card" role="region" title="Wi-Fi UniFi: 138 Clientes conectados em 5 de 6 APs" aria-label="Wi-Fi UniFi: 138 clientes conectados em 5 de 6 APs online" style="transform: rotateX(8deg) rotateY(-3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #00B0FF; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(0, 176, 255, 0.2);">
+            <div style="font-size: 28px; text-shadow: 0 0 12px #00B0FF;" aria-hidden="true">📡</div>
             <div style="font-weight: bold; color: #FFF; font-size: 13px;">WI-FI UNIFI</div>
             <div style="color: #00B0FF; font-size: 11px; font-weight: bold;">👥 138 Clientes</div>
             <div style="color: #94A3B8; font-size: 10px;">5/6 APs Online</div>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(0deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(255, 214, 0, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #FFD600;">🖥️</div>
+        <div class="noc-topo-card" role="region" title="Servidor NOC 200: CPU 17% | RAM 32% | Disco 11.9%" aria-label="Servidor SRV NOC 200: 17% de CPU, 32% de RAM, 11.9% de uso em disco" style="transform: rotateX(8deg) rotateY(0deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FFD600; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(255, 214, 0, 0.2);">
+            <div style="font-size: 28px; text-shadow: 0 0 12px #FFD600;" aria-hidden="true">🖥️</div>
             <div style="font-weight: bold; color: #FFF; font-size: 13px;">SRV NOC 200</div>
             <div style="color: #FFD600; font-size: 11px; font-weight: bold;">CPU 17% | RAM 32%</div>
             <div style="color: #94A3B8; font-size: 10px;">Disco / 11.9%</div>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FF9100; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(255, 145, 0, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #FF9100;">🖨️</div>
+        <div class="noc-topo-card" role="region" title="Parque HP: Toners 15% e 0% | 681k Páginas Impressas" aria-label="Parque de Impressoras HP: Níveis de toner em 15% e 0%, 681 mil páginas impressas" style="transform: rotateX(8deg) rotateY(3deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #FF9100; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(255, 145, 0, 0.2);">
+            <div style="font-size: 28px; text-shadow: 0 0 12px #FF9100;" aria-hidden="true">🖨️</div>
             <div style="font-weight: bold; color: #FFF; font-size: 13px;">PARQUE HP</div>
             <div style="color: #FF9100; font-size: 11px; font-weight: bold;">Toners 15% / 0%</div>
             <div style="color: #94A3B8; font-size: 10px;">681k Páginas</div>
         </div>
-        <div style="transform: rotateX(8deg) rotateY(6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #7C4DFF; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(124, 77, 255, 0.2);">
-            <div style="font-size: 28px; text-shadow: 0 0 12px #7C4DFF;">📞</div>
+        <div class="noc-topo-card" role="region" title="VoIP Grandstream: 13/14 Ramais OK | RTT 0.45 ms" aria-label="Telefonia VoIP Grandstream: 13 de 14 ramais operacionais, RTT de voz em 0.45 ms" style="transform: rotateX(8deg) rotateY(6deg); transform-style: preserve-3d; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid #7C4DFF; border-radius: 10px; padding: 10px 14px; min-width: 150px; text-align: center; box-shadow: 0 6px 18px rgba(124, 77, 255, 0.2);">
+            <div style="font-size: 28px; text-shadow: 0 0 12px #7C4DFF;" aria-hidden="true">📞</div>
             <div style="font-weight: bold; color: #FFF; font-size: 13px;">VOIP GRANDSTREAM</div>
             <div style="color: #B388FF; font-size: 11px; font-weight: bold;">13/14 Ramais OK</div>
             <div style="color: #94A3B8; font-size: 10px;">RTT 0.45 ms</div>
