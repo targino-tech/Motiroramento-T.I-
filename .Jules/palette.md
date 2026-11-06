@@ -1,0 +1,5 @@
+# Palette's Journal - Critical UX & Accessibility Learnings
+
+## 2025-05-18 - 3D Isometric Cards & Vestibular Accessibility in NOC Dashboards
+**Learning:** In telemetry and NOC interfaces that use 3D perspective transforms (`rotateX`, `rotateY`, `perspective`) to simulate physical rack hardware or network nodes, static tilt angles without interactive states cause cognitive ambiguity (is it clickable/inspectable or just text?). Adding tactile hover/focus lift (`translateY(-4px) scale(1.03)`) with high-contrast outlines clarifies interactivity and aids keyboard navigation. Crucially, 3D tilt and continuous perspective changes can induce nausea or disorientation in users with vestibular disorders; incorporating `@media (prefers-reduced-motion: reduce)` to reset transforms (`transform: none !important; transition: none !important;`) ensures WCAG 2.3.3 compliance without diminishing the visual impact for other operators.
+**Action:** Always accompany 3D CSS perspective/isometric widgets with `@media (prefers-reduced-motion: reduce)` fallbacks and keyboard-accessible focus visible indicators (`tabindex="0"`, `:focus-visible` glow).
