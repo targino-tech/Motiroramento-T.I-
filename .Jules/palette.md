@@ -1,0 +1,5 @@
+# Palette's Journal - Critical UX/Accessibility Learnings
+
+## 2026-10-28 - Avoid Pseudo-Interactive Controls on Static Dashboard Cards
+**Learning:** In monitoring dashboards (such as Grafana text panels), decorating static status summary cards with `cursor: pointer` or `tabindex="0"` creates misleading interaction cues (dead clicks) and pollutes keyboard navigation tab stops with non-operable elements. Additionally, `role="region"` creates excessive landmark noise for minor indicator cards. Instead, enhance accessibility for static cards by using `aria-hidden="true"` on purely decorative emojis so screen readers only announce meaningful status text without punctuation or emoji noise, keeping the DOM structure clean and non-confusing for keyboard and assistive tech users.
+**Action:** When adding accessibility polish to embedded dashboard HTML, never add `cursor: pointer` or `tabindex="0"` unless the element handles activate/click actions. Mark decorative emoji icons with `aria-hidden="true"`.
