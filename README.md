@@ -1,6 +1,6 @@
 # NOC Master 360° | Monitoramento de TI
 
-![NOC Master 360° — Monitoramento de infraestrutura de TI](docs/social-preview.svg)
+![NOC Master 360° — Dashboard real do projeto](docs/img/01_noc_master_360.png)
 
 
 O NOC Master 360° centraliza a consulta de rede, Wi-Fi, servidores, impressoras e telefonia IP. O Zabbix coleta métricas e registra problemas. O Grafana reúne os indicadores em uma visão geral e cinco painéis dedicados. O repositório inclui o ambiente Docker, os publicadores dos painéis e scripts de apoio.
