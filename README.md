@@ -30,6 +30,10 @@ Versionar os publicadores me ajuda a manter os dashboards. Posso revisar filtros
 
 ## Como o monitoramento funciona
 
+![Fluxo de coleta: ativos enviam dados ao Zabbix e o Grafana consulta a API; o PostgreSQL armazena dados e o Telegram recebe alertas configurados](docs/img/fluxos/01-coleta.png)
+
+O Zabbix coleta informações diretamente dos ativos ou recebe dados dos agentes e grava o histórico no PostgreSQL. O Grafana consulta a **API do Zabbix** pela fonte de dados para apresentar os painéis. Em paralelo, uma trigger pode gerar um evento e uma ação configurada pode enviar um alerta ao Telegram. O túnel trata do acesso remoto ao Grafana; ele não realiza a coleta SNMP.
+
 | Componente | Papel no projeto | O que conferir primeiro |
 | --- | --- | --- |
 | Zabbix Server | Executa checagens, recebe dados de agentes e avalia gatilhos | Saúde do coletor e horário do último valor |
@@ -114,6 +118,21 @@ docker compose config --services
 
 ## Preparação da coleta
 
+### Proteção da coleta SNMP
+
+![Recomendação de segurança SNMP: SNMPv3, autenticação e privacidade, restrição de rede e validação no Zabbix](docs/img/fluxos/04-snmp.png)
+
+**Situação do código publicado:** `zabbix/externalscripts/printer_snmp.sh` usa SNMPv2c e tem a comunidade `public` definida no próprio script. Alterar a comunidade na interface do Zabbix não altera esse script externo. Antes de usá-lo fora do laboratório, adapte-o ou substitua a coleta por itens SNMP nativos e valide cada impressora. Este guia descreve uma recomendação; não altera a configuração dos equipamentos nem comprova que a proteção está ativa.
+
+1. Quando o equipamento e o coletor suportarem, prefira **SNMPv3 com authPriv**. Crie um usuário de leitura com autenticação e privacidade, escolhendo algoritmos compatíveis e fortes oferecidos pelos dois lados, como SHA-256 e AES quando disponíveis.
+2. Configure no host do Zabbix a interface SNMPv3 com o mesmo usuário, nível, protocolos e segredos. Use macros secretas ou um gerenciador de segredos adequado; não publique credenciais no Git. Confira os requisitos e compatibilidade na [documentação de itens SNMP do Zabbix](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/snmp).
+3. Restrinja o acesso SNMP no equipamento e no firewall aos endereços do Zabbix Server ou proxy autorizado, em uma rede de gerenciamento. Limite o usuário aos OIDs necessários e somente leitura; desative comunidades padrão e acesso de escrita quando não forem necessários.
+4. Valide um OID conhecido, a unidade e a última atualização em **Latest data**. Revise logs e teste a falha de credenciais ou a perda de comunicação em laboratório. Faça a mudança por equipamento para evitar interromper a coleta.
+
+Se o dispositivo só suportar SNMPv2c, substitua `public` por uma comunidade exclusiva e difícil de adivinhar, restrinja a origem e use uma rede de gerenciamento isolada. **SNMPv2c transmite a comunidade e os dados sem criptografia**: renomear a comunidade reduz a exposição de uma credencial padrão, mas não protege o conteúdo dos pacotes contra interceptação nem garante integridade. A proteção de confidencialidade e integridade exige SNMPv3 `authPriv` ou outra proteção de transporte adequada. Consulte também a [explicação do Zabbix sobre SNMPv3](https://blog.zabbix.com/monitoring-network-hardware-with-snmpv3-in-zabbix/10093/).
+
+### Preparar os ativos
+
 1. Cadastre os grupos e os hosts no Zabbix. Defina a interface e a forma de coleta para cada ativo. Os publicadores usam nomes, chaves e IDs do ambiente de origem e precisam ser adaptados à sua instância.
 2. Configure uma checagem de conectividade e uma métrica operacional por domínio. Comece por um ativo conhecido para comparar a leitura com o equipamento ou sistema de origem.
 3. Para agentes Linux e Windows, passe o endereço do servidor ao instalador e confira a compatibilidade do pacote com o sistema. No Zabbix, o hostname do cadastro precisa corresponder ao nome usado pelo agente em checks ativos.
@@ -179,6 +198,12 @@ unset ZABBIX_API_URL ZABBIX_USER ZABBIX_PASS
 
 ### Grafana no celular
 
+![Sequência animada de acesso ao Grafana: operador, Cloudflare Access, túnel e Nginx](docs/img/fluxos/06-acesso-animado.gif)
+
+![Fluxo estático do acesso remoto recomendado via Cloudflare Access e Tunnel](docs/img/fluxos/02-acesso.png)
+
+Na sequência ilustrada, o operador acessa o endereço da aplicação, o Access aplica a política de identidade e a Cloudflare encaminha a requisição pela conexão estabelecida pelo `cloudflared` até o proxy e o Grafana. O conector inicia uma conexão de saída; o túnel sozinho não cria uma política de autenticação. Consulte os [fundamentos do Tunnel](https://developers.cloudflare.com/tunnel/concepts/).
+
 Para acesso contínuo, configure um túnel nomeado e uma política no **Cloudflare Access** para as identidades autorizadas. Mantenha o papel **Viewer** para quem só precisa consultar os painéis. Valide o login pelo endereço HTTPS e teste a experiência no celular.
 
 [Cloudflare Tunnel](https://developers.cloudflare.com/tunnel/get-started/) · [Cloudflare Access para aplicações web](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/)
@@ -189,6 +214,8 @@ O Compose inclui um Quick Tunnel para demonstração, com endereço temporário.
 
 ### Alertas e consultas por Telegram
 
+![Fluxo de alerta: métrica, trigger, ação e mídia do Zabbix e mensagem no Telegram](docs/img/fluxos/03-alertas.png)
+
 O fluxo de alerta depende de um evento, uma ação no Zabbix, uma mídia e um destinatário. O bot interativo é um processo separado e consulta o Zabbix. Ele inclui pesquisa de hosts, preferências e ações de diagnóstico, como teste de impressão e teste de banda sob demanda.
 
 - Confira o token e o destinatário no ambiente responsável pelo envio. Valide a entrega em um chat de teste antes de ativar alertas para a equipe.
@@ -198,15 +225,7 @@ O fluxo de alerta depende de um evento, uma ação no Zabbix, uma mídia e um de
 
 ## Runbook de atendimento
 
-~~~mermaid
-flowchart TD
-    A["Registrar impacto e horário"] --> B["Abrir o domínio no NOC"]
-    B --> C{"Há dados recentes do item?"}
-    C -->|Sim| D["Comparar histórico e ativos"]
-    C -->|Não| E["Checar coletor e conectividade"]
-    D --> F["Registrar evidência e ação"]
-    E --> F
-~~~
+![Fluxo de atendimento: registrar impacto, abrir painel, validar amostra, analisar e registrar evidências](docs/img/fluxos/05-atendimento.png)
 
 ### Durante um incidente
 
